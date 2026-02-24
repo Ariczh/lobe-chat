@@ -60,7 +60,7 @@ export const klavisRouter = router({
 
       // Get the tool list for this server
       const toolsResponse = await ctx.klavisClient.mcpServer.getTools(serverName as any);
-      const tools = filterKlavisTools(serverName, toolsResponse.tools || []);
+      const tools = filterKlavisTools(serverName, (toolsResponse.tools || []) as { name: string }[]);
 
       // Save to database using the provided identifier (format: lowercase, spaces replaced with hyphens)
       const manifest: LobeChatPluginManifest = {

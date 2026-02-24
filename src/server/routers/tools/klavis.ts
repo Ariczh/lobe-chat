@@ -87,7 +87,7 @@ export const klavisRouter = router({
       const response = await klavisClient.mcpServer.getTools(input.serverName as any);
 
       return {
-        tools: filterKlavisTools(input.serverName, response.tools || []),
+        tools: filterKlavisTools(input.serverName, (response.tools || []) as { name: string }[]),
       };
     }),
 
