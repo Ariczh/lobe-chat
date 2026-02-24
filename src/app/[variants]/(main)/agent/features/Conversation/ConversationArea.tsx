@@ -7,6 +7,7 @@ import { memo, Suspense, useMemo } from 'react';
 import ChatMiniMap from '@/features/ChatMiniMap';
 import { ChatList, ConversationProvider, TodoProgress } from '@/features/Conversation';
 import ZenModeToast from '@/features/ZenModeToast';
+import { useAgentGoogleProtectionHooks } from '@/hooks/useAgentGoogleProtectionHooks';
 import { useOperationState } from '@/hooks/useOperationState';
 import { useChatStore } from '@/store/chat';
 import { messageMapKey } from '@/store/chat/utils/messageMapKey';
@@ -46,11 +47,15 @@ const Conversation = memo(() => {
   // Get actionsBar config with branching support from ChatStore
   const actionsBarConfig = useActionsBarConfig();
 
+  // Get Google data protection hooks
+  const googleProtectionHooks = useAgentGoogleProtectionHooks({ messages });
+
   return (
     <ConversationProvider
       actionsBar={actionsBarConfig}
       context={context}
       hasInitMessages={!!messages}
+      hooks={googleProtectionHooks}
       messages={messages}
       operationState={operationState}
       onMessagesChange={(messages, ctx) => {

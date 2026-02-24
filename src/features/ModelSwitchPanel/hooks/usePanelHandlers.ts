@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { useGoogleDataProtection } from '@/hooks/useGoogleDataProtection';
 import { useAgentStore } from '@/store/agent';
 
 interface UsePanelHandlersProps {
@@ -12,9 +13,16 @@ export const usePanelHandlers = ({
   onOpenChange,
 }: UsePanelHandlersProps) => {
   const updateAgentConfig = useAgentStore((s) => s.updateAgentConfig);
+  const { checkModelSwitch } = useGoogleDataProtection();
 
   const handleModelChange = useCallback(
     async (modelId: string, providerId: string) => {
+      // Check if switching to a restricted provider with Google tools enabled
+      const isBlocked = await checkModelSwitch(providerId, modelId);
+      if (isBlocked) {
+        return;
+      }
+
       const params = { model: modelId, provider: providerId };
       if (onModelChangeProp) {
         onModelChangeProp(params);
@@ -22,7 +30,7 @@ export const usePanelHandlers = ({
         updateAgentConfig(params);
       }
     },
-    [onModelChangeProp, updateAgentConfig],
+    [onModelChangeProp, updateAgentConfig, checkModelSwitch],
   );
 
   const handleClose = useCallback(() => {

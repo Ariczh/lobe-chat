@@ -161,6 +161,19 @@ export default {
   'defaultAgent.model.desc': 'Default model used when creating a new Agent',
   'defaultAgent.model.title': 'Model',
   'defaultAgent.title': 'Default Agent Settings',
+  'googleDataProtection.cannotConnectGoogle.content':
+    "You are currently using Grok or DeepSeek as your model provider. Due to Google's data protection policy, Google services (Gmail, Calendar, Drive, Sheets, Docs) cannot be used with these providers. Please switch to a different model provider first.",
+  'googleDataProtection.cannotConnectGoogle.title': 'Cannot Connect Google Services',
+  'googleDataProtection.cannotSendMessage.content':
+    "Your current configuration uses Google tools ({{tools}}) with a restricted AI provider. Due to Google's data protection policy, this combination is not allowed. Please switch to a different model provider or disable the Google tools.",
+  'googleDataProtection.cannotSendMessage.title': 'Cannot Send Message',
+  'googleDataProtection.cannotSendWithHistory.content':
+    "This conversation contains data from Google tools ({{tools}}). Due to Google's data protection policy, you cannot continue this conversation with Grok or DeepSeek. Please switch to a different model provider.",
+  'googleDataProtection.cannotSendWithHistory.title': 'Cannot Continue Conversation',
+  'googleDataProtection.cannotSwitchModel.content':
+    "You have Google tools enabled ({{tools}}). Due to Google's data protection policy, you cannot use Grok or DeepSeek with Google services. Please disable the Google tools first.",
+  'googleDataProtection.cannotSwitchModel.title': 'Cannot Switch to This Provider',
+  'googleDataProtection.understood': 'I Understand',
   'group.aiConfig': 'Agent',
   'group.common': 'General',
   'group.profile': 'Account',
@@ -794,8 +807,7 @@ When I am ___, I need ___
   'tools.builtins.lobe-local-system.readme':
     'Access your local filesystem on desktop. Read, write, search, and organize files. Execute shell commands with background task support and grep content with regex patterns.',
   'tools.builtins.lobe-local-system.title': 'Local System',
-  'tools.builtins.lobe-notebook.description':
-    'Create and manage documents in the topic notebook',
+  'tools.builtins.lobe-notebook.description': 'Create and manage documents in the topic notebook',
   'tools.builtins.lobe-notebook.readme':
     'Create and manage persistent documents within conversation topics. Save notes, reports, articles, and markdown content that stays accessible across sessions.',
   'tools.builtins.lobe-notebook.title': 'Notebook',

@@ -3,6 +3,7 @@ import { Loader2, SquareArrowOutUpRight } from 'lucide-react';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useGoogleDataProtection } from '@/hooks/useGoogleDataProtection';
 import { useAgentStore } from '@/store/agent';
 import { agentSelectors } from '@/store/agent/selectors';
 import { useToolStore } from '@/store/tool';
@@ -39,6 +40,8 @@ const KlavisServerItem = memo<KlavisServerItemProps>(
     const [isConnecting, setIsConnecting] = useState(false);
     const [isToggling, setIsToggling] = useState(false);
     const [isWaitingAuth, setIsWaitingAuth] = useState(false);
+
+    const { checkGoogleToolConnect } = useGoogleDataProtection();
 
     const oauthWindowRef = useRef<Window | null>(null);
     const windowCheckIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -200,6 +203,12 @@ const KlavisServerItem = memo<KlavisServerItemProps>(
         return;
       }
 
+      // Check if this is a Google tool and we're using a restricted provider
+      const isBlocked = await checkGoogleToolConnect(identifier);
+      if (isBlocked) {
+        return;
+      }
+
       setIsConnecting(true);
       try {
         const newServer = await createKlavisServer({
@@ -230,6 +239,15 @@ const KlavisServerItem = memo<KlavisServerItemProps>(
 
     const handleToggle = async () => {
       if (!server) return;
+
+      // If enabling (not currently checked), check for Google tool restrictions
+      if (!checked) {
+        const isBlocked = await checkGoogleToolConnect(identifier);
+        if (isBlocked) {
+          return;
+        }
+      }
+
       setIsToggling(true);
       await togglePlugin(pluginId);
       setIsToggling(false);
