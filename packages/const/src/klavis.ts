@@ -118,17 +118,17 @@ export const KLAVIS_SERVER_TYPES: KlavisServerType[] = [
     label: 'Supabase',
     serverName: Klavis.McpServerName.Supabase,
   },
-  {
-    author: 'Klavis',
-    authorUrl: 'https://klavis.io',
-    description: 'Google Drive is a cloud storage service',
-    icon: 'https://hub-apac-1.lobeobjects.space/assets/logos/googledrive.svg',
-    identifier: 'google-drive',
-    readme:
-      'Connect to Google Drive to access, organize, and manage your files. Search documents, upload files, share content, and navigate your cloud storage efficiently through AI assistance.',
-    label: 'Google Drive',
-    serverName: Klavis.McpServerName.GoogleDrive,
-  },
+  // {
+  //   author: 'Klavis',
+  //   authorUrl: 'https://klavis.io',
+  //   description: 'Google Drive is a cloud storage service',
+  //   icon: 'https://hub-apac-1.lobeobjects.space/assets/logos/googledrive.svg',
+  //   identifier: 'google-drive',
+  //   readme:
+  //     'Connect to Google Drive to access, organize, and manage your files. Search documents, upload files, share content, and navigate your cloud storage efficiently through AI assistance.',
+  //   label: 'Google Drive',
+  //   serverName: Klavis.McpServerName.GoogleDrive,
+  // },
   {
     author: 'Klavis',
     authorUrl: 'https://klavis.io',

@@ -7,6 +7,20 @@ import { authedProcedure, router } from '@/libs/trpc/lambda';
 import { serverDatabase } from '@/libs/trpc/lambda/middleware';
 
 /**
+ * Filter tools for specific Klavis servers (POC)
+ * Gmail: only allow send_email
+ */
+const KLAVIS_ALLOWED_TOOLS: Record<string, string[]> = {
+  Gmail: ['gmail_send_email'],
+};
+
+const filterKlavisTools = <T extends { name: string }>(serverName: string, tools: T[]): T[] => {
+  const allowedTools = KLAVIS_ALLOWED_TOOLS[serverName];
+  if (!allowedTools) return tools;
+  return tools.filter((t) => allowedTools.includes(t.name));
+};
+
+/**
  * Klavis procedure with API key validation and database access
  */
 const klavisProcedure = authedProcedure.use(serverDatabase).use(async (opts) => {
@@ -46,7 +60,7 @@ export const klavisRouter = router({
 
       // Get the tool list for this server
       const toolsResponse = await ctx.klavisClient.mcpServer.getTools(serverName as any);
-      const tools = toolsResponse.tools || [];
+      const tools = filterKlavisTools(serverName, toolsResponse.tools || []);
 
       // Save to database using the provided identifier (format: lowercase, spaces replaced with hyphens)
       const manifest: LobeChatPluginManifest = {
@@ -228,12 +242,15 @@ export const klavisRouter = router({
       const { identifier, serverName, serverUrl, instanceId, tools, isAuthenticated, oauthUrl } =
         input;
 
+      // Filter tools based on server config
+      const filteredTools = filterKlavisTools(serverName, tools);
+
       // Get existing plugin (using identifier)
       const existingPlugin = await ctx.pluginModel.findById(identifier);
 
       // Build manifest containing all tools
       const manifest: LobeChatPluginManifest = {
-        api: tools.map((tool) => ({
+        api: filteredTools.map((tool) => ({
           description: tool.description || '',
           name: tool.name,
           parameters: tool.inputSchema || { properties: {}, type: 'object' },
@@ -270,7 +287,7 @@ export const klavisRouter = router({
         });
       }
 
-      return { savedCount: tools.length };
+      return { savedCount: filteredTools.length };
     }),
 });
 
