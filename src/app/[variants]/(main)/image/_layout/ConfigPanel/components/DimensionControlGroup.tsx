@@ -34,7 +34,7 @@ const DimensionControlGroup = memo(() => {
     options,
   } = useDimensionControl();
 
-  // 构建宽高比选择器的选项
+  // Build aspect ratio selector options
   const aspectRatioOptions = useMemo(
     () =>
       options.map((ratio) => ({

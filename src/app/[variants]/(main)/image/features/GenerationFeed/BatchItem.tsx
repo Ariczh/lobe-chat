@@ -55,7 +55,7 @@ const styles = createStaticStyles(({ css, cssVar, cx }) => ({
   `,
 }));
 
-// 扩展 dayjs 插件
+// Extend dayjs plugins
 dayjs.extend(relativeTime);
 
 interface GenerationBatchItemProps {
