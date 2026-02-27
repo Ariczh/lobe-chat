@@ -3,16 +3,16 @@ import { Slider } from 'antd';
 import { memo, useMemo } from 'react';
 import useMergeState from 'use-merge-value';
 
-// 定义特殊值映射
+// Define special value mappings
 const SPECIAL_VALUES = {
   AUTO: -1,
   OFF: 0,
 };
 
-// 定义滑块位置到实际值的映射
+// Define slider position to actual value mapping
 const SLIDER_TO_VALUE_MAP = [
-  SPECIAL_VALUES.AUTO, // 位置 0 -> -1 (Auto)
-  SPECIAL_VALUES.OFF, // 位置 1 -> 0 (OFF)
+  SPECIAL_VALUES.AUTO, // Position 0 -> -1 (Auto)
+  SPECIAL_VALUES.OFF, // Position 1 -> 0 (OFF)
   128, // 位置 2 -> 128
   512, // 位置 3 -> 512
   1024, // 位置 4 -> 1024
@@ -24,7 +24,7 @@ const SLIDER_TO_VALUE_MAP = [
   32_768, // 位置 10 -> 32768
 ];
 
-// 从实际值获取滑块位置
+// Get slider position from actual value
 const getSliderPosition = (value: number): number => {
   const exactIndex = SLIDER_TO_VALUE_MAP.indexOf(value);
   if (exactIndex !== -1) return exactIndex;
@@ -46,7 +46,7 @@ const getSliderPosition = (value: number): number => {
   return position;
 };
 
-// 从滑块位置获取实际值（修复：0 不再被当作 falsy）
+// Get actual value from slider position (fix: 0 is no longer treated as falsy)
 const getValueFromPosition = (position: number): number => {
   const v = SLIDER_TO_VALUE_MAP[position];
   return v === undefined ? SPECIAL_VALUES.AUTO : v;
@@ -67,7 +67,7 @@ interface ThinkingBudgetSliderProps {
 
 const ThinkingBudgetSlider = memo<ThinkingBudgetSliderProps>(
   ({ value, onChange, defaultValue }) => {
-    // 首先确定初始的 budget 值
+    // First determine the initial budget value
     const initialBudget = value ?? defaultValue ?? SPECIAL_VALUES.AUTO;
 
     const [budget, setBudget] = useMergeState(initialBudget, {
