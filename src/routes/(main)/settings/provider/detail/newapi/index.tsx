@@ -3,7 +3,7 @@
 import { NewAPIProviderCard } from 'model-bank/modelProviders';
 import { useTranslation } from 'react-i18next';
 
-import ProviderDetail from '../default';
+import ProviderDetail from '@/features/Setting/Provider/detail/ProviderDetail';
 
 const Page = () => {
   const { t } = useTranslation('modelProvider');

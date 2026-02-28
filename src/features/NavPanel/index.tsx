@@ -3,7 +3,7 @@
 import { type PropsWithChildren, type ReactNode } from 'react';
 import { memo, useLayoutEffect, useSyncExternalStore } from 'react';
 
-import Sidebar from '@/routes/(main)/home/_layout/Sidebar';
+import Sidebar from '@/features/Home/Sidebar';
 
 import { NavPanelDraggable } from './components/NavPanelDraggable';
 

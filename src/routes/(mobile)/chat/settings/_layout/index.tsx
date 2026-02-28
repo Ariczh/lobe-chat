@@ -3,9 +3,8 @@
 import { type PropsWithChildren } from 'react';
 
 import MobileContentLayout from '@/components/server/MobileNavLayout';
+import Header from '@/features/MobileChatSettings/Layout/Header';
 import Footer from '@/features/Setting/Footer';
-
-import Header from './Header';
 
 const Layout = ({ children }: PropsWithChildren) => (
   <MobileContentLayout header={<Header />}>

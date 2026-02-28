@@ -3,12 +3,12 @@ import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { isDesktop } from '@/const/version';
+import Sidebar from '@/features/GroupChat/Sidebar';
 import ProtocolUrlHandler from '@/features/ProtocolUrlHandler';
 import { useInitGroupConfig } from '@/hooks/useInitGroupConfig';
 
 import GroupIdSync from './GroupIdSync';
 import RegisterHotkeys from './RegisterHotkeys';
-import Sidebar from './Sidebar';
 import { styles } from './style';
 
 const Layout: FC = () => {

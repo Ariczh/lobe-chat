@@ -4,9 +4,9 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import Sidebar from '@/features/Eval/Sidebar';
 import NavHeader from '@/features/NavHeader';
 
-import Sidebar from '../../_layout/Sidebar';
 import { styles } from '../../_layout/style';
 
 const EvalHomeLayout: FC = () => {

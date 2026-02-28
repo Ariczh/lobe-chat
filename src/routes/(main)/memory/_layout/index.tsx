@@ -4,7 +4,8 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Sidebar from './Sidebar';
+import Sidebar from '@/features/Memory/Sidebar';
+
 import { styles } from './style';
 
 const DesktopMemoryLayout: FC = () => {

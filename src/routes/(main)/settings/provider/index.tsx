@@ -5,11 +5,11 @@ import { memo } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { isCustomBranding } from '@/const/version';
+import ProviderMenu from '@/features/Setting/Provider/Menu';
+import Footer from '@/features/Setting/Provider/ProviderListFooter';
 
 import DesktopLayoutContainer from './_layout/Desktop/Container';
-import Footer from './(list)/Footer';
 import ProviderDetailPageComponent from './detail';
-import ProviderMenu from './ProviderMenu';
 
 // Layout component that wraps provider pages with navigation
 export const ProviderLayout = memo(() => {

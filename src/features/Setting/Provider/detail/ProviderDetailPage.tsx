@@ -1,7 +1,7 @@
 import { DEFAULT_MODEL_PROVIDER_LIST } from 'model-bank/modelProviders';
 
 import ClientMode from './ClientMode';
-import ProviderDetail from './index';
+import ProviderDetail from './ProviderDetail';
 
 const ProviderDetialPage = (props: { id?: string | null }) => {
   const { id } = props;

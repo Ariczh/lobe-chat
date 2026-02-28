@@ -4,14 +4,13 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
 import { withSuspense } from '@/components/withSuspense';
+import ListLoading from '@/features/Community/components/ListLoading';
 import Pagination from '@/features/Community/List/Pagination';
 import List from '@/features/Community/ListAgent/List';
 import { useQuery } from '@/hooks/useQuery';
 import { useDiscoverStore } from '@/store/discover';
 import { type AssistantMarketSource, type AssistantQueryParams } from '@/types/discover';
 import { DiscoverTab } from '@/types/discover';
-
-import Loading from './loading';
 
 const Client = memo<{ mobile?: boolean }>(() => {
   const { q, page, category, sort, order, ownerId, source } = useQuery() as AssistantQueryParams;
@@ -28,7 +27,7 @@ const Client = memo<{ mobile?: boolean }>(() => {
     source: marketSource,
   });
 
-  if (isLoading || !data) return <Loading />;
+  if (isLoading || !data) return <ListLoading />;
 
   const { items, currentPage, pageSize, totalCount } = data;
 

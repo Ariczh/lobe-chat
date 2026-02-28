@@ -15,7 +15,12 @@ interface ActionProps {
   toggleEditing: (visible?: boolean) => void;
 }
 
-export const useDropdownMenu = ({ id, name, description, toggleEditing }: ActionProps): (() => MenuProps['items']) => {
+export const useDropdownMenu = ({
+  id,
+  name,
+  description,
+  toggleEditing,
+}: ActionProps): (() => MenuProps['items']) => {
   const { t } = useTranslation(['file', 'common']);
   const { modal } = App.useApp();
   const removeKnowledgeBase = useKnowledgeBaseStore((s) => s.removeKnowledgeBase);
@@ -71,6 +76,17 @@ export const useDropdownMenu = ({ id, name, description, toggleEditing }: Action
           onClick: handleDelete,
         },
       ].filter(Boolean) as MenuProps['items'],
-    [t, id, name, description, modal, removeKnowledgeBase, toggleEditing, handleDelete, handleEditDescription, open],
+    [
+      t,
+      id,
+      name,
+      description,
+      modal,
+      removeKnowledgeBase,
+      toggleEditing,
+      handleDelete,
+      handleEditDescription,
+      open,
+    ],
   );
 };

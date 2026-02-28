@@ -4,9 +4,9 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import Sidebar from '@/features/Eval/Benchmark/Sidebar';
 import NavHeader from '@/features/NavHeader';
 
-import Sidebar from './Sidebar';
 import { styles } from './style';
 
 const BenchLayout: FC = () => {

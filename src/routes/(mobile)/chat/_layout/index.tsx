@@ -4,9 +4,9 @@ import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import MobileContentLayout from '@/components/server/MobileNavLayout';
+import AgentIdSync from '@/features/AgentChat/AgentIdSync';
 import ChatHeader from '@/features/MobileChat/ChatHeader';
 import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
-import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
 
 import { styles } from './style';
 

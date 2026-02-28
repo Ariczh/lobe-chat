@@ -3,7 +3,7 @@
 import { type PropsWithChildren } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import ProviderMenu from '../ProviderMenu';
+import ProviderMenu from '@/features/Setting/Provider/Menu';
 
 interface LayoutProps extends PropsWithChildren {
   onProviderSelect: (providerKey: string) => void;

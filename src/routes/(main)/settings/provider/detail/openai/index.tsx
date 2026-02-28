@@ -1,7 +1,7 @@
 import { OpenAIProviderCard } from 'model-bank/modelProviders';
 
-import { useSettingsContext } from '../../../_layout/ContextProvider';
-import ProviderDetail from '../default';
+import { useSettingsContext } from '@/features/Setting/Layout/ContextProvider';
+import ProviderDetail from '@/features/Setting/Provider/detail/ProviderDetail';
 
 const Page = () => {
   const { showOpenAIProxyUrl, showOpenAIApiKey } = useSettingsContext();

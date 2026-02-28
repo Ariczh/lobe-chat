@@ -5,9 +5,8 @@ import { memo } from 'react';
 
 import { NavPanelPortal } from '@/features/NavPanel';
 import SideBarLayout from '@/features/NavPanel/SideBarLayout';
-
-import SidebarBody from './Body';
-import Header from './Header';
+import SidebarBody from '@/features/ResourceManager/Sidebar/Body';
+import Header from '@/features/ResourceManager/Sidebar/Header';
 
 export enum GroupKey {
   Library = 'library',

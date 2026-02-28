@@ -4,12 +4,12 @@ import { type FC, type ReactNode } from 'react';
 import { Activity, useEffect, useMemo, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import Sidebar from '@/features/Home/Sidebar';
 import { useIsDark } from '@/hooks/useIsDark';
 import { useHomeStore } from '@/store/home';
 
 import HomeAgentIdSync from './HomeAgentIdSync';
 import RecentHydration from './RecentHydration';
-import Sidebar from './Sidebar';
 import { styles } from './style';
 
 interface LayoutProps {

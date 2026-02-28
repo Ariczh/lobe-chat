@@ -8,11 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { FormPassword } from '@/components/FormInput';
 import { SkeletonInput } from '@/components/Skeleton';
 import { KeyVaultsConfigKey, LLMProviderApiTokenKey } from '@/features/Setting/Provider/const';
+import ProviderDetail from '@/features/Setting/Provider/detail/ProviderDetail';
 import { type ProviderItem } from '@/features/Setting/Provider/type';
 import { aiProviderSelectors, useAiInfraStore } from '@/store/aiInfra';
 import { type GlobalLLMProviderKey } from '@/types/user/settings';
-
-import ProviderDetail from '../default';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
   markdown: css`

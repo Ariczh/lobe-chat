@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import MobileContentLayout from '@/components/server/MobileNavLayout';
-import SettingsContextProvider from '@/routes/(main)/settings/_layout/ContextProvider';
+import SettingsContextProvider from '@/features/Setting/Layout/ContextProvider';
 
 import Header from './Header';
 

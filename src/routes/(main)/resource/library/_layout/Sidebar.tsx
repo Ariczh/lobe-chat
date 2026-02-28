@@ -5,8 +5,7 @@ import { memo } from 'react';
 import { NavPanelPortal } from '@/features/NavPanel';
 import SideBarLayout from '@/features/NavPanel/SideBarLayout';
 import LibraryHierarchy from '@/features/ResourceManager/components/LibraryHierarchy';
-
-import Header from './Header';
+import Header from '@/features/ResourceManager/Library/Layout/Header';
 
 const Sidebar = memo(() => {
   return (

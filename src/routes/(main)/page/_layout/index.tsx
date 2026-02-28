@@ -4,7 +4,8 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import DataSync from './DataSync';
+import DataSync from '@/features/PageEditor/Sidebar/DataSync';
+
 import Sidebar from './Sidebar';
 import { styles } from './style';
 

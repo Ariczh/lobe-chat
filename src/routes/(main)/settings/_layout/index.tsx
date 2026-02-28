@@ -4,9 +4,9 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import SideBar from '@/routes/(main)/settings/_layout/SideBar';
+import SettingsContextProvider from '@/features/Setting/Layout/ContextProvider';
+import SideBar from '@/features/Setting/Layout/SideBar';
 
-import SettingsContextProvider from './ContextProvider';
 import { styles } from './style';
 
 const Layout: FC = () => {

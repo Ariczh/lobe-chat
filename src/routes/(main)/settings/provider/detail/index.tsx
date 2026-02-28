@@ -41,11 +41,11 @@ const Azure = dynamic(() => import('./azure'), {
   loading: () => <Loading debugId="Provider > Azure" />,
   ssr: false,
 });
-const ProviderGrid = dynamic(() => import('../(list)/ProviderGrid'), {
+const ProviderGrid = dynamic(() => import('@/features/Setting/Provider/ProviderGrid'), {
   loading: () => <Loading debugId="Provider > Grid" />,
   ssr: false,
 });
-const DefaultPage = dynamic(() => import('./default/ProviderDetialPage'), {
+const DefaultPage = dynamic(() => import('@/features/Setting/Provider/detail/ProviderDetailPage'), {
   loading: () => <Loading debugId="Provider > Default" />,
   ssr: false,
 });

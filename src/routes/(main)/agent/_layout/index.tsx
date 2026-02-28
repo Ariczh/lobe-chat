@@ -3,12 +3,12 @@ import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { isDesktop } from '@/const/version';
+import AgentIdSync from '@/features/AgentChat/AgentIdSync';
+import Sidebar from '@/features/AgentChat/Sidebar';
 import ProtocolUrlHandler from '@/features/ProtocolUrlHandler';
 import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
-import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
 
 import RegisterHotkeys from './RegisterHotkeys';
-import Sidebar from './Sidebar';
 import { styles } from './style';
 
 const Layout: FC = () => {
