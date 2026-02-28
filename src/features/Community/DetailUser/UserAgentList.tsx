@@ -5,7 +5,8 @@ import { Input, Pagination } from 'antd';
 import { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AssistantEmpty from '../../../features/AssistantEmpty';
+import AssistantEmpty from '@/features/Community/AssistantEmpty';
+
 import { useUserDetailContext } from './DetailProvider';
 import StatusFilter, { type StatusFilterValue } from './StatusFilter';
 import UserAgentCard from './UserAgentCard';

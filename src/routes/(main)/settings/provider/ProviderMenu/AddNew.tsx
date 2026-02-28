@@ -5,7 +5,7 @@ import { PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CreateNewProvider from '../features/CreateNewProvider';
+import CreateNewProvider from '@/features/Setting/Provider/CreateNewProvider';
 
 const AddNewProvider = () => {
   const { t } = useTranslation('modelProvider');

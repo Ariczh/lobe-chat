@@ -15,10 +15,9 @@ import {
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import LobeMessage from '@/features/DesktopOnboarding/components/LobeMessage';
+import OnboardingFooterActions from '@/features/DesktopOnboarding/components/OnboardingFooterActions';
 import { ensureElectronIpc } from '@/utils/electron/ipc';
-
-import LobeMessage from '../components/LobeMessage';
-import OnboardingFooterActions from '../components/OnboardingFooterActions';
 
 type PermissionMeta = {
   descriptionKey: string;

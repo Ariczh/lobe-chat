@@ -3,9 +3,9 @@
 import { Grid } from '@lobehub/ui';
 import { memo } from 'react';
 
+import McpEmpty from '@/features/Community/McpEmpty';
 import { type DiscoverMcpItem } from '@/types/discover';
 
-import McpEmpty from '../../../../features/McpEmpty';
 import Item from './Item';
 
 interface McpListProps {

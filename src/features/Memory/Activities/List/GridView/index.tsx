@@ -1,9 +1,9 @@
 import { type ActivityListItem } from '@lobechat/types';
 import { memo } from 'react';
 
+import { GridView } from '@/features/Memory/GridView';
 import { useUserMemoryStore } from '@/store/userMemory';
 
-import { GridView } from '../../../../features/GridView';
 import ActivityCard from './ActivityCard';
 
 interface GridViewProps {

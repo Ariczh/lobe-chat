@@ -3,11 +3,10 @@
 import { DEFAULT_REWRITE_QUERY } from '@lobechat/prompts';
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
+import DefaultAgentForm from '@/features/Setting/Agent/DefaultAgentForm';
+import SystemAgentForm from '@/features/Setting/Agent/SystemAgentForm';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
-
-import DefaultAgentForm from './features/DefaultAgentForm';
-import SystemAgentForm from './features/SystemAgentForm';
 
 const Page = () => {
   const { t } = useTranslation('setting');

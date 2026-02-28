@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-
-import Memory from './features/Memory';
+import Memory from '@/features/Setting/Memory/Memory';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 
 const Page = () => {
   const { t } = useTranslation('setting');

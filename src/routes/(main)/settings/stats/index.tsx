@@ -9,10 +9,7 @@ import { Brain } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-import { useClientDataSWR } from '@/libs/swr';
-import { usageService } from '@/services/usage';
-
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 import {
   ShareButton,
   TotalAssistants,
@@ -20,11 +17,13 @@ import {
   TotalTopics,
   TotalWords,
   Welcome,
-} from './features/overview';
-import { AssistantsRank, ModelsRank, TopicsRank } from './features/rankings';
-import { UsageCards, UsageTable, UsageTrends } from './features/usage';
-import { AiHeatmaps } from './features/visualization';
-import { GroupBy } from './types';
+} from '@/features/Setting/Stats/overview';
+import { AssistantsRank, ModelsRank, TopicsRank } from '@/features/Setting/Stats/rankings';
+import { GroupBy } from '@/features/Setting/Stats/types';
+import { UsageCards, UsageTable, UsageTrends } from '@/features/Setting/Stats/usage';
+import { AiHeatmaps } from '@/features/Setting/Stats/visualization';
+import { useClientDataSWR } from '@/libs/swr';
+import { usageService } from '@/services/usage';
 
 const StatsSetting = memo<{ mobile?: boolean }>(({ mobile }) => {
   const { t, i18n } = useTranslation('auth');

@@ -4,7 +4,7 @@ import { type ReactNode } from 'react';
 import { memo } from 'react';
 import { VirtuosoGrid } from 'react-virtuoso';
 
-import Loading from '@/app/[variants]/(main)/memory/features/Loading';
+import Loading from '@/features/Memory/Loading';
 
 import { useScrollParent } from '../TimeLineView/useScrollParent';
 

@@ -1,10 +1,9 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ListLoading from '@/app/[variants]/(main)/community/components/ListLoading';
-import Title from '@/app/[variants]/(main)/community/components/Title';
-
-import CreatorRewardBanner from './features/CreatorRewardBanner';
+import ListLoading from '@/features/Community/components/ListLoading';
+import Title from '@/features/Community/components/Title';
+import CreatorRewardBanner from '@/features/Community/ListHome/CreatorRewardBanner';
 
 const Loading = memo(() => {
   const { t } = useTranslation('discover');

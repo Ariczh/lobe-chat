@@ -3,10 +3,10 @@
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import AgentIdSync from '@/app/[variants]/(main)/agent/_layout/AgentIdSync';
-import ChatHeader from '@/app/[variants]/(mobile)/chat/features/ChatHeader';
 import MobileContentLayout from '@/components/server/MobileNavLayout';
+import ChatHeader from '@/features/MobileChat/ChatHeader';
 import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
+import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
 
 import { styles } from './style';
 

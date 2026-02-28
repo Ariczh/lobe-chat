@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
-import TimeLineCard from '@/app/[variants]/(main)/memory/features/TimeLineView/TimeLineCard';
 import { type DisplayContextMemory } from '@/database/repositories/userMemory';
+import TimeLineCard from '@/features/Memory/TimeLineView/TimeLineCard';
 
 import ContextDropdown from '../../ContextDropdown';
 

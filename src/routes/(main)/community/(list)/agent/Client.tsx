@@ -4,13 +4,13 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
 import { withSuspense } from '@/components/withSuspense';
+import Pagination from '@/features/Community/List/Pagination';
+import List from '@/features/Community/ListAgent/List';
 import { useQuery } from '@/hooks/useQuery';
 import { useDiscoverStore } from '@/store/discover';
 import { type AssistantMarketSource, type AssistantQueryParams } from '@/types/discover';
 import { DiscoverTab } from '@/types/discover';
 
-import Pagination from '../features/Pagination';
-import List from './features/List';
 import Loading from './loading';
 
 const Client = memo<{ mobile?: boolean }>(() => {

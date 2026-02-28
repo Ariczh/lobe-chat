@@ -7,10 +7,10 @@ import { DotIcon } from 'lucide-react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ModelTypeIcon from '@/app/[variants]/(main)/community/(list)/model/features/List/ModelTypeIcon';
 import { ModelInfoTags } from '@/components/ModelSelect';
+import PublishedTime from '@/components/PublishedTime';
+import ModelTypeIcon from '@/features/Community/ListModel/List/ModelTypeIcon';
 
-import PublishedTime from '../../../../../../../components/PublishedTime';
 import { useDetailContext } from './DetailProvider';
 
 const styles = createStaticStyles(({ css, cssVar }) => {
@@ -88,11 +88,7 @@ const Header = memo<{ mobile?: boolean }>(({ mobile: isMobile }) => {
               {...abilities}
             />
             <Icon icon={DotIcon} />
-            <PublishedTime
-              className={styles.time}
-              date={releasedAt as string}
-             
-            />
+            <PublishedTime className={styles.time} date={releasedAt as string} />
           </Flexbox>
         </Flexbox>
       </Flexbox>

@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-
-import OpenAI from './features/OpenAI';
-import STT from './features/STT';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
+import OpenAI from '@/features/Setting/TTS/OpenAI';
+import STT from '@/features/Setting/TTS/STT';
 
 const Page = () => {
   const { t } = useTranslation('setting');

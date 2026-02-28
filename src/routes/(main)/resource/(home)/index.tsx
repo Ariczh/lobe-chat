@@ -4,10 +4,9 @@ import { memo, useLayoutEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 import ResourceManager from '@/features/ResourceManager';
+import { useInitFileCheck } from '@/features/ResourceManager/hooks/useInitFileCheck';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 import { FilesTabs } from '@/types/files';
-
-import { useInitFileCheck } from '../features/hooks/useInitFileCheck';
-import { useResourceManagerStore } from '../features/store';
 
 const ResourceHomePage = memo(() => {
   const [searchParams] = useSearchParams();

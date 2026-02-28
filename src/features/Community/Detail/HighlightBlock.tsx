@@ -7,9 +7,8 @@ import { type LucideIcon } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { memo } from 'react';
 
+import CardBanner from '@/features/Community/components/CardBanner';
 import { useServerConfigStore } from '@/store/serverConfig';
-
-import CardBanner from '../../components/CardBanner';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
   background: css`

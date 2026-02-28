@@ -29,12 +29,12 @@ import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import urlJoin from 'url-join';
 
+import PublishedTime from '@/components/PublishedTime';
+import { useCategory } from '@/features/Community/ListAgent/Category/useCategory';
 import { useMarketAuth } from '@/layout/AuthProvider/MarketAuth';
 import { socialService } from '@/services/social';
 import { formatIntergerNumber } from '@/utils/format';
 
-import PublishedTime from '../../../../../../../components/PublishedTime';
-import { useCategory } from '../../../(list)/agent/features/Category/useCategory';
 import AgentForkTag from './AgentForkTag';
 import { useDetailContext } from './DetailProvider';
 

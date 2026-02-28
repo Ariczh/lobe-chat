@@ -5,9 +5,8 @@ import { memo, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import NavItem from '@/features/NavPanel/components/NavItem';
+import { SettingsGroupKey, useCategory } from '@/features/Setting/hooks/useCategory';
 import { SettingsTabs } from '@/store/global/initialState';
-
-import { SettingsGroupKey, useCategory } from '../../hooks/useCategory';
 
 const Body = memo(() => {
   const categoryGroups = useCategory();

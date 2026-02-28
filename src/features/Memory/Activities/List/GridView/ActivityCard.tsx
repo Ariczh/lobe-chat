@@ -3,7 +3,7 @@ import { Tag } from '@lobehub/ui';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GridCard from '@/app/[variants]/(main)/memory/features/GridView/GridCard';
+import GridCard from '@/features/Memory/GridView/GridCard';
 
 import ActivityDropdown from '../../ActivityDropdown';
 

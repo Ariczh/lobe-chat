@@ -7,9 +7,9 @@ import { SearchIcon } from 'lucide-react';
 import { memo, useState } from 'react';
 
 import { MOBILE_HEADER_ICON_SIZE } from '@/const/layoutTokens';
+import StoreSearchBar from '@/features/Community/Search';
 import { mobileHeaderSticky } from '@/styles/mobileHeader';
 
-import StoreSearchBar from '../../../../(main)/community/features/Search';
 import Nav from './Nav';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({

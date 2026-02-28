@@ -5,7 +5,7 @@ import { Anchor } from 'antd';
 import { createStaticStyles, cx, responsive } from 'antd-style';
 import { memo, useMemo } from 'react';
 
-import { SCROLL_PARENT_ID } from '@/app/[variants]/(main)/community/features/const';
+import { SCROLL_PARENT_ID } from '@/features/Community/const';
 import { isOnServerSide } from '@/utils/env';
 
 import { createTOCTree } from './useToc';

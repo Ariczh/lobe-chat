@@ -2,7 +2,7 @@
 
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import ProviderMenu from '../../../../(main)/settings/provider/ProviderMenu';
+import ProviderMenu from '@/routes/(main)/settings/provider/ProviderMenu';
 
 const Layout = () => {
   const params = useParams<{ providerId: string }>();

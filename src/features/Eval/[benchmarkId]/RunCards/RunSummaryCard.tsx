@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import StatusBadge from '@/app/[variants]/(main)/eval/features/StatusBadge';
+import StatusBadge from '@/features/Eval/StatusBadge';
 
 interface RunSummaryCardProps {
   benchmarkId: string;

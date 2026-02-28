@@ -5,7 +5,7 @@ import { createStaticStyles, useResponsive } from 'antd-style';
 import { memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { SCROLL_PARENT_ID } from '@/app/[variants]/(main)/community/features/const';
+import { SCROLL_PARENT_ID } from '@/features/Community/const';
 import { useQuery } from '@/hooks/useQuery';
 import { type DiscoverTab } from '@/types/discover';
 

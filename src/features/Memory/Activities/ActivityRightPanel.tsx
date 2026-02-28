@@ -5,14 +5,14 @@ import dayjs from 'dayjs';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CateTag from '@/app/[variants]/(main)/memory/features/CateTag';
-import DetailLoading from '@/app/[variants]/(main)/memory/features/DetailLoading';
-import DetailPanel from '@/app/[variants]/(main)/memory/features/DetailPanel';
-import HashTags from '@/app/[variants]/(main)/memory/features/HashTags';
-import HighlightedContent from '@/app/[variants]/(main)/memory/features/HighlightedContent';
-import SourceLink from '@/app/[variants]/(main)/memory/features/SourceLink';
-import Time from '@/app/[variants]/(main)/memory/features/Time';
 import { DESKTOP_HEADER_ICON_SIZE } from '@/const/layoutTokens';
+import CateTag from '@/features/Memory/CateTag';
+import DetailLoading from '@/features/Memory/DetailLoading';
+import DetailPanel from '@/features/Memory/DetailPanel';
+import HashTags from '@/features/Memory/HashTags';
+import HighlightedContent from '@/features/Memory/HighlightedContent';
+import SourceLink from '@/features/Memory/SourceLink';
+import Time from '@/features/Memory/Time';
 import { useQueryState } from '@/hooks/useQueryParam';
 import { useUserMemoryStore } from '@/store/userMemory';
 import { LayersEnum } from '@/types/userMemory';
@@ -83,13 +83,17 @@ const ActivityRightPanel = memo(() => {
 
         {schedule && <HighlightedContent>{schedule}</HighlightedContent>}
         {activity.narrative && (
-          <HighlightedContent title={t('activity.narrative')}>{activity.narrative}</HighlightedContent>
+          <HighlightedContent title={t('activity.narrative')}>
+            {activity.narrative}
+          </HighlightedContent>
         )}
         {activity.notes && (
           <HighlightedContent title={t('activity.notes')}>{activity.notes}</HighlightedContent>
         )}
         {activity.feedback && (
-          <HighlightedContent title={t('activity.feedback')}>{activity.feedback}</HighlightedContent>
+          <HighlightedContent title={t('activity.feedback')}>
+            {activity.feedback}
+          </HighlightedContent>
         )}
 
         <HashTags hashTags={activity.tags} />

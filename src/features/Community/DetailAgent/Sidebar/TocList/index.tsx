@@ -5,12 +5,11 @@ import { type AnchorProps } from 'antd';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useToc } from '@/app/[variants]/(main)/community/(detail)/features/Toc/useToc';
+import Toc from '@/features/Community/Detail/Toc';
+import { useToc } from '@/features/Community/Detail/Toc/useToc';
+import Title from '@/features/Community/Title';
 import { useQuery } from '@/hooks/useQuery';
 import { AssistantNavKey } from '@/types/discover';
-
-import Title from '../../../../../features/Title';
-import Toc from '../../../../features/Toc';
 
 const TocList = memo(() => {
   const { t } = useTranslation('discover');

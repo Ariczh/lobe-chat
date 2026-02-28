@@ -4,9 +4,8 @@ import { Flexbox, Skeleton } from '@lobehub/ui';
 import { cssVar } from 'antd-style';
 import { memo } from 'react';
 
-import ListLoading from '@/app/[variants]/(main)/community/components/ListLoading';
-
-import Banner from './features/Header/Banner';
+import ListLoading from '@/features/Community/components/ListLoading';
+import Banner from '@/features/Community/DetailUser/Header/Banner';
 
 const Loading = memo(() => {
   return (

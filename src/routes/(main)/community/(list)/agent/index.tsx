@@ -3,13 +3,13 @@
 import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
+import Pagination from '@/features/Community/List/Pagination';
+import List from '@/features/Community/ListAgent/List';
 import { useQuery } from '@/hooks/useQuery';
 import { useDiscoverStore } from '@/store/discover';
 import { type AssistantQueryParams } from '@/types/discover';
 import { AssistantSorts, DiscoverTab } from '@/types/discover';
 
-import Pagination from '../features/Pagination';
-import List from './features/List';
 import Loading from './loading';
 
 const AssistantPage = memo(() => {

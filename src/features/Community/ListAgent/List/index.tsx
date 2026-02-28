@@ -3,9 +3,9 @@
 import { Grid } from '@lobehub/ui';
 import { memo } from 'react';
 
+import AssistantEmpty from '@/features/Community/AssistantEmpty';
 import { type DiscoverAssistantItem } from '@/types/discover';
 
-import AssistantEmpty from '../../../../features/AssistantEmpty';
 import Item from './Item';
 
 export interface AssistantListProps {

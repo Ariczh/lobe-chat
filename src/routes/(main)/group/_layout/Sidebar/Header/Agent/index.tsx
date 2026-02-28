@@ -6,7 +6,7 @@ import { type PropsWithChildren } from 'react';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SupervisorAvatar from '@/app/[variants]/(main)/group/features/GroupAvatar';
+import SupervisorAvatar from '@/features/GroupChat/GroupAvatar';
 import { SkeletonItem } from '@/features/NavPanel/components/SkeletonList';
 import { useAgentGroupStore } from '@/store/agentGroup';
 import { agentGroupSelectors } from '@/store/agentGroup/selectors';

@@ -3,24 +3,23 @@ import { BrainCircuitIcon } from 'lucide-react';
 import { type FC } from 'react';
 import { memo, useCallback, useEffect, useState } from 'react';
 
-import CommonFilterBar from '@/app/[variants]/(main)/memory/features/FilterBar';
-import MemoryAnalysis from '@/app/[variants]/(main)/memory/features/MemoryAnalysis';
+import EditableModal from '@/features/Memory/EditableModal';
+import CommonFilterBar from '@/features/Memory/FilterBar';
+import IdentityRightPanel from '@/features/Memory/Identities/IdentityRightPanel';
+import { type IdentityType } from '@/features/Memory/Identities/List';
+import List from '@/features/Memory/Identities/List';
+import SegmentedBar from '@/features/Memory/Identities/SegmentedBar';
+import Loading from '@/features/Memory/Loading';
+import MemoryAnalysis from '@/features/Memory/MemoryAnalysis';
+import { SCROLL_PARENT_ID } from '@/features/Memory/TimeLineView/useScrollParent';
+import { type ViewMode } from '@/features/Memory/ViewModeSwitcher';
+import ViewModeSwitcher from '@/features/Memory/ViewModeSwitcher';
 import NavHeader from '@/features/NavHeader';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
 import { useQueryState } from '@/hooks/useQueryParam';
 import { useUserMemoryStore } from '@/store/userMemory';
 import { type TypesEnum } from '@/types/userMemory';
-
-import EditableModal from '../features/EditableModal';
-import Loading from '../features/Loading';
-import { SCROLL_PARENT_ID } from '../features/TimeLineView/useScrollParent';
-import { type ViewMode } from '../features/ViewModeSwitcher';
-import ViewModeSwitcher from '../features/ViewModeSwitcher';
-import IdentityRightPanel from './features/IdentityRightPanel';
-import { type IdentityType } from './features/List';
-import List from './features/List';
-import SegmentedBar from './features/SegmentedBar';
 
 const IdentitiesArea = memo(() => {
   const [viewMode, setViewMode] = useState<ViewMode>('timeline');

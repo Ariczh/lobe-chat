@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
-import { SCROLL_PARENT_ID } from '@/app/[variants]/(main)/community/features/const';
 import MobileContentLayout from '@/components/server/MobileNavLayout';
+import { SCROLL_PARENT_ID } from '@/features/Community/const';
 import Footer from '@/features/Setting/Footer';
 
 import Header from './Header';

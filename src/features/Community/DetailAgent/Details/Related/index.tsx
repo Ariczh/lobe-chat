@@ -3,11 +3,11 @@ import qs from 'query-string';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import McpList from '@/features/Community/ListAgent/List';
+import Title from '@/features/Community/Title';
 import { useQuery } from '@/hooks/useQuery';
 import { type AssistantMarketSource } from '@/types/discover';
 
-import McpList from '../../../../../(list)/agent/features/List';
-import Title from '../../../../../features/Title';
 import { useDetailContext } from '../../DetailProvider';
 
 const Related = memo(() => {

@@ -4,11 +4,11 @@ import { cssVar } from 'antd-style';
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import StoreSearchBar from '@/app/[variants]/(main)/community/features/Search';
-import UserAvatar from '@/app/[variants]/(main)/community/features/UserAvatar';
+import SortButton from '@/features/Community/List/SortButton';
+import StoreSearchBar from '@/features/Community/Search';
+import UserAvatar from '@/features/Community/UserAvatar';
 import NavHeader from '@/features/NavHeader';
 
-import SortButton from '../features/SortButton';
 import { styles } from './Header/style';
 
 const Header = memo(() => {

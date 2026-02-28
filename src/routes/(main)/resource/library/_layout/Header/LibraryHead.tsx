@@ -16,9 +16,9 @@ import { type DragEvent } from 'react';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useDragActive } from '@/app/[variants]/(main)/resource/features/DndContextWrapper';
-import { useResourceManagerStore } from '@/app/[variants]/(main)/resource/features/store';
 import RepoIcon from '@/components/LibIcon';
+import { useDragActive } from '@/features/ResourceManager/DndContextWrapper';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 import { knowledgeBaseSelectors, useKnowledgeBaseStore } from '@/store/library';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({

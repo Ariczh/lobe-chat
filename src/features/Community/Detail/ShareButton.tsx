@@ -19,9 +19,8 @@ import { type ReactNode } from 'react';
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import CardBanner from '@/features/Community/components/CardBanner';
 import { useShare } from '@/hooks/useShare';
-
-import CardBanner from '../../components/CardBanner';
 
 const styles = createStaticStyles(({ css, cssVar }) => {
   return {

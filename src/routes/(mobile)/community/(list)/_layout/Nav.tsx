@@ -8,9 +8,8 @@ import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Menu from '@/components/Menu';
+import { useNav } from '@/features/Community/useNav';
 import { DiscoverTab } from '@/types/discover';
-
-import { useNav } from '../../../../(main)/community/features/useNav';
 
 const SCROLL_CONTAINER_ID = 'lobe-mobile-scroll-container';
 

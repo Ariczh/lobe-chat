@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import urlJoin from 'url-join';
 
+import Title from '@/features/Community/Title';
 import { useQuery } from '@/hooks/useQuery';
 import { type AssistantMarketSource } from '@/types/discover';
 
-import Title from '../../../../../features/Title';
 import { useDetailContext } from '../../DetailProvider';
 import Item from './Item';
 

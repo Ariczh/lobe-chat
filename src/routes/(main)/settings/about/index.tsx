@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-
-import About from './features/About';
-import Analytics from './features/Analytics';
+import About from '@/features/Setting/About';
+import Analytics from '@/features/Setting/About/Analytics';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 
 const Page = ({ mobile }: { mobile?: boolean }) => {
   const { t } = useTranslation('setting');

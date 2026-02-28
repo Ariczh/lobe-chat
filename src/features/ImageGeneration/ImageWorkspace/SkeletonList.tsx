@@ -3,7 +3,7 @@
 import { Block, Center, Flexbox, Grid, Skeleton } from '@lobehub/ui';
 import { memo } from 'react';
 
-import PromptInput from '@/app/[variants]/(main)/image/features/PromptInput';
+import PromptInput from '@/features/ImageGeneration/PromptInput';
 
 const SkeletonList = memo(() => {
   return (

@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
 import { isDesktop } from '@/const/version';
-
-import Conversation from './features/Conversation';
-import Desktop from './features/Desktop';
-import Essential from './features/Essential';
+import Conversation from '@/features/Setting/Hotkey/Conversation';
+import Desktop from '@/features/Setting/Hotkey/Desktop';
+import Essential from '@/features/Setting/Hotkey/Essential';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 
 const Page = () => {
   const { t } = useTranslation('setting');

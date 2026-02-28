@@ -6,22 +6,21 @@ import { Divider } from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
+import AvatarRow from '@/features/Setting/Profile/AvatarRow';
+import FullNameRow from '@/features/Setting/Profile/FullNameRow';
+import InterestsRow from '@/features/Setting/Profile/InterestsRow';
+import KlavisAuthorizationList from '@/features/Setting/Profile/KlavisAuthorizationList';
+import PasswordRow from '@/features/Setting/Profile/PasswordRow';
+import ProfileRow, { labelStyle, rowStyle } from '@/features/Setting/Profile/ProfileRow';
+import SSOProvidersList from '@/features/Setting/Profile/SSOProvidersList';
+import UsernameRow from '@/features/Setting/Profile/UsernameRow';
 import { useServerConfigStore } from '@/store/serverConfig';
 import { serverConfigSelectors } from '@/store/serverConfig/selectors';
 import { useToolStore } from '@/store/tool';
 import { KlavisServerStatus } from '@/store/tool/slices/klavisStore';
 import { useUserStore } from '@/store/user';
 import { authSelectors, userProfileSelectors } from '@/store/user/selectors';
-
-import AvatarRow from './features/AvatarRow';
-import FullNameRow from './features/FullNameRow';
-import InterestsRow from './features/InterestsRow';
-import KlavisAuthorizationList from './features/KlavisAuthorizationList';
-import PasswordRow from './features/PasswordRow';
-import ProfileRow, { labelStyle, rowStyle } from './features/ProfileRow';
-import SSOProvidersList from './features/SSOProvidersList';
-import UsernameRow from './features/UsernameRow';
 
 const SkeletonRow = ({ mobile }: { mobile?: boolean }) => {
   if (mobile) {

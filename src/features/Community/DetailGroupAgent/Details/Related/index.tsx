@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import urlJoin from 'url-join';
 
+import Title from '@/features/Community/Title';
 import { type DiscoverGroupAgentItem } from '@/types/discover';
 
-import Title from '../../../../../features/Title';
 import { useDetailContext } from '../../DetailProvider';
 
 const GroupAgentCard = memo<DiscoverGroupAgentItem>((item) => {

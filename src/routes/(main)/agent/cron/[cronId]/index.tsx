@@ -15,6 +15,15 @@ import useSWR from 'swr';
 import AutoSaveHint from '@/components/Editor/AutoSaveHint';
 import Loading from '@/components/Loading/BrandTextLoading';
 import { type UpdateAgentCronJobData } from '@/database/schemas/agentCronJob';
+import {
+  buildCronPattern,
+  parseCronPattern,
+  type ScheduleType,
+} from '@/features/AgentChat/CronDetail/CronConfig';
+import CronJobContentEditor from '@/features/AgentChat/CronDetail/CronJobContentEditor';
+import CronJobHeader from '@/features/AgentChat/CronDetail/CronJobHeader';
+import CronJobSaveButton from '@/features/AgentChat/CronDetail/CronJobSaveButton';
+import CronJobScheduleConfig from '@/features/AgentChat/CronDetail/CronJobScheduleConfig';
 import NavHeader from '@/features/NavHeader';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import { useQueryRoute } from '@/hooks/useQueryRoute';
@@ -27,13 +36,6 @@ import { useChatStore } from '@/store/chat';
 import { serverConfigSelectors, useServerConfigStore } from '@/store/serverConfig';
 import { useUserStore } from '@/store/user';
 import { labPreferSelectors } from '@/store/user/selectors';
-
-import { type ScheduleType } from './CronConfig';
-import { buildCronPattern, parseCronPattern } from './CronConfig';
-import CronJobContentEditor from './features/CronJobContentEditor';
-import CronJobHeader from './features/CronJobHeader';
-import CronJobSaveButton from './features/CronJobSaveButton';
-import CronJobScheduleConfig from './features/CronJobScheduleConfig';
 
 interface CronJobDraft {
   content: string;

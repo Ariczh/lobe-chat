@@ -7,7 +7,7 @@ import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import LobeMessage from '@/app/[variants]/onboarding/components/LobeMessage';
+import LobeMessage from '@/features/Onboarding/components/LobeMessage';
 import { useIsDark } from '@/hooks/useIsDark';
 import { useUserStore } from '@/store/user';
 

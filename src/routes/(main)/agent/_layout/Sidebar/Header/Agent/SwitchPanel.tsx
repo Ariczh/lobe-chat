@@ -4,8 +4,8 @@ import { type PropsWithChildren } from 'react';
 import { memo, Suspense, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import List from '@/app/[variants]/(main)/home/_layout/Body/Agent/List';
-import { AgentModalProvider } from '@/app/[variants]/(main)/home/_layout/Body/Agent/ModalProvider';
+import List from '@/features/Home/Sidebar/Body/Agent/List';
+import { AgentModalProvider } from '@/features/Home/Sidebar/Body/Agent/ModalProvider';
 import SkeletonList from '@/features/NavPanel/components/SkeletonList';
 
 const styles = createStaticStyles(({ cssVar, css }) => ({

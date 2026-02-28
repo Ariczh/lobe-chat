@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-
-import ApiKey from './features/ApiKey';
+import ApiKey from '@/features/Setting/ApiKey/ApiKey';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 
 const Page = () => {
   const { t } = useTranslation('setting');

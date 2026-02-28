@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-
-import ToolDetectorSection from './features/ToolDetectorSection';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
+import ToolDetectorSection from '@/features/Setting/SystemTools/ToolDetectorSection';
 
 const Page = () => {
   const { t } = useTranslation('setting');

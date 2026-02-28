@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import MemoryAnalysis from '@/app/[variants]/(main)/memory/features/MemoryAnalysis';
+import MemoryAnalysis from '@/features/Memory/MemoryAnalysis';
+import MemoryEmpty from '@/features/Memory/MemoryEmpty';
+import { type ViewMode } from '@/features/Memory/ViewModeSwitcher';
 import { useQueryState } from '@/hooks/useQueryParam';
 import { useGlobalStore } from '@/store/global';
 import { useUserMemoryStore } from '@/store/userMemory';
 
-import MemoryEmpty from '../../../features/MemoryEmpty';
-import { type ViewMode } from '../../../features/ViewModeSwitcher';
 import GridView from './GridView';
 import TimelineView from './TimelineView';
 

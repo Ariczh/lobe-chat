@@ -2,6 +2,7 @@ import { Block, Flexbox, Grid } from '@lobehub/ui';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Title from '@/features/Community/Title';
 import {
   calculateScore,
   calculateScoreFlags,
@@ -10,7 +11,6 @@ import {
 } from '@/features/MCP/calculateScore';
 import { useScoreList } from '@/features/MCP/useScoreList';
 
-import Title from '../../../app/[variants]/(main)/community/features/Title';
 import { useDetailContext } from '../DetailProvider';
 import GithubBadge from './GithubBadge';
 import ScoreList from './ScoreList';

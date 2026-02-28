@@ -6,16 +6,15 @@ import { memo, Suspense } from 'react';
 
 import Loading from '@/components/Loading/BrandTextLoading';
 import AgentBuilder from '@/features/AgentBuilder';
+import Header from '@/features/AgentProfile/Header';
+import ProfileEditor from '@/features/AgentProfile/ProfileEditor';
+import ProfileHydration from '@/features/AgentProfile/ProfileHydration';
+import ProfileProvider from '@/features/AgentProfile/ProfileProvider';
+import { useProfileStore } from '@/features/AgentProfile/store';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import { useAgentStore } from '@/store/agent';
 import { agentSelectors } from '@/store/agent/selectors';
 import { StyleSheet } from '@/utils/styles';
-
-import Header from './features/Header';
-import ProfileEditor from './features/ProfileEditor';
-import ProfileHydration from './features/ProfileHydration';
-import ProfileProvider from './features/ProfileProvider';
-import { useProfileStore } from './features/store';
 
 const styles = StyleSheet.create({
   contentWrapper: {

@@ -3,10 +3,9 @@ import qs from 'query-string';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import McpList from '@/features/Community/ListMcp/List';
+import Title from '@/features/Community/Title';
 import { useDetailContext } from '@/features/MCPPluginDetail/DetailProvider';
-
-import McpList from '../../../../../(list)/mcp/features/List';
-import Title from '../../../../../features/Title';
 
 const Related = memo(() => {
   const { t } = useTranslation('discover');

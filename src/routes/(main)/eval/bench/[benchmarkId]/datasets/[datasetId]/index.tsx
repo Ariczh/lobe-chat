@@ -7,18 +7,17 @@ import { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+import TestCasePreviewPanel from '@/features/Eval/[benchmarkId]/DatasetsTab/TestCasePreviewPanel';
+import TestCaseTable from '@/features/Eval/[benchmarkId]/DatasetsTab/TestCaseTable';
+import RunCreateModal from '@/features/Eval/[benchmarkId]/RunCreateModal';
+import EmptyState from '@/features/Eval/[benchmarkId]/RunsTab/EmptyState';
+import RunCard from '@/features/Eval/[benchmarkId]/RunsTab/RunCard';
+import DatasetEditModal from '@/features/Eval/DatasetEditModal';
+import DatasetImportModal from '@/features/Eval/DatasetImportModal';
+import TestCaseCreateModal from '@/features/Eval/TestCaseCreateModal';
+import TestCaseEditModal from '@/features/Eval/TestCaseEditModal';
 import { agentEvalService } from '@/services/agentEval';
 import { runSelectors, useEvalStore } from '@/store/eval';
-
-import DatasetEditModal from '../../../../features/DatasetEditModal';
-import DatasetImportModal from '../../../../features/DatasetImportModal';
-import TestCaseCreateModal from '../../../../features/TestCaseCreateModal';
-import TestCaseEditModal from '../../../../features/TestCaseEditModal';
-import TestCasePreviewPanel from '../../features/DatasetsTab/TestCasePreviewPanel';
-import TestCaseTable from '../../features/DatasetsTab/TestCaseTable';
-import RunCreateModal from '../../features/RunCreateModal';
-import EmptyState from '../../features/RunsTab/EmptyState';
-import RunCard from '../../features/RunsTab/RunCard';
 
 const DatasetDetail = memo(() => {
   const { t } = useTranslation('eval');

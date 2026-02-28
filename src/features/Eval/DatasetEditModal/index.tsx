@@ -6,9 +6,8 @@ import { cssVar } from 'antd-style';
 import { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { DATASET_PRESETS, getPresetsByCategory } from '@/features/Eval/config/datasetPresets';
 import { agentEvalService } from '@/services/agentEval';
-
-import { DATASET_PRESETS, getPresetsByCategory } from '../../config/datasetPresets';
 
 const CATEGORY_LABELS: Record<string, string> = {
   'custom': 'Custom',

@@ -9,13 +9,13 @@ import { useTranslation } from 'react-i18next';
 import { type VirtuosoHandle } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 
-import { useDragActive } from '@/app/[variants]/(main)/resource/features/DndContextWrapper';
-import { useFolderPath } from '@/app/[variants]/(main)/resource/features/hooks/useFolderPath';
+import { useDragActive } from '@/features/ResourceManager/DndContextWrapper';
+import { useFolderPath } from '@/features/ResourceManager/hooks/useFolderPath';
 import {
   useResourceManagerFetchFolderBreadcrumb,
   useResourceManagerStore,
-} from '@/app/[variants]/(main)/resource/features/store';
-import { sortFileList } from '@/app/[variants]/(main)/resource/features/store/selectors';
+} from '@/features/ResourceManager/store';
+import { sortFileList } from '@/features/ResourceManager/store/selectors';
 import { useFileStore } from '@/store/file';
 import { useFetchResources } from '@/store/file/slices/resource/hooks';
 import { useGlobalStore } from '@/store/global';

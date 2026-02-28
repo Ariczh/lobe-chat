@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 
 import { FormPassword } from '@/components/FormInput';
 import { SkeletonInput } from '@/components/Skeleton';
+import { KeyVaultsConfigKey, LLMProviderApiTokenKey } from '@/features/Setting/Provider/const';
+import { type ProviderItem } from '@/features/Setting/Provider/type';
 import { aiProviderSelectors, useAiInfraStore } from '@/store/aiInfra';
 import { type GlobalLLMProviderKey } from '@/types/user/settings';
 
-import { KeyVaultsConfigKey, LLMProviderApiTokenKey } from '../../const';
-import { type ProviderItem } from '../../type';
 import ProviderDetail from '../default';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({

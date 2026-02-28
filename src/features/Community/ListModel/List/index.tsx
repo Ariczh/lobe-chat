@@ -3,9 +3,9 @@
 import { Grid } from '@lobehub/ui';
 import { memo } from 'react';
 
+import ModelEmpty from '@/features/Community/ModelEmpty';
 import { type DiscoverModelItem } from '@/types/discover';
 
-import ModelEmpty from '../../../../features/ModelEmpty';
 import Item from './Item';
 
 interface ModelListProps {

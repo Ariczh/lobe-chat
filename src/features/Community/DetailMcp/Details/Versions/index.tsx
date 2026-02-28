@@ -6,12 +6,11 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import InlineTable from '@/components/InlineTable';
+import PublishedTime from '@/components/PublishedTime';
+import Title from '@/features/Community/Title';
+import { useDetailContext } from '@/features/MCPPluginDetail/DetailProvider';
 import Link from '@/libs/router/Link';
 import { usePathname } from '@/libs/router/navigation';
-
-import PublishedTime from '../../../../../../../../../components/PublishedTime';
-import { useDetailContext } from '../../../../../../../../../features/MCPPluginDetail/DetailProvider';
-import Title from '../../../../../features/Title';
 
 const Versions = memo(() => {
   const { t } = useTranslation('discover');

@@ -2,7 +2,7 @@ import { Flexbox, Tag } from '@lobehub/ui';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Title from '@/app/[variants]/(main)/community/features/Title';
+import Title from '@/features/Community/Title';
 
 import { useDetailContext } from '../../DetailProvider';
 import ModelList from './ModelList';

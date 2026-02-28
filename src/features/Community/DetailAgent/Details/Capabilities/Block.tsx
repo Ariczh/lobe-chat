@@ -2,7 +2,7 @@ import { Flexbox, Tag } from '@lobehub/ui';
 import { type ReactNode } from 'react';
 import { memo } from 'react';
 
-import Title from '../../../../../features/Title';
+import Title from '@/features/Community/Title';
 
 interface BlockProps {
   children?: ReactNode;

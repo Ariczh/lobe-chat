@@ -1,7 +1,7 @@
-import { memo,Suspense } from 'react';
+import { memo, Suspense } from 'react';
 
-import SessionListContent from './features/SessionListContent';
-import SkeletonList from './features/SkeletonList';
+import SessionListContent from '@/features/MobileHome/SessionListContent';
+import SkeletonList from '@/features/MobileHome/SkeletonList';
 
 const Home = memo(() => {
   return (

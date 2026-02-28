@@ -3,11 +3,10 @@
 import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
+import ImageWorkspace from '@/features/ImageGeneration/ImageWorkspace';
 import NavHeader from '@/features/NavHeader';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
-
-import ImageWorkspace from './features/ImageWorkspace';
 
 const DesktopImagePage = memo(() => {
   return (

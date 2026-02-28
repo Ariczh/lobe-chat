@@ -6,11 +6,10 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import CaseHeader from '@/features/Eval/[caseId]/CaseBanner';
+import ChatArea from '@/features/Eval/[caseId]/ChatArea';
+import InfoSidebar from '@/features/Eval/[caseId]/InfoSidebar';
 import { runSelectors, useEvalStore } from '@/store/eval';
-
-import CaseHeader from './features/CaseBanner';
-import ChatArea from './features/ChatArea';
-import InfoSidebar from './features/InfoSidebar';
 
 const CaseDetail = memo(() => {
   const { benchmarkId, runId, caseId } = useParams<{

@@ -1,11 +1,11 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+import type { CellProps } from '@/components/Cell';
 import type * as ConstVersionModule from '@/const/version';
+import { useCategory } from '@/features/MobileMe/useCategory';
 import { ServerConfigStoreProvider } from '@/store/serverConfig/Provider';
 import { useUserStore } from '@/store/user';
-
-import { useCategory } from '../features/useCategory';
 
 const wrapper: React.JSXElementConstructor<{ children: React.ReactNode }> = ({ children }) => (
   <ServerConfigStoreProvider>{children}</ServerConfigStoreProvider>
@@ -47,11 +47,11 @@ describe('useCategory', () => {
 
     act(() => {
       const items = result.current;
-      expect(items.some((item) => item.key === 'profile')).toBe(true);
-      expect(items.some((item) => item.key === 'setting')).toBe(true);
-      expect(items.some((item) => item.key === 'docs')).toBe(true);
-      expect(items.some((item) => item.key === 'feedback')).toBe(true);
-      expect(items.some((item) => item.key === 'changelog')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'profile')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'setting')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'docs')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'feedback')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'changelog')).toBe(true);
     });
   });
 
@@ -65,12 +65,12 @@ describe('useCategory', () => {
 
     act(() => {
       const items = result.current;
-      expect(items.some((item) => item.key === 'profile')).toBe(false);
-      expect(items.some((item) => item.key === 'setting')).toBe(false);
-      expect(items.some((item) => item.key === 'data')).toBe(false);
-      expect(items.some((item) => item.key === 'docs')).toBe(true);
-      expect(items.some((item) => item.key === 'feedback')).toBe(true);
-      expect(items.some((item) => item.key === 'changelog')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'profile')).toBe(false);
+      expect(items.some((item: CellProps) => item.key === 'setting')).toBe(false);
+      expect(items.some((item: CellProps) => item.key === 'data')).toBe(false);
+      expect(items.some((item: CellProps) => item.key === 'docs')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'feedback')).toBe(true);
+      expect(items.some((item: CellProps) => item.key === 'changelog')).toBe(true);
     });
   });
 });

@@ -4,11 +4,10 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
 import MainInterfaceTracker from '@/components/Analytics/MainInterfaceTracker';
-
-import Conversation from './features/Conversation';
-import PageTitle from './features/PageTitle';
-import Portal from './features/Portal';
-import TelemetryNotification from './features/TelemetryNotification';
+import PageTitle from '@/features/AgentChat/PageTitle';
+import TelemetryNotification from '@/features/AgentChat/TelemetryNotification';
+import Conversation from '@/features/GroupChat/Conversation';
+import Portal from '@/features/GroupChat/Portal';
 
 const ChatPage = memo(() => {
   return (

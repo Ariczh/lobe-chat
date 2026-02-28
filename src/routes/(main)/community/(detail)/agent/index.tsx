@@ -4,16 +4,16 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { TocProvider } from '@/features/Community/Detail/Toc/useToc';
+import { DetailProvider } from '@/features/Community/DetailAgent/DetailProvider';
+import Details from '@/features/Community/DetailAgent/Details';
+import Header from '@/features/Community/DetailAgent/Header';
+import StatusPage from '@/features/Community/DetailAgent/StatusPage';
+import NotFound from '@/features/Community/DetailComponents/NotFound';
 import { useQuery } from '@/hooks/useQuery';
 import { useDiscoverStore } from '@/store/discover';
 import { type AssistantMarketSource } from '@/types/discover';
 
-import NotFound from '../components/NotFound';
-import { TocProvider } from '../features/Toc/useToc';
-import { DetailProvider } from './features/DetailProvider';
-import Details from './features/Details';
-import Header from './features/Header';
-import StatusPage from './features/StatusPage';
 import Loading from './loading';
 
 interface AssistantDetailPageProps {

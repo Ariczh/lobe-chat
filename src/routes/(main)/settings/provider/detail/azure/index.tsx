@@ -8,10 +8,14 @@ import { useTranslation } from 'react-i18next';
 
 import { FormInput, FormPassword } from '@/components/FormInput';
 import { SkeletonInput } from '@/components/Skeleton';
+import {
+  KeyVaultsConfigKey,
+  LLMProviderApiTokenKey,
+  LLMProviderBaseUrlKey,
+} from '@/features/Setting/Provider/const';
+import { type ProviderItem } from '@/features/Setting/Provider/type';
 import { aiModelSelectors, aiProviderSelectors, useAiInfraStore } from '@/store/aiInfra';
 
-import { KeyVaultsConfigKey, LLMProviderApiTokenKey, LLMProviderBaseUrlKey } from '../../const';
-import { type ProviderItem } from '../../type';
 import ProviderDetail from '../default';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({

@@ -4,10 +4,9 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
 import NavHeader from '@/features/NavHeader';
+import VideoWorkspace from '@/features/VideoGeneration/VideoWorkspace';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
-
-import VideoWorkspace from './features/VideoWorkspace';
 
 const DesktopVideoPage = memo(() => {
   return (

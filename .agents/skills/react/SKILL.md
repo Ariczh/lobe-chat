@@ -27,18 +27,19 @@ Reference: `node_modules/@lobehub/ui/es/index.mjs` for all available components.
 
 ## Routing Architecture
 
-Hybrid routing: Next.js App Router (static pages) + React Router DOM (main SPA).
+Hybrid routing: Next.js App Router (auth SSR) + React Router DOM (main SPA via Vite).
 
-| Route Type         | Use Case                          | Implementation               |
-| ------------------ | --------------------------------- | ---------------------------- |
-| Next.js App Router | Auth pages (login, signup, oauth) | `src/app/[variants]/(auth)/` |
-| React Router DOM   | Main SPA (chat, settings)         | `desktopRouter.config.tsx`   |
+| Route Type         | Use Case                          | Implementation                               |
+| ------------------ | --------------------------------- | -------------------------------------------- |
+| Next.js App Router | Auth pages (login, signup, oauth) | `src/app/[variants]/(auth)/`                 |
+| React Router DOM   | Main SPA (chat, settings)         | `src/routes/router/desktopRouter.config.tsx` |
 
 ### Key Files
 
-- Entry: `src/app/[variants]/page.tsx`
-- Desktop router: `src/app/[variants]/router/desktopRouter.config.tsx`
-- Mobile router: `src/app/[variants]/(mobile)/router/mobileRouter.config.tsx`
+- Entry: `src/entry.web.tsx`, `src/entry.desktop.tsx`, `src/entry.mobile.tsx`
+- Desktop router: `src/routes/router/desktopRouter.config.tsx`
+- Mobile router: `src/routes/router/mobileRouter.config.tsx`
+- Route pages: `src/routes/(main)/...` (thin wrappers importing from `@/features/`)
 - Router utilities: `src/utils/router.tsx`
 
 ### Router Utilities

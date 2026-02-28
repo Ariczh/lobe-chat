@@ -5,9 +5,8 @@ import { memo, useState } from 'react';
 
 import BrandWatermark from '@/components/BrandWatermark';
 import ChangelogModal from '@/components/ChangelogModal';
-
-import Category from './features/Category';
-import UserBanner from './features/UserBanner';
+import Category from '@/features/MobileMe/Category';
+import UserBanner from '@/features/MobileMe/UserBanner';
 
 const MeHomePage = memo(() => {
   const [isChangelogModalOpen, setIsChangelogModalOpen] = useState(false);

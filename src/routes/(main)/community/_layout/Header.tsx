@@ -3,11 +3,11 @@ import { cssVar, useTheme } from 'antd-style';
 import { memo, useMemo } from 'react';
 
 import { isCustomBranding } from '@/const/version';
+import CreateButton from '@/features/Community/CreateButton';
+import StoreSearchBar from '@/features/Community/Search';
+import UserAvatar from '@/features/Community/UserAvatar';
 import NavHeader from '@/features/NavHeader';
 
-import CreateButton from '../features/CreateButton';
-import StoreSearchBar from '../features/Search';
-import UserAvatar from '../features/UserAvatar';
 import { styles } from './Header/style';
 
 const Header = memo(() => {

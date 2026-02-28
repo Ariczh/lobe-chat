@@ -1,9 +1,9 @@
 import { memo } from 'react';
 
 import { type DisplayPreferenceMemory } from '@/database/repositories/userMemory';
+import { GridView } from '@/features/Memory/GridView';
 import { useUserMemoryStore } from '@/store/userMemory';
 
-import { GridView } from '../../../../features/GridView';
 import PreferenceCard from './PreferenceCard';
 
 interface GridViewProps {

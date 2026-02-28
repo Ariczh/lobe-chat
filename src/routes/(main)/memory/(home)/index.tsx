@@ -2,18 +2,17 @@ import { Flexbox } from '@lobehub/ui';
 // import { PencilLineIcon } from 'lucide-react';
 import { type FC } from 'react';
 
-import MemoryAnalysis from '@/app/[variants]/(main)/memory/features/MemoryAnalysis';
-import MemoryEmpty from '@/app/[variants]/(main)/memory/features/MemoryEmpty';
-import { SCROLL_PARENT_ID } from '@/app/[variants]/(main)/memory/features/TimeLineView/useScrollParent';
 import Loading from '@/components/Loading/BrandTextLoading';
+import Persona from '@/features/Memory/Home/Persona';
+import PersonaHeader from '@/features/Memory/Home/Persona/PersonaHeader';
+import RoleTagCloud from '@/features/Memory/Home/RoleTagCloud';
+import MemoryAnalysis from '@/features/Memory/MemoryAnalysis';
+import MemoryEmpty from '@/features/Memory/MemoryEmpty';
+import { SCROLL_PARENT_ID } from '@/features/Memory/TimeLineView/useScrollParent';
 import NavHeader from '@/features/NavHeader';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
 import { useUserMemoryStore } from '@/store/userMemory';
-
-import Persona from './features/Persona';
-import PersonaHeader from './features/Persona/PersonaHeader';
-import RoleTagCloud from './features/RoleTagCloud';
 
 const Home: FC = () => {
   const useFetchTags = useUserMemoryStore((s) => s.useFetchTags);

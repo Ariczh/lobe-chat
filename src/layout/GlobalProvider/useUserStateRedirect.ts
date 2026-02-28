@@ -3,8 +3,8 @@
 import { OFFICIAL_URL } from '@lobechat/const';
 import { useCallback } from 'react';
 
-import { getDesktopOnboardingCompleted } from '@/app/[variants]/(desktop)/desktop-onboarding/storage';
 import { isDesktop } from '@/const/version';
+import { getDesktopOnboardingCompleted } from '@/features/DesktopOnboarding/storage';
 import { useElectronStore } from '@/store/electron';
 import { useUserStore } from '@/store/user';
 import { onboardingSelectors } from '@/store/user/selectors';

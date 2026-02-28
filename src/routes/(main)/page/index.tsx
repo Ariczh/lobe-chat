@@ -1,11 +1,10 @@
 'use client';
 
-import { memo,Suspense } from 'react';
+import { memo, Suspense } from 'react';
 
 import Loading from '@/components/Loading/BrandTextLoading';
+import PageTitle from '@/features/PageEditor/PageTitle';
 import PageExplorerPlaceholder from '@/features/PageExplorer/PageExplorerPlaceholder';
-
-import PageTitle from './PageTitle';
 
 /**
  * Pages route - dedicated page for managing documents/pages

@@ -8,8 +8,11 @@ import dayjs from 'dayjs';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type ScheduleType } from '../CronConfig';
-import { SCHEDULE_TYPE_OPTIONS, TIMEZONE_OPTIONS } from '../CronConfig';
+import {
+  SCHEDULE_TYPE_OPTIONS,
+  type ScheduleType,
+  TIMEZONE_OPTIONS,
+} from '@/features/AgentChat/CronDetail/CronConfig';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
   label: css`
@@ -116,7 +119,7 @@ const CronJobScheduleConfig = memo<CronJobScheduleConfigProps>(
             style={{ width: 140 }}
             value={scheduleType}
             variant="outlined"
-            options={SCHEDULE_TYPE_OPTIONS.map((opt) => ({
+            options={SCHEDULE_TYPE_OPTIONS.map((opt: (typeof SCHEDULE_TYPE_OPTIONS)[number]) => ({
               label: t(opt.label as any),
               value: opt.value,
             }))}

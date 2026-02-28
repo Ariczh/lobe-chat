@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import NeuralNetworkLoading from '@/components/NeuralNetworkLoading';
+import { DATASET_PRESETS } from '@/features/Eval/config/datasetPresets';
 import { agentEvalService } from '@/services/agentEval';
 
-import { DATASET_PRESETS } from '../../../../config/datasetPresets';
 import TestCaseEmptyState from './TestCaseEmptyState';
 import TestCaseTable from './TestCaseTable';
 

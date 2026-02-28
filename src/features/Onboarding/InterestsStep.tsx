@@ -6,11 +6,10 @@ import { BriefcaseIcon, Undo2Icon } from 'lucide-react';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import LobeMessage from '@/features/Onboarding/components/LobeMessage';
+import { INTEREST_AREAS } from '@/features/Onboarding/config';
 import { useUserStore } from '@/store/user';
 import { userProfileSelectors } from '@/store/user/selectors';
-
-import LobeMessage from '../components/LobeMessage';
-import { INTEREST_AREAS } from '../config';
 
 interface InterestsStepProps {
   onBack: () => void;

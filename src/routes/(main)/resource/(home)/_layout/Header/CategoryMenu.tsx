@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavItem from '@/features/NavPanel/components/NavItem';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 import { FilesTabs } from '@/types/files';
-
-import { useResourceManagerStore } from '../../../features/store';
 
 const CategoryMenu = memo(() => {
   const { t } = useTranslation('file');

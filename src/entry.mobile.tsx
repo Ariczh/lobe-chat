@@ -4,9 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
 import SPAGlobalProvider from '@/layout/SPAGlobalProvider';
+import { mobileRoutes } from '@/routes/router/mobileRouter.config';
 import { createAppRouter } from '@/utils/router';
-
-import { mobileRoutes } from './app/[variants]/(mobile)/router/mobileRouter.config';
 
 const router = createAppRouter(mobileRoutes);
 

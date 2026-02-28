@@ -2,7 +2,7 @@ import { type ActivityListItem } from '@lobechat/types';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import TimeLineCard from '@/app/[variants]/(main)/memory/features/TimeLineView/TimeLineCard';
+import TimeLineCard from '@/features/Memory/TimeLineView/TimeLineCard';
 
 import ActivityDropdown from '../../ActivityDropdown';
 

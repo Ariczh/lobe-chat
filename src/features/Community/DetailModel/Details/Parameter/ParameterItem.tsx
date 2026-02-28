@@ -4,7 +4,7 @@ import { cssVar } from 'antd-style';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Statistic from '../../../../../components/Statistic';
+import Statistic from '@/components/Statistic';
 
 const DEFAULT_DOC_URL = 'https://lobehub.com/docs/usage/agents/model';
 

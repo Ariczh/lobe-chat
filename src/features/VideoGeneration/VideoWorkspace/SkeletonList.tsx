@@ -3,7 +3,7 @@
 import { Block, Center, Flexbox, Skeleton } from '@lobehub/ui';
 import { memo } from 'react';
 
-import PromptInput from '@/app/[variants]/(main)/video/features/PromptInput';
+import PromptInput from '@/features/VideoGeneration/PromptInput';
 
 const SkeletonList = memo(() => {
   return (

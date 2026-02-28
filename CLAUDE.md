@@ -4,8 +4,9 @@ Guidelines for using Claude Code in this LobeChat repository.
 
 ## Tech Stack
 
-- Next.js 16 + React 19 + TypeScript
-- SPA inside Next.js with `react-router-dom`
+- Vite (SPA bundler) + Next.js 16 (API server + Auth SSR) + React 19 + TypeScript
+- SPA routes in `src/routes/` with `react-router-dom`
+- Next.js routes in `src/app/` for API, tRPC, OIDC, Auth SSR only
 - `@lobehub/ui`, antd for components; antd-style for CSS-in-JS
 - react-i18next for i18n; zustand for state management
 - SWR for data fetching; TRPC for type-safe backend
@@ -21,11 +22,17 @@ lobe-chat/
 │   ├── agent-runtime/      # Agent runtime
 │   └── ...
 ├── src/
-│   ├── app/                # Next.js app router
-│   ├── store/              # Zustand stores
-│   ├── services/           # Client services
-│   ├── server/             # Server services and routers
-│   └── ...
+│   ├── app/                # Next.js (backend API + auth SSR pages only)
+│   ├── routes/             # SPA route pages (Vite + React Router)
+│   │   ├── router/         # Router configs (desktop, mobile)
+│   │   ├── (main)/         # Desktop SPA routes (thin pages + layouts)
+│   │   ├── (mobile)/       # Mobile SPA routes
+│   │   └── ...
+│   ├── features/            # Domain feature modules (all UI logic)
+│   ├── store/               # Zustand stores
+│   ├── services/            # Client services
+│   ├── server/              # Server services and routers
+│   └── components/         # Shared UI components
 └── e2e/                    # E2E tests (Cucumber + Playwright)
 ```
 

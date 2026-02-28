@@ -3,12 +3,11 @@
 import { Flexbox, FormGroup, Skeleton } from '@lobehub/ui';
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
+import Advanced from '@/features/Setting/Storage/Advanced';
 import { useServerConfigStore } from '@/store/serverConfig';
 import { useUserStore } from '@/store/user';
 import { authSelectors } from '@/store/user/selectors';
-
-import Advanced from './features/Advanced';
 
 const Page = () => {
   const { t } = useTranslation('setting');

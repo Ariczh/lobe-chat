@@ -102,12 +102,15 @@ lobe-chat/
 │   │   │   ├── trpc/
 │   │   │   └── webapi/
 │   │   ├── [variants]/
-│   │   │   ├── (auth)/
-│   │   │   ├── (main)/
-│   │   │   ├── (mobile)/
-│   │   │   ├── onboarding/
-│   │   │   └── router/
-│   │   └── desktop/
+│   │   │   └── (auth)/           # Auth SSR pages (login, signup, oauth)
+│   │   └── ...
+│   ├── routes/                   # SPA route pages (Vite + React Router)
+│   │   ├── router/               # Router configs (desktop, mobile)
+│   │   ├── (main)/               # Desktop SPA routes
+│   │   ├── (mobile)/             # Mobile SPA routes
+│   │   ├── (desktop)/            # Desktop-only routes
+│   │   ├── onboarding/
+│   │   └── share/
 │   ├── business/                # Cloud-only (client/server)
 │   │   ├── client/
 │   │   ├── locales/
@@ -152,24 +155,25 @@ lobe-chat/
 
 ## Architecture Map
 
-| Layer            | Location                                            |
-| ---------------- | --------------------------------------------------- |
-| UI Components    | `src/components`, `src/features`                    |
-| Global Providers | `src/layout`                                        |
-| Zustand Stores   | `src/store`                                         |
-| Client Services  | `src/services/`                                     |
-| REST API         | `src/app/(backend)/webapi`                          |
-| tRPC Routers     | `src/server/routers/{async\|lambda\|mobile\|tools}` |
-| Server Services  | `src/server/services` (can access DB)               |
-| Server Modules   | `src/server/modules` (no DB access)                 |
-| Feature Flags    | `src/server/featureFlags`                           |
-| Global Config    | `src/server/globalConfig`                           |
-| DB Schema        | `packages/database/src/schemas`                     |
-| DB Model         | `packages/database/src/models`                      |
-| DB Repository    | `packages/database/src/repositories`                |
-| Third-party      | `src/libs` (analytics, oidc, etc.)                  |
-| Builtin Tools    | `src/tools`, `packages/builtin-tool-*`              |
-| Cloud-only       | `src/business/*`, `packages/business/*`             |
+| Layer            | Location                                                |
+| ---------------- | ------------------------------------------------------- |
+| UI Components    | `src/components`, `src/features`                        |
+| Global Providers | `src/layout`                                            |
+| Zustand Stores   | `src/store`                                             |
+| Client Services  | `src/services/`                                         |
+| REST API         | `src/app/(backend)/webapi`                              |
+| tRPC Routers     | `src/server/routers/{async\|lambda\|mobile\|tools}`     |
+| Server Services  | `src/server/services` (can access DB)                   |
+| Server Modules   | `src/server/modules` (no DB access)                     |
+| Feature Flags    | `src/server/featureFlags`                               |
+| Global Config    | `src/server/globalConfig`                               |
+| DB Schema        | `packages/database/src/schemas`                         |
+| DB Model         | `packages/database/src/models`                          |
+| DB Repository    | `packages/database/src/repositories`                    |
+| Third-party      | `src/libs` (analytics, oidc, etc.)                      |
+| Builtin Tools    | `src/tools`, `packages/builtin-tool-*`                  |
+| Cloud-only       | `src/business/*`, `packages/business/*`                 |
+| SPA Routes       | `src/routes/` (desktop: `(main)/`, mobile: `(mobile)/`) |
 
 ## Data Flow
 

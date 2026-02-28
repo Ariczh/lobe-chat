@@ -1,16 +1,16 @@
 import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useFolderPath } from '@/app/[variants]/(main)/resource/features/hooks/useFolderPath';
+import { useAddFilesToKnowledgeBaseModal } from '@/features/LibraryModal';
+import { useFolderPath } from '@/features/ResourceManager/hooks/useFolderPath';
 import {
   useResourceManagerFetchFolderBreadcrumb,
   useResourceManagerFetchKnowledgeItem,
   useResourceManagerFetchKnowledgeItems,
   useResourceManagerStore,
-} from '@/app/[variants]/(main)/resource/features/store';
-import { type MultiSelectActionType } from '@/app/[variants]/(main)/resource/features/store/action';
-import { selectors, sortFileList } from '@/app/[variants]/(main)/resource/features/store/selectors';
-import { useAddFilesToKnowledgeBaseModal } from '@/features/LibraryModal';
+} from '@/features/ResourceManager/store';
+import { type MultiSelectActionType } from '@/features/ResourceManager/store/action';
+import { selectors, sortFileList } from '@/features/ResourceManager/store/selectors';
 import { fileManagerSelectors, useFileStore } from '@/store/file';
 import { type FilesTabs } from '@/types/files';
 

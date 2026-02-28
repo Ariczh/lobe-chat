@@ -20,11 +20,10 @@ import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import BenchmarkHeader from '@/features/Eval/[benchmarkId]/BenchmarkHeader';
+import DatasetsTab from '@/features/Eval/[benchmarkId]/DatasetsTab';
+import RunsTab from '@/features/Eval/[benchmarkId]/RunsTab';
 import { runSelectors, useEvalStore } from '@/store/eval';
-
-import BenchmarkHeader from './features/BenchmarkHeader';
-import DatasetsTab from './features/DatasetsTab';
-import RunsTab from './features/RunsTab';
 
 const SYSTEM_ICONS = [
   LoaderPinwheel,

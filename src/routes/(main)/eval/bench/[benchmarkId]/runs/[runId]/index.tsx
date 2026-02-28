@@ -7,15 +7,14 @@ import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import CaseResultsTable from '@/features/Eval/[runId]/CaseResultsTable';
+import BenchmarkCharts from '@/features/Eval/[runId]/Charts/BenchmarkCharts';
+import IdleState from '@/features/Eval/[runId]/IdleState';
+import PendingState from '@/features/Eval/[runId]/PendingState';
+import RunHeader from '@/features/Eval/[runId]/RunHeader';
+import RunningState from '@/features/Eval/[runId]/RunningState';
+import StatsCards from '@/features/Eval/[runId]/StatsCards';
 import { runSelectors, useEvalStore } from '@/store/eval';
-
-import CaseResultsTable from './features/CaseResultsTable';
-import BenchmarkCharts from './features/Charts/BenchmarkCharts';
-import IdleState from './features/IdleState';
-import PendingState from './features/PendingState';
-import RunHeader from './features/RunHeader';
-import RunningState from './features/RunningState';
-import StatsCards from './features/StatsCards';
 
 const POLLING_INTERVAL = 3000;
 

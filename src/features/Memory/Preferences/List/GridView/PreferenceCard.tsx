@@ -3,9 +3,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GridCard from '@/app/[variants]/(main)/memory/features/GridView/GridCard';
-import ProgressIcon from '@/app/[variants]/(main)/memory/features/ProgressIcon';
 import { type DisplayPreferenceMemory } from '@/database/repositories/userMemory';
+import GridCard from '@/features/Memory/GridView/GridCard';
+import ProgressIcon from '@/features/Memory/ProgressIcon';
 
 import PreferenceDropdown from '../../PreferenceDropdown';
 

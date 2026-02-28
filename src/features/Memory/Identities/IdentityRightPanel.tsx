@@ -3,13 +3,13 @@
 import { Text } from '@lobehub/ui';
 import { memo } from 'react';
 
-import CateTag from '@/app/[variants]/(main)/memory/features/CateTag';
-import DetailLoading from '@/app/[variants]/(main)/memory/features/DetailLoading';
-import DetailPanel from '@/app/[variants]/(main)/memory/features/DetailPanel';
-import HashTags from '@/app/[variants]/(main)/memory/features/HashTags';
-import HighlightedContent from '@/app/[variants]/(main)/memory/features/HighlightedContent';
-import Time from '@/app/[variants]/(main)/memory/features/Time';
 import { DESKTOP_HEADER_ICON_SIZE } from '@/const/layoutTokens';
+import CateTag from '@/features/Memory/CateTag';
+import DetailLoading from '@/features/Memory/DetailLoading';
+import DetailPanel from '@/features/Memory/DetailPanel';
+import HashTags from '@/features/Memory/HashTags';
+import HighlightedContent from '@/features/Memory/HighlightedContent';
+import Time from '@/features/Memory/Time';
 import { useQueryState } from '@/hooks/useQueryParam';
 import { useUserMemoryStore } from '@/store/userMemory';
 import { LayersEnum } from '@/types/userMemory';

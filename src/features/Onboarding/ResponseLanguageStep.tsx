@@ -7,12 +7,11 @@ import { Undo2Icon } from 'lucide-react';
 import { memo, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import LobeMessage from '@/features/Onboarding/components/LobeMessage';
 import { type Locales } from '@/locales/resources';
 import { localeOptions, normalizeLocale } from '@/locales/resources';
 import { useGlobalStore } from '@/store/global';
 import { useUserStore } from '@/store/user';
-
-import LobeMessage from '../components/LobeMessage';
 
 interface ResponseLanguageStepProps {
   onBack: () => void;

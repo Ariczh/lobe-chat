@@ -7,8 +7,8 @@ import { VideoOffIcon } from 'lucide-react';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ActionButtons } from '@/app/[variants]/(main)/image/features/GenerationFeed/GenerationItem/ActionButtons';
-import { styles } from '@/app/[variants]/(main)/image/features/GenerationFeed/GenerationItem/styles';
+import { ActionButtons } from '@/features/ImageGeneration/GenerationFeed/GenerationItem/ActionButtons';
+import { styles } from '@/features/ImageGeneration/GenerationFeed/GenerationItem/styles';
 import type { Generation } from '@/types/generation';
 
 interface VideoErrorItemProps {

@@ -17,10 +17,9 @@ import { Fragment, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import StatusBadge from '@/features/Eval/StatusBadge';
+import { formatDuration } from '@/features/Eval/utils';
 import { useEvalStore } from '@/store/eval';
-
-import StatusBadge from '../../../../features/StatusBadge';
-import { formatDuration } from '../../../../utils';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
   arrowIcon: css`

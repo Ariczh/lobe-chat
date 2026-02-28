@@ -4,7 +4,7 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import SideBar from '@/app/[variants]/(main)/settings/_layout/SideBar';
+import SideBar from '@/routes/(main)/settings/_layout/SideBar';
 
 import SettingsContextProvider from './ContextProvider';
 import { styles } from './style';

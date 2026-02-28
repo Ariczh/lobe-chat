@@ -6,9 +6,9 @@ import { createStaticStyles, useTheme } from 'antd-style';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useResourceManagerStore } from '@/app/[variants]/(main)/resource/features/store';
 import DragUploadZone from '@/components/DragUploadZone';
 import { PageEditor } from '@/features/PageEditor';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 import dynamic from '@/libs/next/dynamic';
 import { documentService } from '@/services/document';
 import { useFileStore } from '@/store/file';

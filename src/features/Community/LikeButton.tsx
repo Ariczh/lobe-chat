@@ -4,9 +4,8 @@ import { ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { styles } from '@/features/Community/components/Statistic';
 import { formatShortenNumber } from '@/utils/format';
-
-import { styles } from '../components/Statistic';
 
 interface LikeButtonProps {
   count: number;

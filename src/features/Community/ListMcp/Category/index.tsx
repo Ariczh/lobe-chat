@@ -5,14 +5,13 @@ import qs from 'query-string';
 import { memo, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { SCROLL_PARENT_ID } from '@/app/[variants]/(main)/community/features/const';
 import { withSuspense } from '@/components/withSuspense';
+import CategoryMenu from '@/features/Community/components/CategoryMenu';
+import { SCROLL_PARENT_ID } from '@/features/Community/const';
 import { useCategory } from '@/hooks/useMCPCategory';
 import { useQuery } from '@/hooks/useQuery';
 import { useDiscoverStore } from '@/store/discover';
 import { McpCategory, McpSorts } from '@/types/discover';
-
-import CategoryMenu from '../../../../components/CategoryMenu';
 
 const Category = memo(() => {
   const useMcpCategories = useDiscoverStore((s) => s.useMcpCategories);

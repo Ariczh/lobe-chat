@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import urlJoin from 'url-join';
 
+import Title from '@/features/Community/Title';
 import { useDetailContext } from '@/features/MCPPluginDetail/DetailProvider';
 
-import Title from '../../../../../features/Title';
 import Item from './Item';
 
 const Related = memo(() => {

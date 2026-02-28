@@ -7,8 +7,8 @@ import { memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import urlJoin from 'url-join';
 
-import StoreSearchBar from '@/app/[variants]/(main)/community/features/Search';
-import UserAvatar from '@/app/[variants]/(main)/community/features/UserAvatar';
+import StoreSearchBar from '@/features/Community/Search';
+import UserAvatar from '@/features/Community/UserAvatar';
 import NavHeader from '@/features/NavHeader';
 
 import { styles } from './Header/style';

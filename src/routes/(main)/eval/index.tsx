@@ -7,10 +7,9 @@ import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import NeuralNetworkLoading from '@/components/NeuralNetworkLoading';
+import BenchmarkCard from '@/features/Eval/BenchmarkCard';
+import CreateBenchmarkModal from '@/features/Eval/CreateBenchmarkModal';
 import { useEvalStore } from '@/store/eval';
-
-import BenchmarkCard from './features/BenchmarkCard';
-import CreateBenchmarkModal from './features/CreateBenchmarkModal';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
   container: css`

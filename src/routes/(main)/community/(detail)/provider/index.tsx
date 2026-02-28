@@ -4,12 +4,12 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
+import NotFound from '@/features/Community/DetailComponents/NotFound';
+import { DetailProvider } from '@/features/Community/DetailProvider/DetailProvider';
+import Details from '@/features/Community/DetailProvider/Details';
+import Header from '@/features/Community/DetailProvider/Header';
 import { useDiscoverStore } from '@/store/discover';
 
-import NotFound from '../components/NotFound';
-import { DetailProvider } from './features/DetailProvider';
-import Details from './features/Details';
-import Header from './features/Header';
 import Loading from './loading';
 
 interface ProviderDetailPageProps {

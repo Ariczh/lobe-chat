@@ -6,10 +6,10 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DEFAULT_USER_AVATAR_URL } from '@/const/meta';
+import Title from '@/features/Community/Title';
 import { useUserStore } from '@/store/user';
 import { authSelectors, userProfileSelectors } from '@/store/user/selectors';
 
-import Title from '../../../../../features/Title';
 import { useDetailContext } from '../../DetailProvider';
 
 const Overview = memo(() => {

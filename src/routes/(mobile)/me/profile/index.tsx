@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 
-import Category from './features/Category';
+import Category from '@/features/MobileProfile/Category';
 
 const MeProfilePage = memo(() => {
   return <Category />;

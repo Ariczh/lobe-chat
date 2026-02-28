@@ -5,23 +5,23 @@ import Referral from '@/business/client/BusinessSettingPages/Referral';
 import Usage from '@/business/client/BusinessSettingPages/Usage';
 import { SettingsTabs } from '@/store/global/initialState';
 
-import About from '../about';
-import Agent from '../agent';
-import APIKey from '../apikey';
-import ChatAppearance from '../chat-appearance';
-import Common from '../common';
-import Hotkey from '../hotkey';
-import Image from '../image';
-import Memory from '../memory';
-import Profile from '../profile';
-import Provider from '../provider';
-import Proxy from '../proxy';
-import Security from '../security';
-import Skill from '../skill';
-import Stats from '../stats';
-import Storage from '../storage';
-import SystemTools from '../system-tools';
-import TTS from '../tts';
+import About from '../About';
+import Agent from '../Agent';
+import APIKey from '../ApiKey';
+import ChatAppearance from '../ChatAppearance';
+import Common from '../Common';
+import Hotkey from '../Hotkey';
+import Image from '../Image';
+import Memory from '../Memory';
+import Profile from '../Profile';
+import Provider from '../Provider';
+import Proxy from '../Proxy';
+import Security from '../Security';
+import Skill from '../Skill';
+import Stats from '../Stats';
+import Storage from '../Storage';
+import SystemTools from '../SystemTools';
+import TTS from '../TTS';
 
 export const componentMap = {
   [SettingsTabs.Common]: Common,

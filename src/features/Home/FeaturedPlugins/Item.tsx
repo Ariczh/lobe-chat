@@ -2,8 +2,8 @@ import { Avatar, Block, Flexbox, Text } from '@lobehub/ui';
 import { cssVar } from 'antd-style';
 import { memo } from 'react';
 
-import MetaInfo from '@/app/[variants]/(main)/community/(list)/mcp/features/List/MetaInfo';
-import { RECENT_BLOCK_SIZE } from '@/app/[variants]/(main)/home/features/const';
+import MetaInfo from '@/features/Community/ListMcp/List/MetaInfo';
+import { RECENT_BLOCK_SIZE } from '@/features/Home/const';
 import { type DiscoverMcpItem } from '@/types/discover';
 
 const FeaturedPluginItem = memo<DiscoverMcpItem>(({ name, icon, github, installCount }) => {

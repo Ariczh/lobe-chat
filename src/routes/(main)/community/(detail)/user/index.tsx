@@ -3,15 +3,15 @@
 import { memo, useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import NotFound from '@/features/Community/DetailComponents/NotFound';
+import { UserDetailProvider } from '@/features/Community/DetailUser/DetailProvider';
+import UserHeader from '@/features/Community/DetailUser/Header';
+import UserContent from '@/features/Community/DetailUser/UserContent';
+import { useUserDetail } from '@/features/Community/DetailUser/useUserDetail';
 import { useMarketAuth, useMarketUserProfile } from '@/layout/AuthProvider/MarketAuth';
 import { type MarketUserProfile } from '@/layout/AuthProvider/MarketAuth/types';
 import { useDiscoverStore } from '@/store/discover';
 
-import NotFound from '../components/NotFound';
-import { UserDetailProvider } from './features/DetailProvider';
-import UserHeader from './features/Header';
-import UserContent from './features/UserContent';
-import { useUserDetail } from './features/useUserDetail';
 import Loading from './loading';
 
 interface UserDetailPageProps {
@@ -61,7 +61,15 @@ const UserDetailPage = memo<UserDetailPageProps>(({ mobile }) => {
 
   const contextConfig = useMemo(() => {
     if (!data || !data.user) return null;
-    const { user, agents, agentGroups, forkedAgents, forkedAgentGroups, favoriteAgents, favoriteAgentGroups } = data;
+    const {
+      user,
+      agents,
+      agentGroups,
+      forkedAgents,
+      forkedAgentGroups,
+      favoriteAgents,
+      favoriteAgentGroups,
+    } = data;
     const totalInstalls = agents.reduce((sum, agent) => sum + (agent.installCount || 0), 0);
     return {
       agentCount: agents.length,

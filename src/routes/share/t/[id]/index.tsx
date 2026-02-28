@@ -10,10 +10,9 @@ import useSWR from 'swr';
 
 import NotFound from '@/components/404';
 import Loading from '@/components/Loading/BrandTextLoading';
+import ActionBar from '@/features/ShareTopic/ActionBar';
+import SharedMessageList from '@/features/ShareTopic/SharedMessageList';
 import { lambdaClient } from '@/libs/trpc/client';
-
-import ActionBar from './features/ActionBar';
-import SharedMessageList from './SharedMessageList';
 
 const styles = createStaticStyles(({ css }) => ({
   errorContainer: css`

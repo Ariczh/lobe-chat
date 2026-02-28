@@ -31,7 +31,7 @@ import { aiProviderSelectors, useAiInfraStore } from '@/store/aiInfra';
 import { type AiProviderDetailItem, type AiProviderSourceType } from '@/types/aiProvider';
 import { AiProviderSourceEnum } from '@/types/aiProvider';
 
-import { KeyVaultsConfigKey, LLMProviderApiTokenKey, LLMProviderBaseUrlKey } from '../../const';
+import { KeyVaultsConfigKey, LLMProviderApiTokenKey, LLMProviderBaseUrlKey } from '../const';
 import { type CheckErrorRender } from './Checker';
 import Checker from './Checker';
 import EnableSwitch from './EnableSwitch';

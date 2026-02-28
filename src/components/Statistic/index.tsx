@@ -1,15 +1,36 @@
 import { Flexbox } from '@lobehub/ui';
 import { cssVar } from 'antd-style';
-import { type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode } from 'react';
 import { memo } from 'react';
 
-const Statistic = memo<{ title: ReactNode; value: ReactNode }>(({ value, title }) => {
-  return (
-    <Flexbox horizontal gap={4} style={{ color: cssVar.colorTextDescription, fontSize: 12 }}>
-      <span style={{ fontWeight: 'bold' }}>{value}</span>
-      <span style={{ fontWeight: 'normal' }}>{title}</span>
-    </Flexbox>
-  );
-});
+interface StatisticProps {
+  gap?: number;
+  title: ReactNode;
+  value: ReactNode;
+  valuePlacement?: 'bottom' | 'right';
+  valueStyle?: CSSProperties;
+  width?: number;
+}
+
+const Statistic = memo<StatisticProps>(
+  ({ value, title, gap = 4, valuePlacement, valueStyle, width }) => {
+    const isVertical = valuePlacement === 'bottom';
+    return (
+      <Flexbox
+        gap={gap}
+        style={{
+          color: cssVar.colorTextDescription,
+          flexDirection: isVertical ? 'column' : 'row',
+          fontSize: valueStyle?.fontSize ?? 12,
+          minWidth: width,
+          ...valueStyle,
+        }}
+      >
+        <span style={{ fontWeight: 'bold' }}>{value}</span>
+        <span style={{ fontWeight: 'normal' }}>{title}</span>
+      </Flexbox>
+    );
+  },
+);
 
 export default Statistic;

@@ -10,11 +10,11 @@ import { Link, Outlet } from 'react-router-dom';
 
 import { ProductLogo } from '@/components/Branding';
 import Loading from '@/components/Loading/BrandTextLoading';
+import SharePortal from '@/features/ShareTopic/Portal';
 import { useIsDark } from '@/hooks/useIsDark';
 import { useUserStore } from '@/store/user';
 import { authSelectors } from '@/store/user/slices/auth/selectors';
 
-import SharePortal from '../features/Portal';
 import { styles } from './style';
 import Title from './Title';
 

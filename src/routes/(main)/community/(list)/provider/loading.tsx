@@ -1,1 +1,1 @@
-export { default } from '../../components/ListLoading';
+export { default } from '@/features/Community/components/ListLoading';

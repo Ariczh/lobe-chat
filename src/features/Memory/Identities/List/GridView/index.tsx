@@ -1,9 +1,9 @@
 import { type IdentityListItem } from '@lobechat/types';
 import { memo } from 'react';
 
+import { GridView } from '@/features/Memory/GridView';
 import { useUserMemoryStore } from '@/store/userMemory';
 
-import { GridView } from '../../../../features/GridView';
 import IdentityCard from './IdentityCard';
 
 interface GridViewProps {

@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
-
-import Image from './features/Image';
+import Image from '@/features/Setting/Image/Image';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
 
 const Page = () => {
   const { t } = useTranslation('setting');

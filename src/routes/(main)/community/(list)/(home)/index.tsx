@@ -3,13 +3,13 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Title from '@/features/Community/components/Title';
+import AssistantList from '@/features/Community/ListAgent/List';
+import CreatorRewardBanner from '@/features/Community/ListHome/CreatorRewardBanner';
+import McpList from '@/features/Community/ListMcp/List';
 import { useDiscoverStore } from '@/store/discover';
 import { AssistantSorts, McpSorts } from '@/types/discover';
 
-import Title from '../../components/Title';
-import AssistantList from '../agent/features/List';
-import McpList from '../mcp/features/List';
-import CreatorRewardBanner from './features/CreatorRewardBanner';
 import Loading from './loading';
 
 const HomePage = memo(() => {

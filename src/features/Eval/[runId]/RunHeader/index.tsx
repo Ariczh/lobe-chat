@@ -10,8 +10,8 @@ import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
-import RunEditModal from '@/app/[variants]/(main)/eval/bench/[benchmarkId]/features/RunEditModal';
-import StatusBadge from '@/app/[variants]/(main)/eval/features/StatusBadge';
+import RunEditModal from '@/features/Eval/[benchmarkId]/RunEditModal';
+import StatusBadge from '@/features/Eval/StatusBadge';
 import { useEvalStore } from '@/store/eval';
 
 const useStyles = createStyles(({ css, token }) => ({

@@ -3,14 +3,13 @@
 import { memo, useLayoutEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-import Container from '@/app/[variants]/(main)/resource/library/features/Container';
 import NotFound from '@/components/404';
 import NProgress from '@/components/NProgress';
 import ResourceManager from '@/features/ResourceManager';
-
-import { useInitFileCheck } from '../features/hooks/useInitFileCheck';
-import { useKnowledgeBaseItem } from '../features/hooks/useKnowledgeItem';
-import { useResourceManagerStore } from '../features/store';
+import { useInitFileCheck } from '@/features/ResourceManager/hooks/useInitFileCheck';
+import { useKnowledgeBaseItem } from '@/features/ResourceManager/hooks/useKnowledgeItem';
+import Container from '@/features/ResourceManager/Library/Container';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 
 const MainContent = memo(() => {
   const { id: knowledgeBaseId } = useParams<{ id: string }>();

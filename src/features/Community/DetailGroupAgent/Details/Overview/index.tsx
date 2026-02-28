@@ -6,10 +6,10 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DEFAULT_USER_AVATAR_URL } from '@/const/meta';
+import Title from '@/features/Community/Title';
 import { useUserStore } from '@/store/user';
 import { authSelectors, userProfileSelectors } from '@/store/user/selectors';
 
-import Title from '../../../../../features/Title';
 import { useDetailContext } from '../../DetailProvider';
 
 const styles = createStaticStyles(({ css, cssVar }) => {
@@ -27,63 +27,55 @@ const styles = createStaticStyles(({ css, cssVar }) => {
   };
 });
 
-const MemberCard = memo(
-  ({
-    agent,
-    currentVersion,
-  }: {
-    agent: any;
-    currentVersion: any;
-  }) => {
-    return (
-      <Block
-        height={'100%'}
-        variant={'outlined'}
-        width={'100%'}
-        style={{
-          cursor: 'default',
-          overflow: 'hidden',
-        }}
-      >
-        <Flexbox gap={12} padding={16}>
-          {/* Avatar and Basic Info */}
-          <Flexbox horizontal align={'flex-start'} gap={12}>
-            <Avatar
-              avatar={currentVersion.avatar || agent.name?.[0]}
-              shape={'square'}
-              size={40}
-              style={{ flex: 'none' }}
-            />
-            <Flexbox
-              flex={1}
-              gap={4}
-              style={{
-                overflow: 'hidden',
-              }}
-            >
-              <Text ellipsis as={'h3'} className={styles.title}>
-                {currentVersion.name || agent.name}
-              </Text>
-            </Flexbox>
-          </Flexbox>
-
-          {/* Description */}
-          {currentVersion.description && currentVersion.description !== 'No description provided' && (
-            <Text
-              as={'p'}
-              className={styles.desc}
-              ellipsis={{
-                rows: 2,
-              }}
-            >
-              {currentVersion.description}
+const MemberCard = memo(({ agent, currentVersion }: { agent: any; currentVersion: any }) => {
+  return (
+    <Block
+      height={'100%'}
+      variant={'outlined'}
+      width={'100%'}
+      style={{
+        cursor: 'default',
+        overflow: 'hidden',
+      }}
+    >
+      <Flexbox gap={12} padding={16}>
+        {/* Avatar and Basic Info */}
+        <Flexbox horizontal align={'flex-start'} gap={12}>
+          <Avatar
+            avatar={currentVersion.avatar || agent.name?.[0]}
+            shape={'square'}
+            size={40}
+            style={{ flex: 'none' }}
+          />
+          <Flexbox
+            flex={1}
+            gap={4}
+            style={{
+              overflow: 'hidden',
+            }}
+          >
+            <Text ellipsis as={'h3'} className={styles.title}>
+              {currentVersion.name || agent.name}
             </Text>
-          )}
+          </Flexbox>
         </Flexbox>
-      </Block>
-    );
-  },
-);
+
+        {/* Description */}
+        {currentVersion.description && currentVersion.description !== 'No description provided' && (
+          <Text
+            as={'p'}
+            className={styles.desc}
+            ellipsis={{
+              rows: 2,
+            }}
+          >
+            {currentVersion.description}
+          </Text>
+        )}
+      </Flexbox>
+    </Block>
+  );
+});
 
 MemberCard.displayName = 'MemberCard';
 

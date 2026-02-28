@@ -1,7 +1,7 @@
 import { type IdentityListItem } from '@lobechat/types';
 import { memo } from 'react';
 
-import GridCard from '@/app/[variants]/(main)/memory/features/GridView/GridCard';
+import GridCard from '@/features/Memory/GridView/GridCard';
 
 import IdentityDropdown from '../../IdentityDropdown';
 

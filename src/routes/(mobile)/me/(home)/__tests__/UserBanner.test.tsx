@@ -1,9 +1,8 @@
 import { act, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import UserBanner from '@/features/MobileMe/UserBanner';
 import { useUserStore } from '@/store/user';
-
-import UserBanner from '../features/UserBanner';
 
 // Mock dependencies
 const mockNavigate = vi.fn();

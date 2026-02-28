@@ -4,8 +4,8 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import urlJoin from 'url-join';
 
-import GroupSkeleton from '@/app/[variants]/(main)/home/features/components/GroupSkeleton';
-import { RECENT_BLOCK_SIZE } from '@/app/[variants]/(main)/home/features/const';
+import GroupSkeleton from '@/features/Home/components/GroupSkeleton';
+import { RECENT_BLOCK_SIZE } from '@/features/Home/const';
 import { useDiscoverStore } from '@/store/discover';
 import { type StarterMode } from '@/store/home';
 import { AssistantCategory } from '@/types/discover';

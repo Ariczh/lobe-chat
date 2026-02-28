@@ -5,7 +5,7 @@ import { Block, Center } from '@lobehub/ui';
 import { Progress, Spin } from 'antd';
 import { memo, useEffect, useState } from 'react';
 
-import { ElapsedTime } from '@/app/[variants]/(main)/image/features/GenerationFeed/GenerationItem/ElapsedTime';
+import { ElapsedTime } from '@/features/ImageGeneration/GenerationFeed/GenerationItem/ElapsedTime';
 import { AsyncTaskStatus } from '@/types/asyncTask';
 import type { Generation } from '@/types/generation';
 

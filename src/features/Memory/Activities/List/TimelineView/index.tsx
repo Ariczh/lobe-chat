@@ -3,10 +3,10 @@
 import { type ActivityListItem } from '@lobechat/types';
 import { memo } from 'react';
 
+import { TimelineView as GenericTimelineView } from '@/features/Memory/TimeLineView';
+import { PeriodHeader, TimelineItemWrapper } from '@/features/Memory/TimeLineView/PeriodGroup';
 import { useUserMemoryStore } from '@/store/userMemory';
 
-import { TimelineView as GenericTimelineView } from '../../../../features/TimeLineView';
-import { PeriodHeader, TimelineItemWrapper } from '../../../../features/TimeLineView/PeriodGroup';
 import ActivityCard from './ActivityCard';
 
 interface ActivityTimelineViewProps {

@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 
 import InlineTable from '@/components/InlineTable';
 import PublishedTime from '@/components/PublishedTime';
+import Title from '@/features/Community/Title';
 import Link from '@/libs/router/Link';
 import { usePathname, useQuery } from '@/libs/router/navigation';
 import { type AssistantMarketSource } from '@/types/discover';
 import { AssistantNavKey } from '@/types/discover';
 
-import Title from '../../../../../features/Title';
 import { useDetailContext } from '../../DetailProvider';
 
 const Versions = memo(() => {
@@ -118,9 +118,7 @@ const Versions = memo(() => {
             {
               align: 'end',
               dataIndex: 'createdAt',
-              render: (_: any, record: any) => (
-                <PublishedTime date={record.createdAt} />
-              ),
+              render: (_: any, record: any) => <PublishedTime date={record.createdAt} />,
               title: t('assistants.details.version.table.publishAt'),
             },
           ]}

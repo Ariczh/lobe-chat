@@ -1,7 +1,8 @@
 import { type IdentityListItem } from '@lobechat/types';
 import { memo } from 'react';
 
-import TimeLineCard from '../../../../features/TimeLineView/TimeLineCard';
+import TimeLineCard from '@/features/Memory/TimeLineView/TimeLineCard';
+
 import IdentityDropdown from '../../IdentityDropdown';
 
 interface IdentityCardProps {

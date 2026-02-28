@@ -5,10 +5,9 @@ import { Store } from 'lucide-react';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SettingHeader from '@/app/[variants]/(main)/settings/features/SettingHeader';
+import SettingHeader from '@/features/Setting/Page/SettingHeader';
+import SkillList from '@/features/Setting/Skill/SkillList';
 import { createSkillStoreModal } from '@/features/SkillStore';
-
-import SkillList from './features/SkillList';
 
 const Page = () => {
   const { t } = useTranslation('setting');

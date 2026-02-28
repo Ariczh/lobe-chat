@@ -6,20 +6,23 @@ import { memo, Suspense, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import Loading from '@/components/Loading/BrandTextLoading';
-import { electronSystemService } from '@/services/electron/system';
-
-import OnboardingContainer from './_layout';
-import DataModeStep from './features/DataModeStep';
-import LoginStep from './features/LoginStep';
-import PermissionsStep from './features/PermissionsStep';
-import WelcomeStep from './features/WelcomeStep';
+import DataModeStep from '@/features/DesktopOnboarding/DataModeStep';
+import LoginStep from '@/features/DesktopOnboarding/LoginStep';
+import PermissionsStep from '@/features/DesktopOnboarding/PermissionsStep';
 import {
   clearDesktopOnboardingScreen,
   getDesktopOnboardingScreen,
   setDesktopOnboardingCompleted,
   setDesktopOnboardingScreen,
-} from './storage';
-import { DesktopOnboardingScreen, isDesktopOnboardingScreen } from './types';
+} from '@/features/DesktopOnboarding/storage';
+import {
+  DesktopOnboardingScreen,
+  isDesktopOnboardingScreen,
+} from '@/features/DesktopOnboarding/types';
+import WelcomeStep from '@/features/DesktopOnboarding/WelcomeStep';
+import { electronSystemService } from '@/services/electron/system';
+
+import OnboardingContainer from './_layout';
 
 const DesktopOnboardingPage = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();

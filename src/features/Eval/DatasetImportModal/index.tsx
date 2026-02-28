@@ -5,11 +5,11 @@ import { App } from 'antd';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { getPresetById } from '@/features/Eval/config/datasetPresets';
 import { agentEvalService } from '@/services/agentEval';
 import { uploadService } from '@/services/upload';
 import { type FileUploadState } from '@/types/files/upload';
 
-import { getPresetById } from '../../config/datasetPresets';
 import MappingStep, { autoInferMapping, type FieldMappingValue } from './MappingStep';
 import UploadStep from './UploadStep';
 

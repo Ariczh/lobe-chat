@@ -21,18 +21,21 @@ export const mobileRoutes: RouteConfig[] = [
           {
             children: [
               {
-                element: dynamicElement(() => import('../chat'), 'Mobile > Chat'),
+                element: dynamicElement(() => import('@/routes/(mobile)/chat'), 'Mobile > Chat'),
                 index: true,
               },
               {
                 element: dynamicElement(
-                  () => import('../chat/settings'),
+                  () => import('@/routes/(mobile)/chat/settings'),
                   'Mobile > Chat > Settings',
                 ),
                 path: 'settings',
               },
             ],
-            element: dynamicLayout(() => import('../chat/_layout'), 'Mobile > Chat > Layout'),
+            element: dynamicLayout(
+              () => import('@/routes/(mobile)/chat/_layout'),
+              'Mobile > Chat > Layout',
+            ),
             errorElement: <ErrorBoundary resetPath="/agent" />,
             path: ':aid',
           },
@@ -48,7 +51,7 @@ export const mobileRoutes: RouteConfig[] = [
             children: [
               {
                 element: dynamicElement(
-                  () => import('../../(main)/community/(list)/(home)'),
+                  () => import('@/routes/(main)/community/(list)/(home)'),
                   'Mobile > Discover > List > Home',
                 ),
                 index: true,
@@ -57,7 +60,7 @@ export const mobileRoutes: RouteConfig[] = [
                 children: [
                   {
                     element: dynamicElement(
-                      () => import('../../(main)/community/(list)/agent'),
+                      () => import('@/routes/(main)/community/(list)/agent'),
                       'Mobile > Discover > List > Agent',
                     ),
                     path: 'agent',
@@ -68,7 +71,7 @@ export const mobileRoutes: RouteConfig[] = [
                 children: [
                   {
                     element: dynamicElement(
-                      () => import('../../(main)/community/(list)/model'),
+                      () => import('@/routes/(main)/community/(list)/model'),
                       'Mobile > Discover > List > Model',
                     ),
                     path: 'model',
@@ -77,7 +80,7 @@ export const mobileRoutes: RouteConfig[] = [
               },
               {
                 element: dynamicElement(
-                  () => import('../../(main)/community/(list)/provider'),
+                  () => import('@/routes/(main)/community/(list)/provider'),
                   'Mobile > Discover > List > Provider',
                 ),
                 path: 'provider',
@@ -86,7 +89,7 @@ export const mobileRoutes: RouteConfig[] = [
                 children: [
                   {
                     element: dynamicElement(
-                      () => import('../../(main)/community/(list)/mcp'),
+                      () => import('@/routes/(main)/community/(list)/mcp'),
                       'Mobile > Discover > List > MCP',
                     ),
                     path: 'mcp',
@@ -95,7 +98,7 @@ export const mobileRoutes: RouteConfig[] = [
               },
             ],
             element: dynamicElement(
-              () => import('../community/(list)/_layout'),
+              () => import('@/routes/(mobile)/community/(list)/_layout'),
               'Mobile > Discover > List > Layout',
             ),
           },
@@ -105,7 +108,7 @@ export const mobileRoutes: RouteConfig[] = [
               {
                 element: dynamicElement(
                   () =>
-                    import('../../(main)/community/(detail)/agent').then(
+                    import('@/routes/(main)/community/(detail)/agent').then(
                       (m) => m.MobileDiscoverAssistantDetailPage,
                     ),
                   'Mobile > Discover > Detail > Agent',
@@ -115,7 +118,9 @@ export const mobileRoutes: RouteConfig[] = [
               {
                 element: dynamicElement(
                   () =>
-                    import('../../(main)/community/(detail)/model').then((m) => m.MobileModelPage),
+                    import('@/routes/(main)/community/(detail)/model').then(
+                      (m) => m.MobileModelPage,
+                    ),
                   'Mobile > Discover > Detail > Model',
                 ),
                 path: 'model/:slug',
@@ -123,7 +128,7 @@ export const mobileRoutes: RouteConfig[] = [
               {
                 element: dynamicElement(
                   () =>
-                    import('../../(main)/community/(detail)/provider').then(
+                    import('@/routes/(main)/community/(detail)/provider').then(
                       (m) => m.MobileProviderPage,
                     ),
                   'Mobile > Discover > Detail > Provider',
@@ -132,7 +137,8 @@ export const mobileRoutes: RouteConfig[] = [
               },
               {
                 element: dynamicElement(
-                  () => import('../../(main)/community/(detail)/mcp').then((m) => m.MobileMcpPage),
+                  () =>
+                    import('@/routes/(main)/community/(detail)/mcp').then((m) => m.MobileMcpPage),
                   'Mobile > Discover > Detail > MCP',
                 ),
                 path: 'mcp/:slug',
@@ -140,7 +146,7 @@ export const mobileRoutes: RouteConfig[] = [
               {
                 element: dynamicElement(
                   () =>
-                    import('../../(main)/community/(detail)/user').then(
+                    import('@/routes/(main)/community/(detail)/user').then(
                       (m) => m.MobileUserDetailPage,
                     ),
                   'Mobile > Discover > Detail > User',
@@ -149,12 +155,15 @@ export const mobileRoutes: RouteConfig[] = [
               },
             ],
             element: dynamicElement(
-              () => import('../community/(detail)/_layout'),
+              () => import('@/routes/(mobile)/community/(detail)/_layout'),
               'Mobile > Discover > Detail > Layout',
             ),
           },
         ],
-        element: dynamicElement(() => import('../community/_layout'), 'Mobile > Discover > Layout'),
+        element: dynamicElement(
+          () => import('@/routes/(mobile)/community/_layout'),
+          'Mobile > Discover > Layout',
+        ),
         errorElement: <ErrorBoundary resetPath="/community" />,
         path: 'community',
       },
@@ -163,7 +172,10 @@ export const mobileRoutes: RouteConfig[] = [
       {
         children: [
           {
-            element: dynamicElement(() => import('../settings'), 'Mobile > Settings'),
+            element: dynamicElement(
+              () => import('@/routes/(mobile)/settings'),
+              'Mobile > Settings',
+            ),
             index: true,
           },
           // Provider routes with nested structure
@@ -175,14 +187,15 @@ export const mobileRoutes: RouteConfig[] = [
               },
               {
                 element: dynamicElement(
-                  () => import('../../(main)/settings/provider').then((m) => m.ProviderDetailPage),
+                  () =>
+                    import('@/routes/(main)/settings/provider').then((m) => m.ProviderDetailPage),
                   'Mobile > Settings > Provider > Detail',
                 ),
                 path: ':providerId',
               },
             ],
             element: dynamicLayout(
-              () => import('../settings/provider/_layout'),
+              () => import('@/routes/(mobile)/settings/provider/_layout'),
               'Mobile > Settings > Provider > Layout',
             ),
             path: 'provider',
@@ -190,13 +203,16 @@ export const mobileRoutes: RouteConfig[] = [
           // Other settings tabs (common, agent, memory, tts, about, etc.)
           {
             element: dynamicElement(
-              () => import('../../(main)/settings'),
+              () => import('@/routes/(main)/settings'),
               'Mobile > Settings > Tab',
             ),
             path: ':tab',
           },
         ],
-        element: dynamicLayout(() => import('../settings/_layout'), 'Mobile > Settings > Layout'),
+        element: dynamicLayout(
+          () => import('@/routes/(mobile)/settings/_layout'),
+          'Mobile > Settings > Layout',
+        ),
         errorElement: <ErrorBoundary resetPath="/settings" />,
         path: 'settings',
       },
@@ -210,14 +226,14 @@ export const mobileRoutes: RouteConfig[] = [
             children: [
               {
                 element: dynamicElement(
-                  () => import('@/app/[variants]/(mobile)/me/(home)'),
+                  () => import('@/routes/(mobile)/me/(home)'),
                   'Mobile > Me > Home',
                 ),
                 index: true,
               },
             ],
             element: dynamicLayout(
-              () => import('../me/(home)/layout'),
+              () => import('@/routes/(mobile)/me/(home)/layout'),
               'Mobile > Me > Home > Layout',
             ),
           },
@@ -225,14 +241,14 @@ export const mobileRoutes: RouteConfig[] = [
             children: [
               {
                 element: dynamicElement(
-                  () => import('@/app/[variants]/(mobile)/me/profile'),
+                  () => import('@/routes/(mobile)/me/profile'),
                   'Mobile > Me > Profile',
                 ),
                 path: 'profile',
               },
             ],
             element: dynamicLayout(
-              () => import('../me/profile/layout'),
+              () => import('@/routes/(mobile)/me/profile/layout'),
               'Mobile > Me > Profile > Layout',
             ),
           },
@@ -240,14 +256,14 @@ export const mobileRoutes: RouteConfig[] = [
             children: [
               {
                 element: dynamicElement(
-                  () => import('@/app/[variants]/(mobile)/me/settings'),
+                  () => import('@/routes/(mobile)/me/settings'),
                   'Mobile > Me > Settings',
                 ),
                 path: 'settings',
               },
             ],
             element: dynamicLayout(
-              () => import('../me/settings/layout'),
+              () => import('@/routes/(mobile)/me/settings/layout'),
               'Mobile > Me > Settings > Layout',
             ),
           },
@@ -260,11 +276,14 @@ export const mobileRoutes: RouteConfig[] = [
       {
         children: [
           {
-            element: dynamicElement(() => import('../(home)/'), 'Mobile > Home'),
+            element: dynamicElement(() => import('@/routes/(mobile)/(home)/'), 'Mobile > Home'),
             index: true,
           },
         ],
-        element: dynamicLayout(() => import('../(home)/_layout'), 'Mobile > Home > Layout'),
+        element: dynamicLayout(
+          () => import('@/routes/(mobile)/(home)/_layout'),
+          'Mobile > Home > Layout',
+        ),
       },
 
       // Catch-all route
@@ -273,13 +292,13 @@ export const mobileRoutes: RouteConfig[] = [
         path: '*',
       },
     ],
-    element: dynamicLayout(() => import('../_layout'), 'Mobile > Main > Layout'),
+    element: dynamicLayout(() => import('@/routes/(mobile)/_layout'), 'Mobile > Main > Layout'),
     errorElement: <ErrorBoundary resetPath="/" />,
     path: '/',
   },
   // Onboarding route (outside main layout)
   {
-    element: dynamicElement(() => import('../../onboarding'), 'Mobile > Onboarding'),
+    element: dynamicElement(() => import('@/routes/onboarding'), 'Mobile > Onboarding'),
     errorElement: <ErrorBoundary resetPath="/" />,
     path: '/onboarding',
   },
@@ -289,12 +308,12 @@ export const mobileRoutes: RouteConfig[] = [
   {
     children: [
       {
-        element: dynamicElement(() => import('../../share/t/[id]'), 'Mobile > Share > Topic'),
+        element: dynamicElement(() => import('@/routes/share/t/[id]'), 'Mobile > Share > Topic'),
         path: ':id',
       },
     ],
     element: dynamicElement(
-      () => import('../../share/t/[id]/_layout'),
+      () => import('@/routes/share/t/[id]/_layout'),
       'Mobile > Share > Topic > Layout',
     ),
     path: '/share/t',

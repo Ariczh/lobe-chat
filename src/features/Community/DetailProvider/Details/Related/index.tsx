@@ -2,8 +2,9 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import List from '../../../../../(list)/provider/features/List';
-import Title from '../../../../../features/Title';
+import List from '@/features/Community/ListProvider/List';
+import Title from '@/features/Community/Title';
+
 import { useDetailContext } from '../../DetailProvider';
 
 const Related = memo(() => {

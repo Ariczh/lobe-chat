@@ -8,7 +8,7 @@ import { type ReactNode } from 'react';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { SCROLL_PARENT_ID } from '../features/const';
+import { SCROLL_PARENT_ID } from '@/features/Community/const';
 
 const SCROLL_CONTAINER_ID = 'lobe-mobile-scroll-container';
 

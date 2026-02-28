@@ -5,16 +5,15 @@ import { type FC } from 'react';
 import { memo, Suspense } from 'react';
 
 import Loading from '@/components/Loading/BrandTextLoading';
+import AgentBuilder from '@/features/AgentBuilder';
+import GroupProfileSettings from '@/features/GroupProfile/GroupProfile';
+import Header from '@/features/GroupProfile/Header';
+import MemberProfile from '@/features/GroupProfile/MemberProfile';
+import StoreSync from '@/features/GroupProfile/StoreSync';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import { useAgentGroupStore } from '@/store/agentGroup';
 import { agentGroupSelectors } from '@/store/agentGroup/selectors';
 import { useGroupProfileStore } from '@/store/groupProfile';
-
-import AgentBuilder from './features/AgentBuilder';
-import GroupProfileSettings from './features/GroupProfile';
-import Header from './features/Header';
-import MemberProfile from './features/MemberProfile';
-import StoreSync from './StoreSync';
 
 const ProfileArea = memo(() => {
   const editor = useGroupProfileStore((s) => s.editor);

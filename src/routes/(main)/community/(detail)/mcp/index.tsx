@@ -4,15 +4,15 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { TocProvider } from '@/features/Community/Detail/Toc/useToc';
+import NotFound from '@/features/Community/DetailComponents/NotFound';
+import Details from '@/features/Community/DetailMcp/Details';
 import { DetailProvider } from '@/features/MCPPluginDetail/DetailProvider';
 import Header from '@/features/MCPPluginDetail/Header';
 import { useFetchInstalledPlugins } from '@/hooks/useFetchInstalledPlugins';
 import { useQuery } from '@/hooks/useQuery';
 import { useDiscoverStore } from '@/store/discover';
 
-import NotFound from '../components/NotFound';
-import { TocProvider } from '../features/Toc/useToc';
-import Details from './features/Details';
 import Loading from './loading';
 
 interface McpDetailPageProps {

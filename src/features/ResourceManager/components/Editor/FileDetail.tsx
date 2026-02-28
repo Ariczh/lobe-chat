@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 
-import FileDetailComponent from '@/app/[variants]/(main)/resource/features/FileDetail';
+import FileDetailComponent from '@/features/ResourceManager/FileDetail';
 import { fileManagerSelectors, useFileStore } from '@/store/file';
 
 interface FileDetailProps {

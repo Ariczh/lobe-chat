@@ -4,21 +4,20 @@ import { type FC } from 'react';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import MemoryAnalysis from '@/app/[variants]/(main)/memory/features/MemoryAnalysis';
-import { SCROLL_PARENT_ID } from '@/app/[variants]/(main)/memory/features/TimeLineView/useScrollParent';
+import EditableModal from '@/features/Memory/EditableModal';
+import FilterBar from '@/features/Memory/FilterBar';
+import Loading from '@/features/Memory/Loading';
+import MemoryAnalysis from '@/features/Memory/MemoryAnalysis';
+import List from '@/features/Memory/Preferences/List';
+import PreferenceRightPanel from '@/features/Memory/Preferences/PreferenceRightPanel';
+import { SCROLL_PARENT_ID } from '@/features/Memory/TimeLineView/useScrollParent';
+import { type ViewMode } from '@/features/Memory/ViewModeSwitcher';
+import ViewModeSwitcher from '@/features/Memory/ViewModeSwitcher';
 import NavHeader from '@/features/NavHeader';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
 import { useQueryState } from '@/hooks/useQueryParam';
 import { useUserMemoryStore } from '@/store/userMemory';
-
-import EditableModal from '../features/EditableModal';
-import FilterBar from '../features/FilterBar';
-import Loading from '../features/Loading';
-import { type ViewMode } from '../features/ViewModeSwitcher';
-import ViewModeSwitcher from '../features/ViewModeSwitcher';
-import List from './features/List';
-import PreferenceRightPanel from './features/PreferenceRightPanel';
 
 const PreferencesArea = memo(() => {
   const { t } = useTranslation('memory');

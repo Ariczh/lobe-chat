@@ -7,13 +7,13 @@ import { Plus } from 'lucide-react';
 import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import DatasetCreateModal from '@/features/Eval/DatasetCreateModal';
+import DatasetEditModal from '@/features/Eval/DatasetEditModal';
+import DatasetImportModal from '@/features/Eval/DatasetImportModal';
+import TestCaseCreateModal from '@/features/Eval/TestCaseCreateModal';
 import { agentEvalService } from '@/services/agentEval';
 import { useEvalStore } from '@/store/eval';
 
-import DatasetCreateModal from '../../../../features/DatasetCreateModal';
-import DatasetEditModal from '../../../../features/DatasetEditModal';
-import DatasetImportModal from '../../../../features/DatasetImportModal';
-import TestCaseCreateModal from '../../../../features/TestCaseCreateModal';
 import RunCreateModal from '../RunCreateModal';
 import DatasetCard from './DatasetCard';
 import EmptyState from './EmptyState';

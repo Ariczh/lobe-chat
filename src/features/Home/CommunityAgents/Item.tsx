@@ -2,8 +2,8 @@ import { Avatar, Block, Flexbox, Text } from '@lobehub/ui';
 import { cssVar } from 'antd-style';
 import { memo } from 'react';
 
-import { RECENT_BLOCK_SIZE } from '@/app/[variants]/(main)/home/features/const';
 import { DEFAULT_AVATAR } from '@/const/meta';
+import { RECENT_BLOCK_SIZE } from '@/features/Home/const';
 import { useIsDark } from '@/hooks/useIsDark';
 import { type DiscoverAssistantItem } from '@/types/discover';
 

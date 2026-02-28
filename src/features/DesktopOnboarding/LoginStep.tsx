@@ -12,13 +12,12 @@ import urlJoin from 'url-join';
 
 import { OFFICIAL_SITE } from '@/const/url';
 import { isDesktop } from '@/const/version';
+import LobeMessage from '@/features/DesktopOnboarding/components/LobeMessage';
 import UserInfo from '@/features/User/UserInfo';
 import { remoteServerService } from '@/services/electron/remoteServer';
 import { electronSystemService } from '@/services/electron/system';
 import { useElectronStore } from '@/store/electron';
 import { setDesktopAutoOidcFirstOpenHandled } from '@/utils/electron/autoOidc';
-
-import LobeMessage from '../components/LobeMessage';
 
 const LEGACY_LOCAL_DB_MIGRATION_GUIDE_URL = urlJoin(
   OFFICIAL_SITE,

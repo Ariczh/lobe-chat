@@ -1,8 +1,9 @@
 import { Flexbox } from '@lobehub/ui';
 import { Outlet } from 'react-router-dom';
 
-import CategoryContainer from '../../../components/CategoryContainer';
-import Category from '../features/Category';
+import CategoryContainer from '@/features/Community/components/CategoryContainer';
+import Category from '@/features/Community/ListModel/Category';
+
 import { styles } from './style';
 
 const Layout = () => {

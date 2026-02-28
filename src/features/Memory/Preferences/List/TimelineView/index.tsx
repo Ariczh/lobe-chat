@@ -3,10 +3,10 @@
 import { memo } from 'react';
 
 import { type DisplayPreferenceMemory } from '@/database/repositories/userMemory';
+import { TimelineView as GenericTimelineView } from '@/features/Memory/TimeLineView';
+import { PeriodHeader, TimelineItemWrapper } from '@/features/Memory/TimeLineView/PeriodGroup';
 import { useUserMemoryStore } from '@/store/userMemory';
 
-import { TimelineView as GenericTimelineView } from '../../../../features/TimeLineView';
-import { PeriodHeader, TimelineItemWrapper } from '../../../../features/TimeLineView/PeriodGroup';
 import PreferenceCard from './PreferenceCard';
 
 interface PreferenceTimelineViewProps {

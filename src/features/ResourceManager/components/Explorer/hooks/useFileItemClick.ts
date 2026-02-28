@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { useResourceManagerStore } from '@/app/[variants]/(main)/resource/features/store';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 
 export interface UseFileItemClickOptions {
   id: string;
@@ -72,7 +72,19 @@ export const useFileItemClick = ({
       // Call onOpen if provided for backwards compatibility
       onOpen?.(id);
     }
-  }, [isFolder, slug, id, libraryId, isPage, navigate, searchParams, setSearchParams, setMode, setCurrentViewItemId, onOpen]);
+  }, [
+    isFolder,
+    slug,
+    id,
+    libraryId,
+    isPage,
+    navigate,
+    searchParams,
+    setSearchParams,
+    setMode,
+    setCurrentViewItemId,
+    onOpen,
+  ]);
 
   return handleClick;
 };

@@ -4,8 +4,9 @@ import { MessageCircleHeartIcon, MessageCircleQuestionIcon } from 'lucide-react'
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Title from '../../../../../features/Title';
-import MarkdownRender from '../../../../features/MakedownRender';
+import MarkdownRender from '@/features/Community/Detail/MakedownRender';
+import Title from '@/features/Community/Title';
+
 import { useDetailContext } from '../../DetailProvider';
 import TagList from './TagList';
 
@@ -18,7 +19,15 @@ const SystemRole = memo(() => {
     <Flexbox gap={16}>
       {systemRole && (
         <>
-          <Title tag={tokenUsage && <Tag>{t('groupAgents.details.tokenUsage', { defaultValue: `${tokenUsage} tokens` })}</Tag>}>
+          <Title
+            tag={
+              tokenUsage && (
+                <Tag>
+                  {t('groupAgents.details.tokenUsage', { defaultValue: `${tokenUsage} tokens` })}
+                </Tag>
+              )
+            }
+          >
             {t('groupAgents.details.systemRole.title', { defaultValue: 'System Role' })}
           </Title>
           <Block gap={16} padding={16} variant={'outlined'}>

@@ -5,8 +5,8 @@ import { cssVar } from 'antd-style';
 import { FileTextIcon } from 'lucide-react';
 import { memo } from 'react';
 
-import Time from '@/app/[variants]/(main)/home/features/components/Time';
-import { RECENT_BLOCK_SIZE } from '@/app/[variants]/(main)/home/features/const';
+import Time from '@/features/Home/components/Time';
+import { RECENT_BLOCK_SIZE } from '@/features/Home/const';
 import { type FileListItem } from '@/types/files';
 import markdownToTxt from '@/utils/markdownToTxt';
 

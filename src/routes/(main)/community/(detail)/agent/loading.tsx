@@ -4,7 +4,7 @@ import { Flexbox, Skeleton } from '@lobehub/ui';
 import { useResponsive } from 'antd-style';
 import { memo } from 'react';
 
-import Nav from './features/Details/Nav';
+import Nav from '@/features/Community/DetailAgent/Details/Nav';
 
 const Loading = memo(() => {
   const { mobile } = useResponsive();

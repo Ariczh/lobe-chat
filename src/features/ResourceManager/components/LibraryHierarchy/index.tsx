@@ -4,8 +4,8 @@ import { Flexbox } from '@lobehub/ui';
 import { memo, useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import { VList } from 'virtua';
 
-import { useFolderPath } from '@/app/[variants]/(main)/resource/features/hooks/useFolderPath';
-import { useResourceManagerStore } from '@/app/[variants]/(main)/resource/features/store';
+import { useFolderPath } from '@/features/ResourceManager/hooks/useFolderPath';
+import { useResourceManagerStore } from '@/features/ResourceManager/store';
 import { fileService } from '@/services/file';
 import { useFileStore } from '@/store/file';
 import { type ResourceQueryParams } from '@/types/resource';

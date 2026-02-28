@@ -6,7 +6,7 @@ import { CalendarClockIcon } from 'lucide-react';
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useMemoryAnalysisAsyncTask } from '@/app/[variants]/(main)/memory/features/MemoryAnalysis/useTask';
+import { useMemoryAnalysisAsyncTask } from '@/features/Memory/MemoryAnalysis/useTask';
 import { memoryExtractionService } from '@/services/userMemory/extraction';
 
 import DateRangeModal from './DateRangeModal';

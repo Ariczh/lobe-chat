@@ -8,7 +8,7 @@ import { CheckCircle2, Clock, DollarSign, Hash } from 'lucide-react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatDuration } from '../../../../../../utils';
+import { formatDuration } from '@/features/Eval/utils';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
   card: css`

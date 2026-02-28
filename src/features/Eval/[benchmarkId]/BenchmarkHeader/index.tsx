@@ -21,10 +21,9 @@ import { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import BenchmarkEditModal from '@/features/Eval/BenchmarkEditModal';
+import { formatDuration, formatDurationMinutes } from '@/features/Eval/utils';
 import { useEvalStore } from '@/store/eval';
-
-import BenchmarkEditModal from '../../../../features/BenchmarkEditModal';
-import { formatDuration, formatDurationMinutes } from '../../../../utils';
 
 const RANK_COLORS = [cssVar.colorPrimary, cssVar.colorSuccess, cssVar.colorTextQuaternary];
 

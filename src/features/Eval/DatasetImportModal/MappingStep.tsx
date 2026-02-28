@@ -6,7 +6,8 @@ import { cssVar } from 'antd-style';
 import { memo, type ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type DatasetPreset } from '../../config/datasetPresets';
+import { type DatasetPreset } from '@/features/Eval/config/datasetPresets';
+
 import { ROLE_COLORS } from './const';
 
 // Known candidate names for auto-inference

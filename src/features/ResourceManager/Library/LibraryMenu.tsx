@@ -4,8 +4,7 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
 import LibraryHierarchy from '@/features/ResourceManager/components/LibraryHierarchy';
-
-import Head from '../_layout/Header/LibraryHead';
+import Head from '@/routes/(main)/resource/library/_layout/Header/LibraryHead';
 
 const Menu = memo<{ id: string }>(({ id }) => {
   return (

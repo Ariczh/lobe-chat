@@ -8,7 +8,8 @@ import { CloudUpload, ImportIcon } from 'lucide-react';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type DatasetPreset } from '../../config/datasetPresets';
+import { type DatasetPreset } from '@/features/Eval/config/datasetPresets';
+
 import { ROLE_COLORS } from './const';
 
 const { Dragger } = Upload;
@@ -29,25 +30,25 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
     flex-wrap: wrap;
   `,
   formatDescription: css`
-    color: ${cssVar.colorTextDescription};
     font-size: 12px;
+    color: ${cssVar.colorTextDescription};
   `,
   hintText: css`
     margin: 0;
-    color: ${cssVar.colorTextTertiary};
     font-size: 12px;
+    color: ${cssVar.colorTextTertiary};
   `,
   icon: css`
     color: ${cssVar.colorPrimary};
   `,
   iconCenter: css`
-    background: ${cssVar.colorBgElevated};
     border: 1px solid ${cssVar.colorFillTertiary};
     border-radius: ${cssVar.borderRadius};
+    background: ${cssVar.colorBgElevated};
   `,
   presetDescription: css`
-    color: ${cssVar.colorTextSecondary};
     font-size: 12px;
+    color: ${cssVar.colorTextSecondary};
   `,
   presetName: css`
     font-size: 14px;
@@ -62,9 +63,9 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
   `,
   uploadText: css`
     margin: 0;
-    color: ${cssVar.colorText};
     font-size: 14px;
     font-weight: 500;
+    color: ${cssVar.colorText};
   `,
 }));
 

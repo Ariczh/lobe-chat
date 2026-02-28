@@ -1,7 +1,7 @@
 import { type ExperienceListItem } from '@lobechat/types';
 import { memo } from 'react';
 
-import TimeLineCard from '@/app/[variants]/(main)/memory/features/TimeLineView/TimeLineCard';
+import TimeLineCard from '@/features/Memory/TimeLineView/TimeLineCard';
 
 import ExperienceDropdown from '../../ExperienceDropdown';
 

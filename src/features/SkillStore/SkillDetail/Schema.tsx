@@ -6,9 +6,9 @@ import { createStaticStyles, cssVar } from 'antd-style';
 import { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Title from '@/app/[variants]/(main)/community/features/Title';
 import ContentViewer from '@/features/AgentSkillDetail/ContentViewer';
 import FileTree from '@/features/AgentSkillDetail/FileTree';
+import Title from '@/features/Community/Title';
 import { DetailProvider } from '@/features/MCPPluginDetail/DetailProvider';
 import Tools from '@/features/MCPPluginDetail/Schema/Tools';
 import { ModeType } from '@/features/MCPPluginDetail/Schema/types';

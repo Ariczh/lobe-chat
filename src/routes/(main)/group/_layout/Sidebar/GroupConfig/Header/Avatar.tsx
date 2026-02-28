@@ -3,7 +3,7 @@
 import { Block } from '@lobehub/ui';
 import { memo } from 'react';
 
-import SupervisorAvatar from '@/app/[variants]/(main)/group/features/GroupAvatar';
+import SupervisorAvatar from '@/features/GroupChat/GroupAvatar';
 import { useOpenChatSettings } from '@/hooks/useInterceptingRoutes';
 
 const HeaderAvatar = memo<{ size?: number }>(() => {

@@ -5,15 +5,15 @@ import { Flexbox } from '@lobehub/ui';
 import { memo } from 'react';
 
 import Loading from '@/components/Loading/BrandTextLoading';
+import FullNameStep from '@/features/Onboarding/FullNameStep';
+import InterestsStep from '@/features/Onboarding/InterestsStep';
+import ProSettingsStep from '@/features/Onboarding/ProSettingsStep';
+import ResponseLanguageStep from '@/features/Onboarding/ResponseLanguageStep';
+import TelemetryStep from '@/features/Onboarding/TelemetryStep';
 import { useUserStore } from '@/store/user';
 import { onboardingSelectors } from '@/store/user/selectors';
 
 import OnboardingContainer from './_layout';
-import FullNameStep from './features/FullNameStep';
-import InterestsStep from './features/InterestsStep';
-import ProSettingsStep from './features/ProSettingsStep';
-import ResponseLanguageStep from './features/ResponseLanguageStep';
-import TelemetryStep from './features/TelemetryStep';
 
 const OnboardingPage = memo(() => {
   const [isUserStateInit, currentStep, goToNextStep, goToPreviousStep] = useUserStore((s) => [

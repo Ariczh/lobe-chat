@@ -4,7 +4,7 @@ import { Flexbox } from '@lobehub/ui';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import RegisterHotkeys from '@/app/[variants]/(main)/resource/library/features/RegisterHotkeys';
+import RegisterHotkeys from '@/features/ResourceManager/Library/RegisterHotkeys';
 
 import Sidebar from './Sidebar';
 import { styles } from './style';

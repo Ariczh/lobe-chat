@@ -4,12 +4,11 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
+import Title from '@/features/Community/Title';
 import { getRecommendedDeployment } from '@/features/MCP/utils';
 import Platform from '@/features/MCPPluginDetail/Deployment/Platform';
 import { useDetailContext } from '@/features/MCPPluginDetail/DetailProvider';
 import { McpNavKey } from '@/types/discover';
-
-import Title from '../../../../features/Title';
 
 const ServerConfig = memo(() => {
   const { t } = useTranslation('discover');
