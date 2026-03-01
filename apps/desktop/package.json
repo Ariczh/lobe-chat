@@ -40,7 +40,7 @@
     "update-server": "sh scripts/update-test/run-test.sh"
   },
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.70",
+    "@napi-rs/canvas": "^0.1.95",
     "electron-liquid-glass": "^1.1.1"
   },
   "devDependencies": {
