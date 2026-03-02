@@ -24,7 +24,7 @@ const Content = memo(() => {
   ]);
   const config = useAgentStore(agentSelectors.currentAgentConfig, isEqual);
   const meta = useAgentStore(agentSelectors.currentAgentMeta, isEqual);
-  const [tab, setTab] = useState(isInbox ? ChatSettingsTabs.Modal : ChatSettingsTabs.Meta);
+  const [tab, setTab] = useState(ChatSettingsTabs.Meta);
 
   const updateAgentConfig = async (config: any) => {
     if (!agentId) return;
@@ -37,37 +37,34 @@ const Content = memo(() => {
   };
 
   const menuItems: ItemType[] = useMemo(
-    () =>
-      [
-        !isInbox
-          ? {
-              icon: <Icon icon={UserIcon} />,
-              key: ChatSettingsTabs.Meta,
-              label: t('agentTab.meta'),
-            }
-          : null,
-        !isInbox
-          ? {
-              icon: <Icon icon={MessageSquareHeartIcon} />,
-              key: ChatSettingsTabs.Opening,
-              label: t('agentTab.opening'),
-            }
-          : null,
-        {
-          icon: <Icon icon={MessagesSquareIcon} />,
-          key: ChatSettingsTabs.Chat,
-          label: t('agentTab.chat'),
-        },
-        {
-          icon: <Icon icon={BrainIcon} />,
-          key: ChatSettingsTabs.Modal,
-          label: t('agentTab.modal'),
-        },
-      ].filter(Boolean) as ItemType[],
-    [t, isInbox],
+    () => [
+      {
+        icon: <Icon icon={UserIcon} />,
+        key: ChatSettingsTabs.Meta,
+        label: t('agentTab.meta'),
+      },
+      {
+        icon: <Icon icon={MessageSquareHeartIcon} />,
+        key: ChatSettingsTabs.Opening,
+        label: t('agentTab.opening'),
+      },
+      {
+        icon: <Icon icon={MessagesSquareIcon} />,
+        key: ChatSettingsTabs.Chat,
+        label: t('agentTab.chat'),
+      },
+      {
+        icon: <Icon icon={BrainIcon} />,
+        key: ChatSettingsTabs.Modal,
+        label: t('agentTab.modal'),
+      },
+    ],
+    [t],
   );
 
-  const displayTitle = isInbox ? 'Lobe AI' : meta.title || t('defaultSession', { ns: 'common' });
+  const displayTitle =
+    meta.title ||
+    (isInbox ? t('inbox.title', { ns: 'chat' }) : t('defaultSession', { ns: 'common' }));
 
   return (
     <Flexbox
@@ -100,7 +97,7 @@ const Content = memo(() => {
           }}
         >
           <Avatar
-            avatar={isInbox ? DEFAULT_INBOX_AVATAR : meta.avatar || DEFAULT_AVATAR}
+            avatar={meta.avatar || (isInbox ? DEFAULT_INBOX_AVATAR : DEFAULT_AVATAR)}
             background={meta.backgroundColor || undefined}
             shape={'square'}
             size={28}

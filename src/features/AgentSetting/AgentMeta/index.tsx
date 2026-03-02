@@ -9,7 +9,6 @@ import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FORM_STYLE } from '@/const/layoutTokens';
-import { INBOX_SESSION_ID } from '@/const/session';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 
 import { selectors, useStore } from '../store';
@@ -28,15 +27,13 @@ const AgentMeta = memo(() => {
     s.autocompleteMeta,
     s.autocompleteAllMeta,
   ]);
-  const [isInbox, loadingState] = useStore((s) => [s.id === INBOX_SESSION_ID, s.loadingState]);
+  const loadingState = useStore((s) => s.loadingState);
   const meta = useStore(selectors.currentMetaConfig, isEqual);
   const [background, setBackground] = useState(meta.backgroundColor);
 
   useUpdateEffect(() => {
     form.setFieldsValue(meta);
   }, [meta]);
-
-  if (isInbox) return;
 
   const basic = [
     {
