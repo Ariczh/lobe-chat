@@ -37,9 +37,13 @@ Hybrid routing: Next.js App Router (static pages) + React Router DOM (main SPA).
 ### Key Files
 
 - Entry: `src/spa/entry.web.tsx` (web), `src/spa/entry.mobile.tsx`, `src/spa/entry.desktop.tsx`
-- Desktop router: `src/spa/router/desktopRouter.config.tsx`
+- Desktop router: `src/spa/router/desktopRouter.config.tsx` (web) / `desktopRouter.config.desktop.tsx` (Electron)
 - Mobile router: `src/spa/router/mobileRouter.config.tsx`
 - Router utilities: `src/utils/router.tsx`
+
+### Vite Special Imports (`.desktop`, `.mobile`, `.vite`)
+
+Vite resolves platform-specific variants: `file.{platform}.ts` → `file.vite.ts` → `file.ts`. Use `.desktop` for Electron-only, `.mobile` for mobile build, `.vite` for Vite-override (e.g. `navigation.vite.ts`, `Image.vite.tsx`). Import base path; resolver picks the variant. See **spa-routes** skill.
 
 ### Router Utilities
 

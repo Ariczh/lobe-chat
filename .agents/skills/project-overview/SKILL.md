@@ -180,6 +180,18 @@ lobe-chat/
 | Builtin Tools    | `src/tools`, `packages/builtin-tool-*`              |
 | Cloud-only       | `src/business/*`, `packages/business/*`             |
 
+## Vite SPA Special Imports (`.desktop`, `.mobile`, `.vite`)
+
+Vite uses `vitePlatformResolve` (see `plugins/vite/platformResolve.ts`) to resolve platform-specific file variants. Resolution order: `file.{platform}.ts` → `file.vite.ts` → `file.ts`.
+
+| Suffix     | Build target    | Example                                                                        |
+| ---------- | --------------- | ------------------------------------------------------------------------------ |
+| `.desktop` | Electron only   | `desktopRouter.config.desktop.tsx` — sync imports, `/desktop-onboarding` route |
+| `.mobile`  | `MOBILE=true`   | Mobile-specific layout or components                                           |
+| `.vite`    | All Vite builds | `navigation.vite.ts`, `Image.vite.tsx` — no Next.js server features            |
+
+Import the base path (e.g. `./desktopRouter.config`); the resolver picks the variant. See **spa-routes** skill for details.
+
 ## Data Flow
 
 ```

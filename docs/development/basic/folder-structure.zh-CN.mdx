@@ -178,6 +178,18 @@ React Router DOM 承载主应用 SPA。
 - 移动端路由：`src/app/[variants]/(mobile)/router/mobileRouter.config.tsx`
 - 路由工具：`src/utils/router.tsx`
 
+**Vite SPA 特殊导入（`.desktop`、`.mobile`、`.vite`）：**
+
+Vite 构建使用 `vitePlatformResolve` 解析平台特定文件变体。解析顺序：`file.{platform}.ts` → `file.vite.ts` → `file.ts`。
+
+| 后缀         | 使用场景                           | 示例                                                                 |
+| ---------- | ------------------------------ | ------------------------------------------------------------------ |
+| `.desktop` | 仅 Electron 桌面端构建               | `desktopRouter.config.desktop.tsx` — 同步导入、`/desktop-onboarding` 路由 |
+| `.mobile`  | 仅移动端构建（`MOBILE=true`）          | 移动端专用布局或组件                                                         |
+| `.vite`    | 所有 Vite 构建的覆盖（无 Next.js 服务端特性） | `navigation.vite.ts`、`Image.vite.tsx`                              |
+
+导入时使用基础路径（如 `./desktopRouter.config`），解析器会自动选择对应变体。详见 `plugins/vite/platformResolve.ts`。
+
 **桌面端 SPA 路由（React Router DOM）：**
 
 ```bash

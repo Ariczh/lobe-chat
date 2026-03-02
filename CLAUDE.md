@@ -63,6 +63,18 @@ When adding or changing SPA routes:
 
 See the **spa-routes** skill (`.agents/skills/spa-routes/SKILL.md`) for the full convention and file-division rules.
 
+### Vite SPA Special Imports (`.desktop`, `.mobile`, `.vite`)
+
+Vite builds use `vitePlatformResolve` to resolve platform-specific file variants by suffix. Resolution order: `file.{platform}.ts` → `file.vite.ts` → `file.ts`.
+
+| Suffix     | When used                                                  |
+| ---------- | ---------------------------------------------------------- |
+| `.desktop` | Electron desktop build only                                |
+| `.mobile`  | Mobile build only (`MOBILE=true`)                          |
+| `.vite`    | All Vite builds override (e.g. no Next.js server features) |
+
+**Examples:** `desktopRouter.config.desktop.tsx` (Electron sync imports + `/desktop-onboarding`), `navigation.vite.ts` (react-router-dom instead of next/navigation), `Image.vite.tsx` (client-only, no `'use server'`). Import the base path; the resolver picks the variant.
+
 ## Development
 
 ### Starting the Dev Environment

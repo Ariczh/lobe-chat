@@ -182,6 +182,18 @@ dispatches to desktop or mobile router based on device type.
 - Mobile router: `src/app/[variants]/(mobile)/router/mobileRouter.config.tsx`
 - Router utilities: `src/utils/router.tsx`
 
+**Vite SPA special imports (`.desktop`, `.mobile`, `.vite`):**
+
+Vite builds use `vitePlatformResolve` to resolve platform-specific file variants. Resolution order: `file.{platform}.ts` → `file.vite.ts` → `file.ts`.
+
+| Suffix     | When used                                             | Example                                                                        |
+| ---------- | ----------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `.desktop` | Electron desktop build only                           | `desktopRouter.config.desktop.tsx` — sync imports, `/desktop-onboarding` route |
+| `.mobile`  | Mobile build only (`MOBILE=true`)                     | Mobile-specific layout or components                                           |
+| `.vite`    | All Vite builds override (no Next.js server features) | `navigation.vite.ts`, `Image.vite.tsx`                                         |
+
+Import the base path (e.g. `./desktopRouter.config`); the resolver picks the variant. See `plugins/vite/platformResolve.ts`.
+
 **Desktop SPA Routes (React Router DOM):**
 
 ```bash

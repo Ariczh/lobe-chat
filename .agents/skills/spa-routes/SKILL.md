@@ -143,3 +143,36 @@ src/features/Pages/
 ```
 
 Router config continues to point at **route** paths (e.g. `@/routes/(main)/page`, `@/routes/(main)/page/_layout`); route files then delegate to features.
+
+---
+
+## 7. Vite SPA Special Imports (`.desktop`, `.mobile`, `.vite`)
+
+The Vite build uses `vitePlatformResolve` to resolve platform-specific file variants by suffix. When you import a module, Vite tries these in order:
+
+| Priority | Suffix     | When used                                       |
+| -------- | ---------- | ----------------------------------------------- |
+| 1        | `.desktop` | Electron desktop build only                     |
+| 2        | `.mobile`  | Mobile build only (`MOBILE=true`)               |
+| 3        | `.vite`    | All Vite builds (web, mobile, desktop) override |
+| 4        | (base)     | Fallback to original file                       |
+
+**Resolution order:** `file.{platform}.ts` → `file.vite.ts` → `file.ts`
+
+**Example:** Importing `./router/desktopRouter.config` on desktop build resolves to `desktopRouter.config.desktop.tsx`; on web build, falls back to `desktopRouter.config.tsx`.
+
+### Use cases
+
+| Scenario                                       | Use `.desktop`                     | Use `.mobile`       | Use `.vite`                            |
+| ---------------------------------------------- | ---------------------------------- | ------------------- | -------------------------------------- |
+| Electron-only routes (e.g. desktop onboarding) | `desktopRouter.config.desktop.tsx` | —                   | —                                      |
+| Mobile-specific layout or components           | —                                  | `Layout.mobile.tsx` | —                                      |
+| Vite/SPA override (no Next.js server features) | —                                  | —                   | `Image.vite.tsx`, `navigation.vite.ts` |
+
+### Real examples
+
+1. **`desktopRouter.config.desktop.tsx`** — Desktop uses sync imports for Electron; web uses `dynamicElement`/`dynamicLayout`. Adds Electron-only route `/desktop-onboarding`.
+2. **`src/libs/next/navigation.vite.ts`** — Next.js `navigation.ts` re-exports from `next/navigation`; Vite uses `navigation.vite.ts` with react-router-dom.
+3. **`src/components/mdx/Image.vite.tsx`** — Next.js `Image.tsx` uses `'use server'` and plaiceholder; Vite uses plain client-side `Image.vite.tsx`.
+
+**Rule:** Do not import the suffixed file directly. Import the base path (e.g. `./desktopRouter.config`); the resolver picks the right variant.
