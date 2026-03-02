@@ -397,7 +397,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@edge-runtime/vm": "^5.0.0",
-    "@huggingface/tasks": "^0.19.80",
+    "@huggingface/tasks": "^0.19.89",
     "@inquirer/prompts": "^8.2.0",
     "@lobechat/types": "workspace:*",
     "@lobehub/i18n-cli": "^1.26.0",
