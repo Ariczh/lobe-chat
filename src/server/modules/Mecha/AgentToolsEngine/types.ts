@@ -43,6 +43,12 @@ export interface ServerCreateAgentToolsEngineParams {
     /** Plugin IDs enabled for this agent */
     plugins?: string[];
   };
+  /** Device gateway context for remote tool calling */
+  deviceContext?: {
+    boundDeviceId?: string;
+    deviceOnline?: boolean;
+    gatewayConfigured: boolean;
+  };
   /** Whether agent has enabled knowledge bases */
   hasEnabledKnowledgeBases?: boolean;
   /** Model name for function calling compatibility check */

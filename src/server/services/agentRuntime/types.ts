@@ -119,6 +119,7 @@ export interface AgentExecutionResult {
 }
 
 export interface OperationCreationParams {
+  activeDeviceId?: string;
   agentConfig?: any;
   appContext: {
     agentId?: string;

@@ -20,4 +20,4 @@ export type {
 } from './types';
 
 // Utility functions
-export { filterValidManifests, validateManifest } from './utils';
+export { filterValidManifests, generateToolsFromManifest, validateManifest } from './utils';

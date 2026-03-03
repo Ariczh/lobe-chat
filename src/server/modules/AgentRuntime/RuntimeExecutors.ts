@@ -6,7 +6,8 @@ import {
   type InstructionExecutor,
   UsageCounter,
 } from '@lobechat/agent-runtime';
-import { ToolNameResolver } from '@lobechat/context-engine';
+import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
+import { generateToolsFromManifest, ToolNameResolver } from '@lobechat/context-engine';
 import { parse } from '@lobechat/conversation-flow';
 import { consumeStreamUntilDone } from '@lobechat/model-runtime';
 import { type ChatToolPayload, type MessageToolCall, type UIChatMessage } from '@lobechat/types';
@@ -32,6 +33,7 @@ const TOOL_PRICING: Record<string, number> = {
 };
 
 export interface RuntimeExecutorContext {
+  activeDeviceId?: string;
   agentConfig?: any;
   discordContext?: any;
   evalContext?: EvalContext;
@@ -65,7 +67,18 @@ export const createRuntimeExecutors = (
     const provider = llmPayload.provider || state.modelRuntimeConfig?.provider;
     // forceFinish: strip tools so LLM produces pure text output
     // Otherwise fallback to state's tools if not in payload
-    const tools = state.forceFinish ? undefined : llmPayload.tools || state.tools;
+    let tools = state.forceFinish ? undefined : llmPayload.tools || state.tools;
+
+    // Inject lobe-local-system tools when device is activated but tools not yet present
+    const activeDeviceId = ctx.activeDeviceId || state.metadata?.activeDeviceId;
+    if (activeDeviceId && tools && !state.toolManifestMap?.[LocalSystemManifest.identifier]) {
+      state.toolManifestMap[LocalSystemManifest.identifier] = LocalSystemManifest as any;
+      tools = [...tools, ...generateToolsFromManifest(LocalSystemManifest as any)];
+      log(
+        `[${operationId}:${stepIndex}] Injected local-system tools for active device %s`,
+        activeDeviceId,
+      );
+    }
 
     if (!model || !provider) {
       throw new Error('Model and provider are required for call_llm instruction');
@@ -182,6 +195,7 @@ export const createRuntimeExecutors = (
           provider,
           systemRole: agentConfig.systemRole ?? undefined,
           toolsConfig: {
+            manifests: Object.values(state.toolManifestMap ?? {}),
             tools: agentConfig.plugins ?? [],
           },
           userMemory: state.metadata?.userMemory,
@@ -570,6 +584,7 @@ export const createRuntimeExecutors = (
       // Execute tool using ToolExecutionService
       log(`[${operationLogId}] Executing tool ${toolName} ...`);
       const executionResult = await toolExecutionService.executeTool(chatToolPayload, {
+        activeDeviceId: ctx.activeDeviceId,
         memoryToolPermission: agentConfig?.chatConfig?.memory?.toolPermission,
         serverDB: ctx.serverDB,
         toolManifestMap: state.toolManifestMap,
@@ -643,6 +658,21 @@ export const createRuntimeExecutors = (
 
       newState.usage = usage;
       if (cost) newState.cost = cost;
+
+      // Handle activateDevice metadata — persist activeDeviceId for subsequent call_llm steps
+      const activatedDeviceId = executionResult.state?.metadata?.activeDeviceId;
+      if (activatedDeviceId && !ctx.activeDeviceId) {
+        ctx.activeDeviceId = activatedDeviceId;
+
+        if (newState.metadata) {
+          newState.metadata.activeDeviceId = activatedDeviceId;
+        }
+
+        log(
+          `[${operationLogId}] Device activated (deviceId: %s), local-system tools will be injected in next call_llm`,
+          activatedDeviceId,
+        );
+      }
 
       // Find current tool statistics
       const currentToolStats = usage.tools.byTool.find((t) => t.name === toolName);

@@ -246,6 +246,7 @@ export class AgentRuntimeService {
    */
   async createOperation(params: OperationCreationParams): Promise<OperationCreationResult> {
     const {
+      activeDeviceId,
       operationId,
       initialContext,
       agentConfig,
@@ -294,6 +295,7 @@ export class AgentRuntimeService {
         // Use the passed initial messages
         messages: initialMessages,
         metadata: {
+          activeDeviceId,
           agentConfig,
           completionWebhook,
           discordContext,
@@ -1276,6 +1278,7 @@ export class AgentRuntimeService {
 
     // Create streaming executor context
     const executorContext: RuntimeExecutorContext = {
+      activeDeviceId: metadata?.activeDeviceId,
       agentConfig: metadata?.agentConfig,
       discordContext: metadata?.discordContext,
       evalContext: metadata?.evalContext,

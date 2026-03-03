@@ -11,6 +11,7 @@
  */
 import { KnowledgeBaseManifest } from '@lobechat/builtin-tool-knowledge-base';
 import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
+import { RemoteDeviceManifest } from '@lobechat/builtin-tool-remote-device';
 import { WebBrowsingManifest } from '@lobechat/builtin-tool-web-browsing';
 import { builtinTools, defaultToolIds } from '@lobechat/builtin-tools';
 import { type LobeToolManifest } from '@lobechat/context-engine';
@@ -89,6 +90,7 @@ export const createServerAgentToolsEngine = (
   const {
     additionalManifests,
     agentConfig,
+    deviceContext,
     hasEnabledKnowledgeBases = false,
     model,
     provider,
@@ -97,11 +99,12 @@ export const createServerAgentToolsEngine = (
   const isSearchEnabled = searchMode !== 'off';
 
   log(
-    'Creating agent tools engine for model=%s, provider=%s, searchMode=%s, additionalManifests=%d',
+    'Creating agent tools engine for model=%s, provider=%s, searchMode=%s, additionalManifests=%d, deviceGateway=%s',
     model,
     provider,
     searchMode,
     additionalManifests?.length ?? 0,
+    !!deviceContext?.gatewayConfigured,
   );
 
   return createServerToolsEngine(context, {
@@ -111,9 +114,14 @@ export const createServerAgentToolsEngine = (
     defaultToolIds,
     // Create search-aware enableChecker for this request
     enableChecker: ({ pluginId }) => {
-      // Filter LocalSystem tool on server (it's desktop-only)
+      // LocalSystem: on server, only enable when device gateway is configured and device is online
       if (pluginId === LocalSystemManifest.identifier) {
-        return false;
+        return !!deviceContext?.gatewayConfigured && !!deviceContext?.deviceOnline;
+      }
+
+      // RemoteDevice: enable when device gateway is configured
+      if (pluginId === RemoteDeviceManifest.identifier) {
+        return !!deviceContext?.gatewayConfigured;
       }
 
       // For WebBrowsingManifest, apply search logic

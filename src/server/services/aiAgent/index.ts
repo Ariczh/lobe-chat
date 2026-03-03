@@ -1,4 +1,10 @@
 import { type AgentRuntimeContext, type AgentState } from '@lobechat/agent-runtime';
+import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
+import {
+  type DeviceAttachment,
+  generateSystemPrompt,
+  RemoteDeviceManifest,
+} from '@lobechat/builtin-tool-remote-device';
 import { builtinTools } from '@lobechat/builtin-tools';
 import { LOADING_FLAT } from '@lobechat/const';
 import { type LobeToolManifest } from '@lobechat/context-engine';
@@ -37,6 +43,7 @@ import { type StepLifecycleCallbacks } from '@/server/services/agentRuntime/type
 import { FileService } from '@/server/services/file';
 import { KlavisService } from '@/server/services/klavis';
 import { MarketService } from '@/server/services/market';
+import { deviceProxy } from '@/server/services/toolExecution/deviceProxy';
 
 const log = debug('lobe-server:ai-agent-service');
 
@@ -294,6 +301,20 @@ export class AiAgentService {
       agentConfig.knowledgeBases?.some((kb: { enabled?: boolean | null }) => kb.enabled === true) ??
       false;
 
+    // Build device context for ToolsEngine enableChecker
+    const gatewayConfigured = deviceProxy.isConfigured;
+    const boundDeviceId = agentConfig.agencyConfig?.boundDeviceId;
+    let onlineDevices: DeviceAttachment[] = [];
+    if (gatewayConfigured) {
+      try {
+        onlineDevices = await deviceProxy.queryDeviceList(this.userId);
+        log('execAgent: found %d online device(s)', onlineDevices.length);
+      } catch (error) {
+        log('execAgent: failed to query device list: %O', error);
+      }
+    }
+    const deviceOnline = onlineDevices.length > 0;
+
     const toolsContext: ServerAgentToolsContext = {
       installedPlugins,
       isModelSupportToolUse,
@@ -305,13 +326,21 @@ export class AiAgentService {
         chatConfig: agentConfig.chatConfig ?? undefined,
         plugins: agentConfig?.plugins ?? undefined,
       },
+      deviceContext: gatewayConfigured
+        ? { boundDeviceId, deviceOnline, gatewayConfigured: true }
+        : undefined,
       hasEnabledKnowledgeBases,
       model,
       provider,
     });
 
     // Generate tools and manifest map
-    const pluginIds = agentConfig.plugins || [];
+    // Include device tool IDs so ToolsEngine can process them via enableChecker
+    const pluginIds = [
+      ...(agentConfig.plugins || []),
+      RemoteDeviceManifest.identifier,
+      LocalSystemManifest.identifier,
+    ];
     log('execAgent: agent configured plugins: %O', pluginIds);
 
     const toolsResult = toolsEngine.generateToolsDetailed({
@@ -350,6 +379,17 @@ export class AiAgentService {
       lobehubSkillManifests.length,
       klavisManifests.length,
     );
+
+    // Inject online devices info into remote-device manifest's systemRole
+    if (toolManifestMap[RemoteDeviceManifest.identifier]) {
+      toolManifestMap[RemoteDeviceManifest.identifier] = {
+        ...toolManifestMap[RemoteDeviceManifest.identifier],
+        systemRole: generateSystemPrompt(onlineDevices),
+      };
+    }
+
+    // Derive activeDeviceId from device context (set when bound device is online)
+    const activeDeviceId = deviceOnline ? boundDeviceId : undefined;
 
     // 7.5. Build Agent Management context if agent-management tool is enabled
     const isAgentManagementEnabled = toolsResult.enabledToolIds?.includes('lobe-agent-management');
@@ -609,6 +649,7 @@ export class AiAgentService {
     // If createOperation fails, we still have valid messages that need error info
     try {
       const result = await this.agentRuntimeService.createOperation({
+        activeDeviceId,
         agentConfig,
         appContext: {
           agentId: resolvedAgentId,

@@ -1,4 +1,4 @@
-import { DataSyncConfig, NetworkProxySettings } from '@lobechat/electron-client-ipc';
+import type { DataSyncConfig, NetworkProxySettings } from '@lobechat/electron-client-ipc';
 
 export interface ElectronMainStore {
   dataSyncConfig: DataSyncConfig;
@@ -8,6 +8,8 @@ export interface ElectronMainStore {
     lastRefreshAt?: number;
     refreshToken?: string;
   };
+  gatewayDeviceId: string;
+  gatewayUrl: string;
   locale: string;
   networkProxy: NetworkProxySettings;
   shortcuts: Record<string, string>;

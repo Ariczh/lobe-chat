@@ -1,11 +1,11 @@
 /**
  * Application settings storage related constants
  */
-import { NetworkProxySettings } from '@lobechat/electron-client-ipc';
+import type { NetworkProxySettings } from '@lobechat/electron-client-ipc';
 
 import { appStorageDir } from '@/const/dir';
 import { DEFAULT_SHORTCUTS_CONFIG } from '@/shortcuts';
-import { ElectronMainStore } from '@/types/store';
+import type { ElectronMainStore } from '@/types/store';
 
 /**
  * Storage name
@@ -27,6 +27,8 @@ export const defaultProxySettings: NetworkProxySettings = {
 export const STORE_DEFAULTS: ElectronMainStore = {
   dataSyncConfig: { storageMode: 'cloud' },
   encryptedTokens: {},
+  gatewayDeviceId: '',
+  gatewayUrl: 'https://device-gateway.lobehub.com',
   locale: 'auto',
   networkProxy: defaultProxySettings,
   shortcuts: DEFAULT_SHORTCUTS_CONFIG,
