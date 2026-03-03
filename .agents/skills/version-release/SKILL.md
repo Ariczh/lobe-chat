@@ -147,5 +147,8 @@ All release PR bodies (both Minor and Patch) must include a user-facing changelo
 - **User-facing**: Describe changes that users can perceive, not internal implementation details
 - **Clear categories**: Group by features, models/providers, desktop, stability/fixes, etc.
 - **Highlight key items**: Use `**bold**` for important feature names
-- **Credit contributors**: Collect all committers via `git log` and list alphabetically
+- **Emoji for features, not fixes**: Add an emoji prefix to each item in feature/enhancement sections (e.g. 🤖, 🧩, 🧠). Do NOT add emojis to items in the Stability/Fixes section — keep those plain.
+- **Section title emojis**: Add an emoji to each section heading (e.g. `### ✨ New Features`, `### 🤖 Models`, `### 🏗️ Architecture`). The Stability/Fixes section title should NOT have an emoji.
+- **Link PR numbers**: Every changelog item must include linked PR numbers in the format `([#12345](https://github.com/lobehub/lobe-chat/pull/12345))`. Use `git log main..canary --oneline` to extract PR numbers from commit messages, and collect GitHub usernames via `gh pr view <number>`.
+- **Credit contributors**: Collect all committers via `git log` and PR authors via `gh pr view`, list GitHub usernames alphabetically (exclude bots like `lobehubbot`)
 - **Flexible categories**: Choose categories based on actual changes — no need to force-fit all categories
