@@ -227,9 +227,20 @@ export class AgentBridgeService {
         trigger: 'bot',
       });
     } catch (error) {
+      // If the cached topicId references a deleted topic (FK violation),
+      // clear thread state and retry as a fresh mention instead of surfacing the DB error.
+      const errMsg = error instanceof Error ? error.message : String(error);
+      if (errMsg.includes('Failed query') && errMsg.includes('topic_id')) {
+        log(
+          'handleSubscribedMessage: stale topicId=%s, resetting and retrying as new mention',
+          topicId,
+        );
+        await thread.setState({ ...threadState, topicId: undefined });
+        return this.handleMention(thread, message, { agentId, botContext });
+      }
+
       log('handleSubscribedMessage error: %O', error);
-      const msg = error instanceof Error ? error.message : String(error);
-      await thread.post(`**Agent Execution Failed**. Details:\n\`\`\`\n${msg}\n\`\`\``);
+      await thread.post(`**Agent Execution Failed**. Details:\n\`\`\`\n${errMsg}\n\`\`\``);
     } finally {
       // In queue mode, reaction is removed by the bot-callback webhook on completion
       if (!queueMode) {

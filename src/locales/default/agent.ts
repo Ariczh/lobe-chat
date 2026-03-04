@@ -37,11 +37,7 @@ export default {
   'integration.testSuccess': 'Connection test passed',
   'integration.updateFailed': 'Failed to update status',
   'integration.validationError': 'Please fill in Application ID and Token',
-  'integration.webhookAutoConfigured': 'Webhook is configured automatically',
-  'integration.webhookAutoConfiguredHint':
-    'The webhook URL will be set automatically when you click "Test Connection". No manual configuration needed.',
-  'integration.webhookConfig': 'Webhook Configuration',
-  'integration.webhookProxyUrl': 'Webhook URL Override',
-  'integration.webhookProxyUrlHint':
-    'Optional. Use a public HTTPS URL (e.g. cloudflare tunnel) for local development. Leave empty to use the default server URL.',
+  'integration.devWebhookProxyUrl': 'HTTPS Tunnel URL',
+  'integration.devWebhookProxyUrlHint':
+    'Telegram requires HTTPS for webhooks. Paste your tunnel URL (e.g. from cloudflared or ngrok) to forward webhook requests to your local dev server.',
 } as const;
