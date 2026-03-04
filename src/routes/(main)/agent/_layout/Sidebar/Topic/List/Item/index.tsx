@@ -2,7 +2,7 @@ import { ActionIcon, Flexbox, Icon, Skeleton, Tag } from '@lobehub/ui';
 import { createStaticStyles, cssVar } from 'antd-style';
 import { MessageSquareDashed, Star } from 'lucide-react';
 import { AnimatePresence, m as motion } from 'motion/react';
-import { memo, Suspense, useCallback, useMemo } from 'react';
+import { memo, Suspense, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { isDesktop } from '@/const/version';
@@ -84,13 +84,26 @@ const TopicItem = memo<TopicItemProps>(({ id, title, fav, active, threadId }) =>
     [id],
   );
 
+  const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const handleClick = useCallback(() => {
     if (editing) return;
-    navigateToTopic(id);
+    if (isDesktop) {
+      clickTimerRef.current = setTimeout(() => {
+        clickTimerRef.current = null;
+        navigateToTopic(id);
+      }, 250);
+    } else {
+      navigateToTopic(id);
+    }
   }, [editing, id, navigateToTopic]);
 
   const handleDoubleClick = useCallback(() => {
     if (!id || !activeAgentId || !isDesktop) return;
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+      clickTimerRef.current = null;
+    }
     const reference = pluginRegistry.parseUrl(`/agent/${activeAgentId}`, `topic=${id}`);
     if (reference) {
       addTab(reference);

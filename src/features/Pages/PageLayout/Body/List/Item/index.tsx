@@ -1,7 +1,7 @@
 import { Avatar, Icon } from '@lobehub/ui';
 import { FileTextIcon } from 'lucide-react';
 import { type MouseEvent } from 'react';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { isDesktop } from '@/const/version';
@@ -41,12 +41,21 @@ const PageListItem = memo<DocumentItemProps>(({ pageId, className }) => {
     [pageId, setRenamingPageId],
   );
 
+  const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const handleClick = useCallback(
     (e: MouseEvent) => {
       // Skip navigation in current tab when opening in new tab
       if (e.metaKey || e.ctrlKey) return;
       if (!editing) {
-        selectPage(pageId);
+        if (isDesktop) {
+          clickTimerRef.current = setTimeout(() => {
+            clickTimerRef.current = null;
+            selectPage(pageId);
+          }, 250);
+        } else {
+          selectPage(pageId);
+        }
       }
     },
     [editing, selectPage, pageId],
@@ -54,6 +63,10 @@ const PageListItem = memo<DocumentItemProps>(({ pageId, className }) => {
 
   const handleDoubleClick = useCallback(() => {
     if (!isDesktop) return;
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+      clickTimerRef.current = null;
+    }
     const reference = pluginRegistry.parseUrl(`/page/${pageId}`, '');
     if (reference) {
       addTab(reference);
