@@ -25,6 +25,10 @@ export default {
   'integration.removed': 'Integration removed',
   'integration.removeFailed': 'Failed to remove integration',
   'integration.save': 'Save Configuration',
+  'integration.secretToken': 'Webhook Secret Token',
+  'integration.secretTokenHint':
+    'Optional. Used to verify webhook requests from Telegram. Recommended for production.',
+  'integration.secretTokenPlaceholder': 'Optional secret for webhook verification',
   'integration.saveFailed': 'Failed to save configuration',
   'integration.saveFirstWarning': 'Please save configuration first',
   'integration.saved': 'Configuration saved successfully',
@@ -33,4 +37,7 @@ export default {
   'integration.testSuccess': 'Connection test passed',
   'integration.updateFailed': 'Failed to update status',
   'integration.validationError': 'Please fill in Application ID and Token',
+  'integration.webhookAutoConfigured': 'Webhook is configured automatically',
+  'integration.webhookAutoConfiguredHint':
+    'The webhook URL will be set automatically when you click "Test Connection". No manual configuration needed.',
 } as const;
