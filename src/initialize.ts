@@ -4,6 +4,7 @@ import isYesterday from 'dayjs/plugin/isYesterday';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import { enableMapSet } from 'immer';
+import { scan } from 'react-scan';
 
 enableMapSet();
 
@@ -12,3 +13,7 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
+
+if (__DEV__) {
+  scan({ enabled: true });
+}
