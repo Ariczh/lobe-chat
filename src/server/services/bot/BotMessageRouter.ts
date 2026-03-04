@@ -1,5 +1,6 @@
 import { createDiscordAdapter } from '@chat-adapter/discord';
 import { createIoRedisState } from '@chat-adapter/state-ioredis';
+import { createTelegramAdapter } from '@chat-adapter/telegram';
 import { Chat, ConsoleLogger } from 'chat';
 import debug from 'debug';
 
@@ -18,10 +19,40 @@ interface ResolvedAgentInfo {
   userId: string;
 }
 
-interface DiscordCredentials {
-  applicationId: string;
-  botToken: string;
-  publicKey: string;
+interface StoredCredentials {
+  [key: string]: string;
+}
+
+/**
+ * Adapter factory: creates the correct Chat SDK adapter from platform + credentials.
+ */
+function createAdapterForPlatform(
+  platform: string,
+  credentials: StoredCredentials,
+  applicationId: string,
+): Record<string, any> | null {
+  switch (platform) {
+    case 'discord': {
+      return {
+        discord: createDiscordAdapter({
+          applicationId,
+          botToken: credentials.botToken,
+          publicKey: credentials.publicKey,
+        }),
+      };
+    }
+    case 'telegram': {
+      return {
+        telegram: createTelegramAdapter({
+          botToken: credentials.botToken,
+          secretToken: credentials.secretToken,
+        }),
+      };
+    }
+    default: {
+      return null;
+    }
+  }
 }
 
 /**
@@ -29,17 +60,17 @@ interface DiscordCredentials {
  * and triggers message processing via AgentBridgeService.
  */
 export class BotMessageRouter {
-  /** botToken → Chat instance (for webhook routing via x-discord-gateway-token) */
+  /** botToken → Chat instance (for Discord webhook routing via x-discord-gateway-token) */
   private botInstancesByToken = new Map<string, Chat<any>>();
 
-  /** applicationId → { agentId, userId } */
-  private discordAgentMap = new Map<string, ResolvedAgentInfo>();
+  /** "platform:applicationId" → { agentId, userId } */
+  private agentMap = new Map<string, ResolvedAgentInfo>();
 
-  /** Cached Chat instances keyed by applicationId */
+  /** "platform:applicationId" → Chat instance */
   private botInstances = new Map<string, Chat<any>>();
 
-  /** Store credentials for getDiscordBotConfigs() */
-  private credentialsByAppId = new Map<string, DiscordCredentials>();
+  /** "platform:applicationId" → credentials */
+  private credentialsByKey = new Map<string, StoredCredentials>();
 
   // ------------------------------------------------------------------
   // Public API
@@ -53,11 +84,17 @@ export class BotMessageRouter {
     return async (req: Request) => {
       await this.ensureInitialized();
 
-      if (platform === 'discord') {
-        return this.handleDiscordWebhook(req);
+      switch (platform) {
+        case 'discord': {
+          return this.handleDiscordWebhook(req);
+        }
+        case 'telegram': {
+          return this.handleTelegramWebhook(req);
+        }
+        default: {
+          return new Response('No bot configured for this platform', { status: 404 });
+        }
       }
-
-      return new Response('No bot configured for this platform', { status: 404 });
     };
   }
 
@@ -109,7 +146,7 @@ export class BotMessageRouter {
       const appId = payload.application_id;
 
       if (appId) {
-        const bot = this.botInstances.get(appId);
+        const bot = this.botInstances.get(`discord:${appId}`);
         if (bot?.webhooks && 'discord' in bot.webhooks) {
           return bot.webhooks.discord(this.cloneRequest(req, bodyBuffer));
         }
@@ -118,8 +155,9 @@ export class BotMessageRouter {
       // Not valid JSON — fall through
     }
 
-    // Fallback: try all registered bots
-    for (const bot of this.botInstances.values()) {
+    // Fallback: try all registered Discord bots
+    for (const [key, bot] of this.botInstances) {
+      if (!key.startsWith('discord:')) continue;
       if (bot.webhooks && 'discord' in bot.webhooks) {
         try {
           const resp = await bot.webhooks.discord(this.cloneRequest(req, bodyBuffer));
@@ -131,6 +169,33 @@ export class BotMessageRouter {
     }
 
     return new Response('No bot configured for Discord', { status: 404 });
+  }
+
+  // ------------------------------------------------------------------
+  // Telegram webhook routing
+  // ------------------------------------------------------------------
+
+  private async handleTelegramWebhook(req: Request): Promise<Response> {
+    const bodyBuffer = await req.arrayBuffer();
+
+    log('handleTelegramWebhook: method=%s, content-length=%d', req.method, bodyBuffer.byteLength);
+
+    // Try to extract bot identity from the update payload
+    // Telegram doesn't include bot ID in the payload, so we try each registered Telegram bot.
+    // Signature verification (secret_token header) will reject mismatches.
+    for (const [key, bot] of this.botInstances) {
+      if (!key.startsWith('telegram:')) continue;
+      if (bot.webhooks && 'telegram' in bot.webhooks) {
+        try {
+          const resp = await bot.webhooks.telegram(this.cloneRequest(req, bodyBuffer));
+          if (resp.status !== 401) return resp;
+        } catch {
+          // secret token mismatch — try next
+        }
+      }
+    }
+
+    return new Response('No bot configured for Telegram', { status: 404 });
   }
 
   private cloneRequest(req: Request, body: ArrayBuffer): Request {
@@ -185,49 +250,54 @@ export class BotMessageRouter {
       const serverDB = await getServerDB();
       const gateKeeper = await KeyVaultsGateKeeper.initWithEnvKey();
 
-      const providers = await AgentBotProviderModel.findEnabledByPlatform(
-        serverDB,
-        'discord',
-        gateKeeper,
-      );
+      // Load all supported platforms
+      for (const platform of ['discord', 'telegram']) {
+        const providers = await AgentBotProviderModel.findEnabledByPlatform(
+          serverDB,
+          platform,
+          gateKeeper,
+        );
+
+        log('Found %d %s bot providers in DB', providers.length, platform);
+
+        for (const provider of providers) {
+          const { agentId, userId, applicationId, credentials } = provider;
+          const key = `${platform}:${applicationId}`;
+
+          if (this.botInstances.has(key)) {
+            log('Skipping provider %s: already registered', key);
+            continue;
+          }
+
+          const adapters = createAdapterForPlatform(platform, credentials, applicationId);
+          if (!adapters) {
+            log('Unsupported platform: %s', platform);
+            continue;
+          }
+
+          const bot = this.createBot(adapters, `agent-${agentId}`);
+          this.registerHandlers(bot, serverDB, {
+            agentId,
+            applicationId,
+            platform,
+            userId,
+          });
+          await bot.initialize();
+
+          this.botInstances.set(key, bot);
+          this.agentMap.set(key, { agentId, userId });
+          this.credentialsByKey.set(key, credentials);
+
+          // Discord-specific: also index by botToken for gateway forwarding
+          if (platform === 'discord' && credentials.botToken) {
+            this.botInstancesByToken.set(credentials.botToken, bot);
+          }
+
+          log('Created %s bot for agent=%s, appId=%s', platform, agentId, applicationId);
+        }
+      }
 
       this.lastLoadedAt = Date.now();
-
-      log('Found %d Discord bot providers in DB', providers.length);
-
-      for (const provider of providers) {
-        const { agentId, userId, applicationId, credentials } = provider;
-        const { botToken, publicKey } = credentials as any;
-
-        if (this.botInstances.has(applicationId)) {
-          log('Skipping provider %s: already registered', applicationId);
-          continue;
-        }
-
-        const adapters: Record<string, any> = {
-          discord: createDiscordAdapter({
-            applicationId,
-            botToken,
-            publicKey,
-          }),
-        };
-
-        const bot = this.createBot(adapters, `agent-${agentId}`);
-        this.registerHandlers(bot, serverDB, {
-          agentId,
-          applicationId,
-          platform: 'discord',
-          userId,
-        });
-        await bot.initialize();
-
-        this.botInstances.set(applicationId, bot);
-        this.botInstancesByToken.set(botToken, bot);
-        this.discordAgentMap.set(applicationId, { agentId, userId });
-        this.credentialsByAppId.set(applicationId, { applicationId, botToken, publicKey });
-
-        log('Created Discord bot for agent=%s, appId=%s', agentId, applicationId);
-      }
     } catch (error) {
       log('Failed to load agent bots: %O', error);
     }

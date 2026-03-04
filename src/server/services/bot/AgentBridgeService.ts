@@ -480,7 +480,10 @@ export class AgentBridgeService {
                     totalTokens: finalState.usage?.llm?.tokens?.total ?? 0,
                   });
 
-                  const chunks = splitMessage(finalText);
+                  // Telegram supports 4096 chars vs Discord's 2000
+                  const platform = botContext?.platformThreadId?.split(':')[0];
+                  const charLimit = platform === 'telegram' ? 4000 : undefined;
+                  const chunks = splitMessage(finalText, charLimit);
 
                   if (progressMessage) {
                     try {
