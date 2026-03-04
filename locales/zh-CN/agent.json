@@ -35,5 +35,8 @@
   "integration.updateFailed": "更新状态失败",
   "integration.validationError": "请填写应用 ID 和 Token",
   "integration.webhookAutoConfigured": "Webhook 已自动配置",
-  "integration.webhookAutoConfiguredHint": "点击「测试连接」时会自动设置 Webhook URL，无需手动配置。"
+  "integration.webhookAutoConfiguredHint": "点击「测试连接」时会自动设置 Webhook URL，无需手动配置。",
+  "integration.webhookConfig": "Webhook 配置",
+  "integration.webhookProxyUrl": "Webhook URL 覆盖",
+  "integration.webhookProxyUrlHint": "可选。本地开发时可填入公网 HTTPS 地址（如 Cloudflare Tunnel），留空则使用默认服务器地址。"
 }

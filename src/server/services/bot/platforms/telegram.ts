@@ -10,6 +10,8 @@ export interface TelegramBotConfig {
   [key: string]: string | undefined;
   botToken: string;
   secretToken?: string;
+  /** Optional HTTPS proxy URL for webhook (e.g. cloudflare tunnel for local dev) */
+  webhookProxyUrl?: string;
 }
 
 /**
@@ -39,7 +41,10 @@ export class Telegram implements PlatformBot {
 
     // Set the webhook URL so Telegram pushes updates to us
     if (!this.webhookSet) {
-      const webhookUrl = `${appEnv.APP_URL}/api/agent/webhooks/telegram`;
+      const baseUrl = this.config.webhookProxyUrl || appEnv.APP_URL;
+      const webhookUrl = this.config.webhookProxyUrl
+        ? `${baseUrl.replace(/\/$/, '')}/api/agent/webhooks/telegram`
+        : `${baseUrl}/api/agent/webhooks/telegram`;
       await this.setWebhook(webhookUrl);
       this.webhookSet = true;
     }

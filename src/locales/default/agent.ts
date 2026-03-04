@@ -40,4 +40,8 @@ export default {
   'integration.webhookAutoConfigured': 'Webhook is configured automatically',
   'integration.webhookAutoConfiguredHint':
     'The webhook URL will be set automatically when you click "Test Connection". No manual configuration needed.',
+  'integration.webhookConfig': 'Webhook Configuration',
+  'integration.webhookProxyUrl': 'Webhook URL Override',
+  'integration.webhookProxyUrlHint':
+    'Optional. Use a public HTTPS URL (e.g. cloudflare tunnel) for local development. Leave empty to use the default server URL.',
 } as const;

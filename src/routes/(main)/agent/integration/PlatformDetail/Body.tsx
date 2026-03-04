@@ -331,14 +331,33 @@ const Body = memo<BodyProps>(
             </div>
           )}
 
-          {/* Auto-webhook info (Telegram) */}
-          {hasConfig && provider.webhookMode === 'auto' && (
-            <Alert
-              showIcon
-              description={t('integration.webhookAutoConfiguredHint')}
-              message={t('integration.webhookAutoConfigured')}
-              type="info"
-            />
+          {/* Auto-webhook URL (Telegram) */}
+          {provider.webhookMode === 'auto' && (
+            <div className={styles.section}>
+              <div className={styles.sectionTitle}>{t('integration.webhookConfig')}</div>
+              <div className={styles.field}>
+                <div className={styles.label}>
+                  <div className={styles.labelLeft}>{t('integration.webhookProxyUrl')}</div>
+                </div>
+                <Form.Item noStyle name="webhookProxyUrl">
+                  <Input
+                    placeholder={`${origin}/api/agent/webhooks/${provider.id}`}
+                    style={{ fontFamily: 'monospace' }}
+                  />
+                </Form.Item>
+                <Text
+                  type="secondary"
+                  style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    fontSize: 12,
+                    gap: 4,
+                  }}
+                >
+                  <Icon icon={Info} size={'small'} /> {t('integration.webhookProxyUrlHint')}
+                </Text>
+              </div>
+            </div>
           )}
         </div>
       </Form>

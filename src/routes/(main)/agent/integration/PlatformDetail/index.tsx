@@ -37,6 +37,7 @@ export interface IntegrationFormValues {
   botToken: string;
   publicKey: string;
   secretToken?: string;
+  webhookProxyUrl?: string;
 }
 
 export interface TestResult {
@@ -77,6 +78,7 @@ const PlatformDetail = memo<PlatformDetailProps>(({ provider, agentId, currentCo
         botToken: currentConfig.credentials?.botToken || '',
         publicKey: currentConfig.credentials?.publicKey || '',
         secretToken: currentConfig.credentials?.secretToken || '',
+        webhookProxyUrl: currentConfig.credentials?.webhookProxyUrl || '',
       });
     }
   }, [currentConfig, form]);
@@ -105,6 +107,9 @@ const PlatformDetail = memo<PlatformDetailProps>(({ provider, agentId, currentCo
       }
       if (provider.fieldTags.secretToken && values.secretToken) {
         credentials.secretToken = values.secretToken;
+      }
+      if (provider.webhookMode === 'auto' && values.webhookProxyUrl) {
+        credentials.webhookProxyUrl = values.webhookProxyUrl;
       }
 
       if (currentConfig) {
