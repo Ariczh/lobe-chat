@@ -1,7 +1,7 @@
 'use client';
 
 import { ScrollArea } from '@lobehub/ui';
-import { useCallback, useEffect, useRef } from 'react';
+import { startTransition, useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { pluginRegistry } from '@/features/Electron/titlebar/RecentlyViewed/plugins';
@@ -28,10 +28,12 @@ const TabBar = () => {
 
   const handleActivate = useCallback(
     (id: string, url: string) => {
+      // 优先更新 Tab 激活状态（高优先级）
       activateTab(id);
       const tab = tabs.find((t) => t.reference.id === id);
       if (tab) pluginRegistry.onActivate(tab.reference);
-      navigate(url);
+      // 路由跳转降级为 startTransition（低优先级）
+      startTransition(() => navigate(url));
     },
     [activateTab, navigate, tabs],
   );
@@ -54,16 +56,18 @@ const TabBar = () => {
       const isActive = id === activeTabId;
       const nextActiveId = removeTab(id);
 
-      if (isActive && nextActiveId) {
-        const nextTab = tabs.find((t) => t.reference.id === nextActiveId);
-        if (nextTab) {
-          navigate(nextTab.url);
+      startTransition(() => {
+        if (isActive && nextActiveId) {
+          const nextTab = tabs.find((t) => t.reference.id === nextActiveId);
+          if (nextTab) {
+            navigate(nextTab.url);
+          }
         }
-      }
 
-      if (!nextActiveId) {
-        navigate('/');
-      }
+        if (!nextActiveId) {
+          navigate('/');
+        }
+      });
     },
     [activeTabId, removeTab, tabs, navigate],
   );
@@ -71,8 +75,10 @@ const TabBar = () => {
   const handleCloseOthers = useCallback(
     (id: string) => {
       closeOtherTabs(id);
-      const target = tabs.find((t) => t.reference.id === id);
-      if (target) navigate(target.url);
+      startTransition(() => {
+        const target = tabs.find((t) => t.reference.id === id);
+        if (target) navigate(target.url);
+      });
     },
     [closeOtherTabs, tabs, navigate],
   );
@@ -80,7 +86,7 @@ const TabBar = () => {
   const handleCloseLeft = useCallback(
     (id: string) => {
       closeLeftTabs(id);
-      navigateToActive();
+      startTransition(() => navigateToActive());
     },
     [closeLeftTabs, navigateToActive],
   );
@@ -88,7 +94,7 @@ const TabBar = () => {
   const handleCloseRight = useCallback(
     (id: string) => {
       closeRightTabs(id);
-      navigateToActive();
+      startTransition(() => navigateToActive());
     },
     [closeRightTabs, navigateToActive],
   );
