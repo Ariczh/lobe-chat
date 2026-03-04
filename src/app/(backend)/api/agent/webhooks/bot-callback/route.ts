@@ -206,9 +206,9 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     if (type === 'step') {
-      await handleStepCallback(body, messenger, progressMessageId);
+      await handleStepCallback(body, messenger, progressMessageId, platform);
     } else if (type === 'completion') {
-      await handleCompletionCallback(body, messenger, progressMessageId, charLimit);
+      await handleCompletionCallback(body, messenger, progressMessageId, platform, charLimit);
 
       // Remove eyes reaction from the original user message
       if (userMessageId) {
@@ -267,6 +267,7 @@ async function handleStepCallback(
   body: Record<string, any>,
   messenger: PlatformMessenger,
   progressMessageId: string,
+  platform?: string,
 ): Promise<void> {
   const { shouldContinue } = body;
   if (!shouldContinue) return;
@@ -277,6 +278,7 @@ async function handleStepCallback(
     executionTimeMs: body.executionTimeMs ?? 0,
     lastContent: body.lastLLMContent,
     lastToolsCalling: body.lastToolsCalling,
+    platform,
     reasoning: body.reasoning,
     stepType: body.stepType ?? 'call_llm',
     thinking: body.thinking ?? false,
@@ -308,6 +310,7 @@ async function handleCompletionCallback(
   body: Record<string, any>,
   messenger: PlatformMessenger,
   progressMessageId: string,
+  platform?: string,
   charLimit?: number,
 ): Promise<void> {
   const { reason, lastAssistantContent, errorMessage } = body;
@@ -330,6 +333,7 @@ async function handleCompletionCallback(
   const finalText = renderFinalReply(lastAssistantContent, {
     elapsedMs: body.duration,
     llmCalls: body.llmCalls ?? 0,
+    platform,
     toolCalls: body.toolCalls ?? 0,
     totalCost: body.cost ?? 0,
     totalTokens: body.totalTokens ?? 0,

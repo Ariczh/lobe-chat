@@ -390,6 +390,8 @@ export class AgentBridgeService {
       log('executeWithInMemoryCallbacks: failed to post progress message: %O', error);
     }
 
+    const platform = botContext?.platform;
+
     // Track the last LLM content and tool calls for showing during tool execution
     let lastLLMContent = '';
     let lastToolsCalling:
@@ -442,6 +444,7 @@ export class AgentBridgeService {
                 elapsedMs: getElapsedMs(),
                 lastContent: lastLLMContent,
                 lastToolsCalling,
+                platform,
                 totalToolCalls,
               });
 
@@ -486,13 +489,13 @@ export class AgentBridgeService {
                   const finalText = renderFinalReply(lastAssistantContent, {
                     elapsedMs: getElapsedMs(),
                     llmCalls: finalState.usage?.llm?.apiCalls ?? 0,
+                    platform,
                     toolCalls: finalState.usage?.tools?.totalCalls ?? 0,
                     totalCost: finalState.cost?.total ?? 0,
                     totalTokens: finalState.usage?.llm?.tokens?.total ?? 0,
                   });
 
                   // Telegram supports 4096 chars vs Discord's 2000
-                  const platform = botContext?.platformThreadId?.split(':')[0];
                   const charLimit = platform === 'telegram' ? 4000 : undefined;
                   const chunks = splitMessage(finalText, charLimit);
 
