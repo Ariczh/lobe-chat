@@ -189,6 +189,7 @@ export function defineConfig() {
     '/oauth/consent/(.*)',
     '/oidc/handoff',
     '/oidc/token',
+    '/oidc/device/auth',
     // market
     '/market-auth-callback',
     // public share pages
