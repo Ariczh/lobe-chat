@@ -183,18 +183,43 @@ export class BotMessageRouter {
     // Try to extract bot identity from the update payload
     // Telegram doesn't include bot ID in the payload, so we try each registered Telegram bot.
     // Signature verification (secret_token header) will reject mismatches.
+
+    // Log raw update for debugging
+    try {
+      const bodyText = new TextDecoder().decode(bodyBuffer);
+      const update = JSON.parse(bodyText);
+      const msg = update.message;
+      if (msg) {
+        log(
+          'Telegram update: chat_type=%s, from=%s (id=%s), text=%s',
+          msg.chat?.type,
+          msg.from?.username || msg.from?.first_name,
+          msg.from?.id,
+          msg.text?.slice(0, 100),
+        );
+      } else {
+        log('Telegram update (non-message): keys=%s', Object.keys(update).join(','));
+      }
+    } catch {
+      // ignore parse errors
+    }
+
     for (const [key, bot] of this.botInstances) {
       if (!key.startsWith('telegram:')) continue;
       if (bot.webhooks && 'telegram' in bot.webhooks) {
         try {
+          log('handleTelegramWebhook: trying bot %s', key);
           const resp = await bot.webhooks.telegram(this.cloneRequest(req, bodyBuffer));
+          log('handleTelegramWebhook: bot %s responded with status=%d', key, resp.status);
           if (resp.status !== 401) return resp;
-        } catch {
+        } catch (error) {
+          log('handleTelegramWebhook: bot %s webhook error: %O', key, error);
           // secret token mismatch — try next
         }
       }
     }
 
+    log('handleTelegramWebhook: no matching bot found');
     return new Response('No bot configured for Telegram', { status: 404 });
   }
 
@@ -334,7 +359,13 @@ export class BotMessageRouter {
     const bridge = new AgentBridgeService(serverDB, userId);
 
     bot.onNewMention(async (thread, message) => {
-      log('onNewMention: agent=%s, author=%s', agentId, message.author.userName);
+      log(
+        'onNewMention: agent=%s, platform=%s, author=%s, thread=%s',
+        agentId,
+        platform,
+        message.author.userName,
+        thread.id,
+      );
       await bridge.handleMention(thread, message, {
         agentId,
         botContext: { applicationId, platform, platformThreadId: thread.id },
@@ -344,9 +375,37 @@ export class BotMessageRouter {
     bot.onSubscribedMessage(async (thread, message) => {
       if (message.author.isBot === true) return;
 
-      log('onSubscribedMessage: agent=%s, author=%s', agentId, message.author.userName);
+      log(
+        'onSubscribedMessage: agent=%s, platform=%s, author=%s, thread=%s',
+        agentId,
+        platform,
+        message.author.userName,
+        thread.id,
+      );
 
       await bridge.handleSubscribedMessage(thread, message, {
+        agentId,
+        botContext: { applicationId, platform, platformThreadId: thread.id },
+      });
+    });
+
+    // Catch-all: handle messages in unsubscribed threads that aren't @mentions.
+    // This covers Telegram private chats where users message the bot directly.
+    bot.onNewMessage(/./, async (thread, message) => {
+      if (message.author.isBot === true) return;
+
+      log(
+        'onNewMessage (catch-all): agent=%s, platform=%s, author=%s, thread=%s, isMention=%s, text=%s',
+        agentId,
+        platform,
+        message.author.userName,
+        thread.id,
+        message.isMention,
+        message.text?.slice(0, 80),
+      );
+
+      // Treat as a new mention (subscribe + process)
+      await bridge.handleMention(thread, message, {
         agentId,
         botContext: { applicationId, platform, platformThreadId: thread.id },
       });
