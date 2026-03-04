@@ -7,10 +7,12 @@ import debug from 'debug';
 import { getServerDB } from '@/database/core/db-adaptor';
 import { AgentBotProviderModel } from '@/database/models/agentBotProvider';
 import type { LobeChatDatabase } from '@/database/type';
+import { appEnv } from '@/envs/app';
 import { getAgentRuntimeRedisClient } from '@/server/modules/AgentRuntime/redis';
 import { KeyVaultsGateKeeper } from '@/server/modules/KeyVaultsEncrypt';
 
 import { AgentBridgeService } from './AgentBridgeService';
+import { setTelegramWebhook } from './platforms/telegram';
 
 const log = debug('lobe-server:bot:message-router');
 
@@ -332,6 +334,21 @@ export class BotMessageRouter {
           // Discord-specific: also index by botToken for gateway forwarding
           if (platform === 'discord' && credentials.botToken) {
             this.botInstancesByToken.set(credentials.botToken, bot);
+          }
+
+          // Telegram: call setWebhook to ensure Telegram-side secret_token
+          // stays in sync with the adapter config (idempotent, safe on every init)
+          if (platform === 'telegram' && credentials.botToken) {
+            const baseUrl = (credentials.webhookProxyUrl || appEnv.APP_URL || '').replace(
+              /\/$/,
+              '',
+            );
+            const webhookUrl = `${baseUrl}/api/agent/webhooks/telegram/${applicationId}`;
+            setTelegramWebhook(credentials.botToken, webhookUrl, credentials.secretToken).catch(
+              (err) => {
+                log('Failed to set Telegram webhook for appId=%s: %O', applicationId, err);
+              },
+            );
           }
 
           log('Created %s bot for agent=%s, appId=%s', platform, agentId, applicationId);

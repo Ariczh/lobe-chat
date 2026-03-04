@@ -24,12 +24,36 @@ function extractBotId(botToken: string): string {
   return botToken.slice(0, colonIndex);
 }
 
+/**
+ * Call Telegram setWebhook API. Idempotent — safe to call on every startup.
+ */
+export async function setTelegramWebhook(
+  botToken: string,
+  url: string,
+  secretToken?: string,
+): Promise<void> {
+  const params: Record<string, string> = { url };
+  if (secretToken) {
+    params.secret_token = secretToken;
+  }
+
+  const response = await fetch(`https://api.telegram.org/bot${botToken}/setWebhook`, {
+    body: JSON.stringify(params),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Failed to set Telegram webhook: ${response.status} ${text}`);
+  }
+}
+
 export class Telegram implements PlatformBot {
   readonly platform = 'telegram';
   readonly applicationId: string;
 
   private config: TelegramBotConfig;
-  private webhookSet = false;
 
   constructor(config: TelegramBotConfig) {
     this.config = config;
@@ -42,12 +66,11 @@ export class Telegram implements PlatformBot {
     // Set the webhook URL so Telegram pushes updates to us.
     // Include applicationId in the path so the router can do a direct lookup
     // without iterating all registered bots.
-    if (!this.webhookSet) {
-      const baseUrl = (this.config.webhookProxyUrl || appEnv.APP_URL || '').replace(/\/$/, '');
-      const webhookUrl = `${baseUrl}/api/agent/webhooks/telegram/${this.applicationId}`;
-      await this.setWebhook(webhookUrl);
-      this.webhookSet = true;
-    }
+    // Always call setWebhook (it's idempotent) to ensure Telegram-side
+    // secret_token stays in sync with the adapter config.
+    const baseUrl = (this.config.webhookProxyUrl || appEnv.APP_URL || '').replace(/\/$/, '');
+    const webhookUrl = `${baseUrl}/api/agent/webhooks/telegram/${this.applicationId}`;
+    await this.setWebhookInternal(webhookUrl);
 
     log('TelegramBot appId=%s started', this.applicationId);
   }
@@ -62,23 +85,8 @@ export class Telegram implements PlatformBot {
     }
   }
 
-  private async setWebhook(url: string): Promise<void> {
-    const params: Record<string, string> = { url };
-    if (this.config.secretToken) {
-      params.secret_token = this.config.secretToken;
-    }
-
-    const response = await fetch(`https://api.telegram.org/bot${this.config.botToken}/setWebhook`, {
-      body: JSON.stringify(params),
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-    });
-
-    if (!response.ok) {
-      const text = await response.text();
-      throw new Error(`Failed to set Telegram webhook: ${response.status} ${text}`);
-    }
-
+  private async setWebhookInternal(url: string): Promise<void> {
+    await setTelegramWebhook(this.config.botToken, url, this.config.secretToken);
     log('TelegramBot appId=%s webhook set to %s', this.applicationId, url);
   }
 
@@ -93,7 +101,6 @@ export class Telegram implements PlatformBot {
       throw new Error(`Failed to delete Telegram webhook: ${response.status} ${text}`);
     }
 
-    this.webhookSet = false;
     log('TelegramBot appId=%s webhook deleted', this.applicationId);
   }
 }

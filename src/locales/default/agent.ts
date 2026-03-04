@@ -26,8 +26,7 @@ export default {
   'integration.removeFailed': 'Failed to remove integration',
   'integration.save': 'Save Configuration',
   'integration.secretToken': 'Webhook Secret Token',
-  'integration.secretTokenHint':
-    'Optional. Used to verify webhook requests from Telegram. Recommended for production.',
+  'integration.secretTokenHint': 'Optional. Used to verify webhook requests from Telegram.',
   'integration.secretTokenPlaceholder': 'Optional secret for webhook verification',
   'integration.saveFailed': 'Failed to save configuration',
   'integration.saveFirstWarning': 'Please save configuration first',

@@ -29,7 +29,7 @@
   "integration.saveFirstWarning": "Please save configuration first",
   "integration.saved": "Configuration saved successfully",
   "integration.secretToken": "Webhook Secret Token",
-  "integration.secretTokenHint": "Optional. Used to verify webhook requests from Telegram. Recommended for production.",
+  "integration.secretTokenHint": "Optional. Used to verify webhook requests from Telegram.",
   "integration.secretTokenPlaceholder": "Optional secret for webhook verification",
   "integration.testConnection": "Test Connection",
   "integration.testFailed": "Connection test failed",
