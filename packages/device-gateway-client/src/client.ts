@@ -37,6 +37,8 @@ const noopLogger: GatewayClientLogger = {
 };
 
 export interface GatewayClientOptions {
+  /** Auto-reconnect on disconnection (default: true) */
+  autoReconnect?: boolean;
   deviceId?: string;
   gatewayUrl?: string;
   logger?: GatewayClientLogger;
@@ -56,6 +58,7 @@ export class GatewayClient extends EventEmitter {
   private token: string;
   private userId?: string;
   private logger: GatewayClientLogger;
+  private autoReconnect: boolean;
 
   constructor(options: GatewayClientOptions) {
     super();
@@ -64,6 +67,7 @@ export class GatewayClient extends EventEmitter {
     this.deviceId = options.deviceId || randomUUID();
     this.userId = options.userId;
     this.logger = options.logger || noopLogger;
+    this.autoReconnect = options.autoReconnect ?? true;
   }
 
   // ─── Public API ───
@@ -134,7 +138,11 @@ export class GatewayClient extends EventEmitter {
       const msg = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to create WebSocket:', msg);
       this.setStatus('disconnected');
-      this.scheduleReconnect();
+      if (this.autoReconnect) {
+        this.scheduleReconnect();
+      } else {
+        this.emit('disconnected');
+      }
     }
   }
 
@@ -201,11 +209,12 @@ export class GatewayClient extends EventEmitter {
     this.stopHeartbeat();
     this.ws = null;
 
-    if (!this.intentionalDisconnect) {
+    if (!this.intentionalDisconnect && this.autoReconnect) {
       this.setStatus('reconnecting');
       this.scheduleReconnect();
     } else {
       this.setStatus('disconnected');
+      this.emit('disconnected');
     }
   };
 

@@ -4,6 +4,7 @@ import type { ToolCallRequestMessage } from '@lobechat/device-gateway-client';
 import { GatewayClient } from '@lobechat/device-gateway-client';
 import type { Command } from 'commander';
 
+import { resolveToken } from '../auth/resolveToken';
 import { executeToolCall } from '../tools';
 import { cleanupAllProcesses } from '../tools/shell';
 import { log, setVerbose } from '../utils/logger';
@@ -30,34 +31,24 @@ export function registerConnectCommand(program: Command) {
     .action(async (options: ConnectOptions) => {
       if (options.verbose) setVerbose(true);
 
-      // Validate auth options
-      if (!options.token && !options.serviceToken) {
-        log.error('Either --token or --service-token is required');
-        process.exit(1);
-      }
-      if (options.serviceToken && !options.userId) {
-        log.error('--user-id is required when using --service-token');
-        process.exit(1);
-      }
-
-      const token = options.token || options.serviceToken!;
+      const auth = await resolveToken(options);
 
       const client = new GatewayClient({
         deviceId: options.deviceId,
         gatewayUrl: options.gateway,
         logger: log,
-        token,
-        userId: options.serviceToken ? options.userId : undefined,
+        token: auth.token,
+        userId: auth.userId,
       });
 
       // Print device info
-      log.info('─── Device CLI ───');
+      log.info('─── LobeHub CLI ───');
       log.info(`  Device ID : ${client.currentDeviceId}`);
       log.info(`  Hostname  : ${os.hostname()}`);
       log.info(`  Platform  : ${process.platform}`);
       log.info(`  Gateway   : ${options.gateway || 'https://device-gateway.lobehub.com'}`);
       log.info(`  Auth      : ${options.serviceToken ? 'service-token' : 'jwt'}`);
-      log.info('──────────────────');
+      log.info('───────────────────');
 
       // Handle tool call requests
       client.on('tool_call_request', async (request: ToolCallRequestMessage) => {
@@ -77,9 +68,15 @@ export function registerConnectCommand(program: Command) {
         });
       });
 
-      // Handle auth expired
-      client.on('auth_expired', () => {
-        log.error('Authentication expired. Please provide a new token.');
+      // Handle auth expired — try refresh before giving up
+      client.on('auth_expired', async () => {
+        log.warn('Authentication expired. Attempting to refresh...');
+        const refreshed = await resolveToken({});
+        if (refreshed) {
+          log.info('Token refreshed. Please reconnect.');
+        } else {
+          log.error("Could not refresh token. Run 'lh login' to re-authenticate.");
+        }
         cleanup();
         process.exit(1);
       });

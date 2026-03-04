@@ -1,9 +1,9 @@
 {
-  "name": "@lobechat/device-cli",
+  "name": "@lobechat/lobehub-cli",
   "version": "0.1.0",
   "private": true,
   "bin": {
-    "device-cli": "./src/index.ts"
+    "lh": "./src/index.ts"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

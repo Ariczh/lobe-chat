@@ -1,6 +1,7 @@
 import { GatewayClient } from '@lobechat/device-gateway-client';
 import type { Command } from 'commander';
 
+import { resolveToken } from '../auth/resolveToken';
 import { log, setVerbose } from '../utils/logger';
 
 interface StatusOptions {
@@ -25,23 +26,15 @@ export function registerStatusCommand(program: Command) {
     .action(async (options: StatusOptions) => {
       if (options.verbose) setVerbose(true);
 
-      if (!options.token && !options.serviceToken) {
-        log.error('Either --token or --service-token is required');
-        process.exit(1);
-      }
-      if (options.serviceToken && !options.userId) {
-        log.error('--user-id is required when using --service-token');
-        process.exit(1);
-      }
-
-      const token = options.token || options.serviceToken!;
+      const auth = await resolveToken(options);
       const timeout = Number.parseInt(options.timeout || '10000', 10);
 
       const client = new GatewayClient({
+        autoReconnect: false,
         gatewayUrl: options.gateway,
         logger: log,
-        token,
-        userId: options.serviceToken ? options.userId : undefined,
+        token: auth.token,
+        userId: auth.userId,
       });
 
       const timer = setTimeout(() => {
@@ -57,6 +50,12 @@ export function registerStatusCommand(program: Command) {
         process.exit(0);
       });
 
+      client.on('disconnected', () => {
+        clearTimeout(timer);
+        log.error('FAILED - Connection closed by server');
+        process.exit(1);
+      });
+
       client.on('auth_expired', () => {
         clearTimeout(timer);
         log.error('FAILED - Authentication expired');
@@ -65,10 +64,7 @@ export function registerStatusCommand(program: Command) {
       });
 
       client.on('error', (error) => {
-        clearTimeout(timer);
-        log.error(`FAILED - ${error.message}`);
-        client.disconnect();
-        process.exit(1);
+        log.error(`Connection error: ${error.message}`);
       });
 
       await client.connect();
