@@ -4,6 +4,7 @@ import { ScrollArea } from '@lobehub/ui';
 import { useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { pluginRegistry } from '@/features/Electron/titlebar/RecentlyViewed/plugins';
 import { useElectronStore } from '@/store/electron';
 import { electronStylish } from '@/styles/electron';
 
@@ -28,9 +29,11 @@ const TabBar = () => {
   const handleActivate = useCallback(
     (id: string, url: string) => {
       activateTab(id);
+      const tab = tabs.find((t) => t.reference.id === id);
+      if (tab) pluginRegistry.onActivate(tab.reference);
       navigate(url);
     },
-    [activateTab, navigate],
+    [activateTab, navigate, tabs],
   );
 
   const navigateToActive = useCallback(() => {
