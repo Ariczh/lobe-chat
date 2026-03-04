@@ -79,8 +79,10 @@ export class BotMessageRouter {
   /**
    * Get the webhook handler for a given platform.
    * Returns a function compatible with Next.js Route Handler: `(req: Request) => Promise<Response>`
+   *
+   * @param appId  Optional application ID for direct bot lookup (e.g. Telegram bot-specific endpoints).
    */
-  getWebhookHandler(platform: string): (req: Request) => Promise<Response> {
+  getWebhookHandler(platform: string, appId?: string): (req: Request) => Promise<Response> {
     return async (req: Request) => {
       await this.ensureInitialized();
 
@@ -89,7 +91,7 @@ export class BotMessageRouter {
           return this.handleDiscordWebhook(req);
         }
         case 'telegram': {
-          return this.handleTelegramWebhook(req);
+          return this.handleTelegramWebhook(req, appId);
         }
         default: {
           return new Response('No bot configured for this platform', { status: 404 });
@@ -175,14 +177,15 @@ export class BotMessageRouter {
   // Telegram webhook routing
   // ------------------------------------------------------------------
 
-  private async handleTelegramWebhook(req: Request): Promise<Response> {
+  private async handleTelegramWebhook(req: Request, appId?: string): Promise<Response> {
     const bodyBuffer = await req.arrayBuffer();
 
-    log('handleTelegramWebhook: method=%s, content-length=%d', req.method, bodyBuffer.byteLength);
-
-    // Try to extract bot identity from the update payload
-    // Telegram doesn't include bot ID in the payload, so we try each registered Telegram bot.
-    // Signature verification (secret_token header) will reject mismatches.
+    log(
+      'handleTelegramWebhook: method=%s, appId=%s, content-length=%d',
+      req.method,
+      appId ?? '(none)',
+      bodyBuffer.byteLength,
+    );
 
     // Log raw update for debugging
     try {
@@ -204,6 +207,20 @@ export class BotMessageRouter {
       // ignore parse errors
     }
 
+    // Direct lookup by applicationId (bot-specific endpoint: /webhooks/telegram/{appId})
+    if (appId) {
+      const key = `telegram:${appId}`;
+      const bot = this.botInstances.get(key);
+      if (bot?.webhooks && 'telegram' in bot.webhooks) {
+        log('handleTelegramWebhook: direct lookup hit for %s', key);
+        return bot.webhooks.telegram(this.cloneRequest(req, bodyBuffer));
+      }
+      log('handleTelegramWebhook: no bot registered for %s', key);
+      return new Response('No bot configured for Telegram', { status: 404 });
+    }
+
+    // Fallback: iterate all registered Telegram bots (legacy /webhooks/telegram endpoint).
+    // Secret token verification will reject mismatches.
     for (const [key, bot] of this.botInstances) {
       if (!key.startsWith('telegram:')) continue;
       if (bot.webhooks && 'telegram' in bot.webhooks) {
@@ -214,7 +231,6 @@ export class BotMessageRouter {
           if (resp.status !== 401) return resp;
         } catch (error) {
           log('handleTelegramWebhook: bot %s webhook error: %O', key, error);
-          // secret token mismatch — try next
         }
       }
     }

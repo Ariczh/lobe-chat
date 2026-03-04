@@ -39,12 +39,12 @@ export class Telegram implements PlatformBot {
   async start(): Promise<void> {
     log('Starting TelegramBot appId=%s', this.applicationId);
 
-    // Set the webhook URL so Telegram pushes updates to us
+    // Set the webhook URL so Telegram pushes updates to us.
+    // Include applicationId in the path so the router can do a direct lookup
+    // without iterating all registered bots.
     if (!this.webhookSet) {
-      const baseUrl = this.config.webhookProxyUrl || appEnv.APP_URL;
-      const webhookUrl = this.config.webhookProxyUrl
-        ? `${baseUrl.replace(/\/$/, '')}/api/agent/webhooks/telegram`
-        : `${baseUrl}/api/agent/webhooks/telegram`;
+      const baseUrl = (this.config.webhookProxyUrl || appEnv.APP_URL || '').replace(/\/$/, '');
+      const webhookUrl = `${baseUrl}/api/agent/webhooks/telegram/${this.applicationId}`;
       await this.setWebhook(webhookUrl);
       this.webhookSet = true;
     }

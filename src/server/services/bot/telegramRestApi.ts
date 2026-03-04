@@ -89,6 +89,20 @@ export class TelegramRestApi {
       throw new Error(`Telegram API ${method} failed: ${response.status} ${text}`);
     }
 
-    return response.json();
+    const data = await response.json();
+
+    // Telegram can return HTTP 200 with {"ok": false, ...} for logical errors
+    if (data.ok === false) {
+      const desc = data.description || 'Unknown error';
+      log(
+        'Telegram API logical error: method=%s, error_code=%d, description=%s',
+        method,
+        data.error_code,
+        desc,
+      );
+      throw new Error(`Telegram API ${method} failed: ${data.error_code} ${desc}`);
+    }
+
+    return data;
   }
 }
