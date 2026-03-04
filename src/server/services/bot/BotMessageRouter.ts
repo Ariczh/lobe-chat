@@ -389,27 +389,28 @@ export class BotMessageRouter {
       });
     });
 
-    // Catch-all: handle messages in unsubscribed threads that aren't @mentions.
+    // Telegram-only: handle messages in unsubscribed threads that aren't @mentions.
     // This covers Telegram private chats where users message the bot directly.
-    bot.onNewMessage(/./, async (thread, message) => {
-      if (message.author.isBot === true) return;
+    // Discord relies solely on onNewMention/onSubscribedMessage — registering a
+    // catch-all there would cause unsolicited replies in active channels.
+    if (platform === 'telegram') {
+      bot.onNewMessage(/./, async (thread, message) => {
+        if (message.author.isBot === true) return;
 
-      log(
-        'onNewMessage (catch-all): agent=%s, platform=%s, author=%s, thread=%s, isMention=%s, text=%s',
-        agentId,
-        platform,
-        message.author.userName,
-        thread.id,
-        message.isMention,
-        message.text?.slice(0, 80),
-      );
+        log(
+          'onNewMessage (telegram catch-all): agent=%s, author=%s, thread=%s, text=%s',
+          agentId,
+          message.author.userName,
+          thread.id,
+          message.text?.slice(0, 80),
+        );
 
-      // Treat as a new mention (subscribe + process)
-      await bridge.handleMention(thread, message, {
-        agentId,
-        botContext: { applicationId, platform, platformThreadId: thread.id },
+        await bridge.handleMention(thread, message, {
+          agentId,
+          botContext: { applicationId, platform, platformThreadId: thread.id },
+        });
       });
-    });
+    }
   }
 }
 
