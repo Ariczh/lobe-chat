@@ -4,13 +4,11 @@ import { EditorProvider } from '@lobehub/editor/react';
 import { Flexbox } from '@lobehub/ui';
 import { cssVar } from 'antd-style';
 import type { FC } from 'react';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 import DiffAllToolbar from '@/features/EditorCanvas/DiffAllToolbar';
 import WideScreenContainer from '@/features/WideScreenContainer';
 import { useRegisterFilesHotkeys } from '@/hooks/useHotkeys';
-import { useDocumentStore } from '@/store/document';
-import { editorSelectors } from '@/store/document/slices/editor';
 import { usePageStore } from '@/store/page';
 import { StyleSheet } from '@/utils/styles';
 
@@ -56,31 +54,8 @@ const PageEditorCanvas = memo(() => {
   const editor = usePageEditorStore((s) => s.editor);
   const documentId = usePageEditorStore((s) => s.documentId);
 
-  // Get isDirty from DocumentStore
-  const isDirty = useDocumentStore((s) =>
-    documentId ? editorSelectors.isDirty(documentId)(s) : false,
-  );
-
   // Register Files scope and save document hotkey
   useRegisterFilesHotkeys();
-
-  // Warn user before leaving page with unsaved changes
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (isDirty) {
-        // Prevent default and show browser confirmation dialog
-        e.preventDefault();
-        // Most modern browsers require returnValue to be set
-        e.returnValue = '';
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [isDirty]);
 
   return (
     <>
