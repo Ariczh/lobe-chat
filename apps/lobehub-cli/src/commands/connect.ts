@@ -68,6 +68,14 @@ export function registerConnectCommand(program: Command) {
         });
       });
 
+      // Handle auth failed
+      client.on('auth_failed', (reason) => {
+        log.error(`Authentication failed: ${reason}`);
+        log.error("Run 'lh login' to re-authenticate.");
+        cleanup();
+        process.exit(1);
+      });
+
       // Handle auth expired — try refresh before giving up
       client.on('auth_expired', async () => {
         log.warn('Authentication expired. Attempting to refresh...');

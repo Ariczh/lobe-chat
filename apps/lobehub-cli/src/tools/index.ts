@@ -38,7 +38,6 @@ export async function executeToolCall(
 
   try {
     const args = JSON.parse(argsStr);
-    log.toolCall(apiName, '', JSON.stringify(args));
 
     const result = await handler(args);
     const content = typeof result === 'string' ? result : JSON.stringify(result);

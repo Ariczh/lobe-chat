@@ -56,6 +56,12 @@ export function registerStatusCommand(program: Command) {
         process.exit(1);
       });
 
+      client.on('auth_failed', (reason) => {
+        clearTimeout(timer);
+        log.error(`FAILED - Authentication failed: ${reason}`);
+        process.exit(1);
+      });
+
       client.on('auth_expired', () => {
         clearTimeout(timer);
         log.error('FAILED - Authentication expired');

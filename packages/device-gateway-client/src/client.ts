@@ -9,6 +9,8 @@ import type {
   ConnectionStatus,
   GatewayClientEvents,
   ServerMessage,
+  SystemInfoRequestMessage,
+  SystemInfoResponseMessage,
   ToolCallRequestMessage,
   ToolCallResponseMessage,
 } from './types';
@@ -115,6 +117,13 @@ export class GatewayClient extends EventEmitter {
     });
   }
 
+  sendSystemInfoResponse(response: Omit<SystemInfoResponseMessage, 'type'>): void {
+    this.sendMessage({
+      ...response,
+      type: 'system_info_response',
+    });
+  }
+
   // ─── Connection Logic ───
 
   private doConnect() {
@@ -153,7 +162,6 @@ export class GatewayClient extends EventEmitter {
       deviceId: this.deviceId,
       hostname: os.hostname(),
       platform: process.platform,
-      token: this.token,
     });
 
     // Service token mode: pass userId in query
@@ -167,11 +175,12 @@ export class GatewayClient extends EventEmitter {
   // ─── WebSocket Event Handlers ───
 
   private handleOpen = () => {
-    this.logger.info('WebSocket connected to device gateway');
+    this.logger.info('WebSocket connected, sending auth...');
     this.reconnectDelay = INITIAL_RECONNECT_DELAY;
-    this.setStatus('connected');
-    this.startHeartbeat();
-    this.emit('connected');
+    this.setStatus('authenticating');
+
+    // Send token as first message instead of in URL
+    this.sendMessage({ type: 'auth', token: this.token });
   };
 
   private handleMessage = (data: WebSocket.Data) => {
@@ -179,6 +188,22 @@ export class GatewayClient extends EventEmitter {
       const message = JSON.parse(String(data)) as ServerMessage;
 
       switch (message.type) {
+        case 'auth_success': {
+          this.logger.info('Authentication successful');
+          this.setStatus('connected');
+          this.startHeartbeat();
+          this.emit('connected');
+          break;
+        }
+
+        case 'auth_failed': {
+          const reason = (message as any).reason || 'Unknown reason';
+          this.logger.error(`Authentication failed: ${reason}`);
+          this.emit('auth_failed', reason);
+          this.disconnect();
+          break;
+        }
+
         case 'heartbeat_ack': {
           this.emit('heartbeat_ack');
           break;
@@ -186,6 +211,11 @@ export class GatewayClient extends EventEmitter {
 
         case 'tool_call_request': {
           this.emit('tool_call_request', message as ToolCallRequestMessage);
+          break;
+        }
+
+        case 'system_info_request': {
+          this.emit('system_info_request', message as SystemInfoRequestMessage);
           break;
         }
 

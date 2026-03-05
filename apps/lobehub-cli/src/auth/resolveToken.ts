@@ -9,7 +9,19 @@ interface ResolveTokenOptions {
 
 interface ResolvedAuth {
   token: string;
-  userId?: string;
+  userId: string;
+}
+
+/**
+ * Parse the `sub` claim from a JWT without verifying the signature.
+ */
+function parseJwtSub(token: string): string | undefined {
+  try {
+    const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString());
+    return payload.sub;
+  } catch {
+    return undefined;
+  }
 }
 
 /**
@@ -19,7 +31,12 @@ interface ResolvedAuth {
 export async function resolveToken(options: ResolveTokenOptions): Promise<ResolvedAuth> {
   // Explicit token takes priority
   if (options.token) {
-    return { token: options.token };
+    const userId = parseJwtSub(options.token);
+    if (!userId) {
+      log.error('Could not extract userId from token. Provide --user-id explicitly.');
+      process.exit(1);
+    }
+    return { token: options.token, userId };
   }
 
   if (options.serviceToken) {
@@ -34,7 +51,13 @@ export async function resolveToken(options: ResolveTokenOptions): Promise<Resolv
   const result = await getValidToken();
   if (result) {
     log.debug('Using stored credentials');
-    return { token: result.credentials.accessToken };
+    const token = result.credentials.accessToken;
+    const userId = parseJwtSub(token);
+    if (!userId) {
+      log.error("Stored token is invalid. Run 'lh login' again.");
+      process.exit(1);
+    }
+    return { token, userId };
   }
 
   log.error("No authentication found. Run 'lh login' first, or provide --token.");
