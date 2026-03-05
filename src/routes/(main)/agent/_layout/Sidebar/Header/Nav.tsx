@@ -2,7 +2,7 @@
 
 import { Flexbox } from '@lobehub/ui';
 import { BotPromptIcon } from '@lobehub/ui/icons';
-import { BlocksIcon, MessageSquarePlusIcon, SearchIcon } from 'lucide-react';
+import { MessageSquarePlusIcon, RadioTowerIcon, SearchIcon } from 'lucide-react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -64,7 +64,7 @@ const Nav = memo(() => {
       {!hideProfile && isDevMode && (
         <NavItem
           active={isIntegrationActive}
-          icon={BlocksIcon}
+          icon={RadioTowerIcon}
           title={t('tab.integration')}
           onClick={() => {
             switchTopic(null, { skipRefreshMessage: true });
