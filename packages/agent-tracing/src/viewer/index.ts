@@ -8,6 +8,8 @@ const red = (s: string) => `\x1B[31m${s}\x1B[39m`;
 const yellow = (s: string) => `\x1B[33m${s}\x1B[39m`;
 const cyan = (s: string) => `\x1B[36m${s}\x1B[39m`;
 const magenta = (s: string) => `\x1B[35m${s}\x1B[39m`;
+const blue = (s: string) => `\x1B[34m${s}\x1B[39m`;
+const white = (s: string) => `\x1B[37m${s}\x1B[39m`;
 
 function formatMs(ms: number): string {
   if (ms < 1000) return `${ms}ms`;
@@ -34,6 +36,102 @@ function truncate(s: string, maxLen: number): string {
 function padEnd(s: string, len: number): string {
   if (s.length >= len) return s;
   return s + ' '.repeat(len - s.length);
+}
+
+// Application-defined structural XML tags — rendered in blue+bold
+const STRUCTURAL_TAGS = new Set([
+  'plugins',
+  'collection',
+  'collection.instructions',
+  'available_tools',
+  'api',
+  'tool_usage_guidelines',
+  'tool_selection_guidelines',
+  'core_capabilities',
+  'capabilities',
+  'user_context',
+  'session_context',
+  'user_memory',
+  'persona',
+  'instruction',
+  'guidelines',
+  'tooling',
+  'online-devices',
+  'device',
+  'security_and_privacy',
+  'security_considerations',
+  'workflow',
+  'response_format',
+  'response_expectations',
+  'formatting_guardrails',
+  'memory_layer_definitions',
+  'memory_effort_policy',
+]);
+
+/**
+ * Extract tag name from an XML tag string like `<foo>`, `</foo>`, `<foo attr="bar">`.
+ */
+function extractTagName(tag: string): string {
+  const m = tag.match(/^<\/?(\w[\w.:-]*)/);
+  return m ? m[1] : '';
+}
+
+/**
+ * Format XML-structured content:
+ * - Structural tags (app-defined) → blue + bold
+ * - Other XML tags → white + bold
+ * - Text inside XML elements → dim
+ */
+function formatXmlContent(text: string): string {
+  const xmlTagRe = /<\/?[\w.:-]+(?:\s[^>]*)?\/?>/g;
+  const lines = text.split('\n');
+  let depth = 0;
+
+  return lines
+    .map((line) => {
+      const tags = [...line.matchAll(xmlTagRe)];
+
+      if (tags.length === 0) {
+        return depth > 0 ? dim(line) : line;
+      }
+
+      let result = '';
+      let lastIndex = 0;
+
+      for (const match of tags) {
+        const tag = match[0];
+        const idx = match.index!;
+
+        // Text before this tag
+        if (idx > lastIndex) {
+          const textBefore = line.slice(lastIndex, idx);
+          result += depth > 0 ? dim(textBefore) : textBefore;
+        }
+
+        const tagName = extractTagName(tag);
+        const colorFn = STRUCTURAL_TAGS.has(tagName) ? blue : white;
+
+        if (tag.endsWith('/>')) {
+          result += bold(colorFn(tag));
+        } else if (tag.startsWith('</')) {
+          depth = Math.max(0, depth - 1);
+          result += bold(colorFn(tag));
+        } else {
+          result += bold(colorFn(tag));
+          depth++;
+        }
+
+        lastIndex = idx + tag.length;
+      }
+
+      if (lastIndex < line.length) {
+        const textAfter = line.slice(lastIndex);
+        result += depth > 0 ? dim(textAfter) : textAfter;
+      }
+
+      return result;
+    })
+    .join('\n');
 }
 
 export function renderSnapshot(snapshot: ExecutionSnapshot): string {
@@ -229,6 +327,106 @@ export function renderMessageDetail(
         lines.push(`    ${dim(tc.function.arguments)}`);
       }
     }
+  }
+
+  return lines.join('\n');
+}
+
+export function renderSystemRole(step: StepSnapshot): string {
+  const ceEvent = step.events?.find((e) => e.type === 'context_engine_result') as any;
+
+  // Try input.systemRole first (user-configured agent prompt)
+  const inputSystemRole = ceEvent?.input?.systemRole;
+
+  // Fall back to the first system message in the final LLM payload (assembled system prompt)
+  const outputMsgs = ceEvent?.output as any[] | undefined;
+  const systemMsg = outputMsgs?.find((m: any) => m.role === 'system');
+  const outputSystemRole =
+    systemMsg &&
+    (typeof systemMsg.content === 'string'
+      ? systemMsg.content
+      : JSON.stringify(systemMsg.content, null, 2));
+
+  const systemRole = inputSystemRole || outputSystemRole;
+
+  if (!systemRole) {
+    return red('No system role found in this step.');
+  }
+
+  const lines: string[] = [];
+  const source = inputSystemRole ? 'input' : 'output';
+  lines.push(
+    bold('System Role') + `  ${dim(`Step ${step.stepIndex}`)}  ${dim(`(from ${source})`)}`,
+  );
+  lines.push(dim('─'.repeat(60)));
+  lines.push(formatXmlContent(systemRole));
+
+  return lines.join('\n');
+}
+
+export function renderEnvContext(step: StepSnapshot): string {
+  const ceEvent = step.events?.find((e) => e.type === 'context_engine_result') as any;
+  const outputMsgs: any[] | undefined = ceEvent?.output;
+
+  if (!outputMsgs || outputMsgs.length === 0) {
+    return red('No context engine output found in this step.');
+  }
+
+  const envMsg = outputMsgs.find((m: any) => m.role === 'user');
+
+  if (!envMsg) {
+    return red('No user environment message found in LLM payload.');
+  }
+
+  const content =
+    typeof envMsg.content === 'string' ? envMsg.content : JSON.stringify(envMsg.content, null, 2);
+
+  const lines: string[] = [];
+  lines.push(bold('Environment Context') + `  ${dim(`Step ${step.stepIndex}`)}`);
+  lines.push(dim('─'.repeat(60)));
+  lines.push(formatXmlContent(content));
+
+  return lines.join('\n');
+}
+
+export function renderDiff(
+  contentA: string,
+  contentB: string,
+  options: { labelA: string; labelB: string; title: string },
+): string {
+  const linesA = contentA.split('\n');
+  const linesB = contentB.split('\n');
+  const lines: string[] = [];
+
+  lines.push(bold(`${options.title} Diff`) + `  ${cyan(options.labelA)} → ${cyan(options.labelB)}`);
+  lines.push(dim('─'.repeat(60)));
+
+  // Simple line-by-line diff
+  const maxLen = Math.max(linesA.length, linesB.length);
+  let hasChanges = false;
+
+  for (let i = 0; i < maxLen; i++) {
+    const a = linesA[i];
+    const b = linesB[i];
+
+    if (a === b) {
+      lines.push(`  ${a ?? ''}`);
+    } else {
+      hasChanges = true;
+      if (a !== undefined && b === undefined) {
+        lines.push(red(`- ${a}`));
+      } else if (a === undefined && b !== undefined) {
+        lines.push(green(`+ ${b}`));
+      } else {
+        lines.push(red(`- ${a}`));
+        lines.push(green(`+ ${b}`));
+      }
+    }
+  }
+
+  if (!hasChanges) {
+    lines.push('');
+    lines.push(dim('No differences found.'));
   }
 
   return lines.join('\n');
